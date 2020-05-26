@@ -1,0 +1,70 @@
+body.IntroPage {
+    max-height: 100vh;
+    background-color: black;
+    background-image: url("/XR/images/intro/Background_Tile.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    
+  .intro {
+    text-align: center;
+    height: 100vh;
+
+    .skipBtn {
+      position: fixed;
+      right: 3em;
+      top: 1.5em;
+      color: #8BD2CF;
+      text-decoration: none;
+    }
+    .content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      margin: -5em 0;
+    }
+  
+    .title {
+      font-size: 3rem;
+      margin: 0.25rem;
+      text-transform: uppercase;
+      font-family: sans-serif;
+    }
+    
+    .icons {
+      // 2x1 ratio
+      max-width: 50vw;
+      max-width: 25vw;
+    }
+    
+    .description {
+      color: #aaaaaa;
+      font-size: 1.25rem;
+      margin: 1rem 2rem 0 2rem;
+    }
+    
+    button[class^="btn-"] {
+      font-size: 1rem;
+      text-transform: uppercase;
+      height: 2.5rem;
+      position: fixed;
+      bottom: 2em;
+      border-radius: .25em;
+      background-color: white;
+      // can set this if buttons overlap descriptions
+      &.reading {
+        opacity: .3;
+      }
+    }
+    
+    .btn-back {
+      left: 3em;
+    }
+    .btn-next {
+      right: 3em;
+    }
+    
+  }
+}

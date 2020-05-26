@@ -1,0 +1,182 @@
+/* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+            width: 10%;
+            z-index: 2; 
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #overlaybuttonnext {
+            position: fixed; /* Sit on top of the page content */
+            width: 2%; /* Full width (cover the whole page) */
+            height: 2%; /* Full height (cover the whole page) */
+            top: 0;
+            left: 0;
+            z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+            cursor: pointer; /* Add a pointer on hover */
+        }
+
+        #overlaybuttonaudio {
+            position: fixed; /* Sit on top of the page content */
+            position: fixed; /* Sit on top of the page content */
+            width: 10%; /* Full width (cover the whole page) */
+            height: 10%; /* Full height (cover the whole page) */
+            right: 60%;
+            bottom: 0%;
+            z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+            cursor: pointer; /* Add a pointer on hover */
+        }
+
+        #sphere {
+            height:100%;
+            width:100%;
+            background-color: rgba(255, 0, 255, 0);	 
+            z-index: -2;
+        }
+
+        #title-ctn {
+            position: fixed;
+            top: 0%;
+            width: 100%;
+            text-align: center;
+            z-index: 2;
+            font-size: 4vw;
+            font-weight: bold;
+            font-style: italic;
+            text-shadow: 2px 2px 4px #000;
+            color: white;
+        }
+
+        #videoElement {
+            background-color: black;
+            width: 100%;
+            left: 0;
+            position: fixed;
+            z-index: -3; /* Specify a stack order in case you're using a different order for other elements */
+        }
+
+
+        #iframe_a {
+            height: 100%;
+            width: 100%;
+            position: fixed; /* Sit on top of the page content */
+            z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
+            top:0%;
+            left:0%;
+            background: rgba(255, 255, 255, 0); /* Green background with 30% opacity */
+            border: none !important;
+        }
+
+        div[class^="overlay-ctn-"]{
+            position: fixed; /* Sit on top of the page content */
+            bottom: .5em;
+            width: 5em;
+            z-index: 10; /* Specify a stack order in case you're using a different order for other elements */
+        } 
+
+        .overlay-ctn-show {
+            left: .5em;
+        }
+        .overlay-ctn-map {
+            right: .5em;
+        }
+
+        .overlay-icon {
+            font-size: 5rem;
+            color: rgba(255, 255, 255, .7);
+        }
+        
+        .overlay-icon:hover {
+            color: #8BD2CF;
+        }
+        .overlay-icon path {
+          stroke: black;
+          stroke-width: 10;
+        }
+
+        #container {
+            z-index: 3;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* needed to make sure canvas fills screen (mostly for 360 picture) */
+        #container canvas {
+            min-width: 100vw;
+            min-height: 100vh;
+        }
+
+
+        #may1-may4-btn {
+            top: 12%;
+        }
+
+        #remembering-btn {
+            top: 24%;
+        }
+
+        #context-btn {
+            top: 36%;
+        }
+
+        #links-btn {
+            top: 48%;
+        }
+
+        #fixed-footer {
+            position: fixed;
+            bottom: 0px;
+            z-index: 9;
+            cursor: pointer;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        #calibrate-north-btn {
+            text-shadow: 2px 2px 4px #ffffff;
+            background-color: rgba(0, 0, 0, .5);
+            z-index: 2;
+            margin-bottom: 10px;      
+            font-size: 2.5vw;
+            font-weight: bold;
+            font-style: italic;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #test-btn {
+            position: fixed;
+            top: 0%;
+            right: 0%;
+            z-index: -10;
+            width: 150px;
+            height: 50px;
+        }
+
+        #test-btn2 {
+            position: fixed;
+            top: 0%;
+            right: 40%;
+            z-index: 50;
+            width: 150px;
+            height: 50px;
+        }
+        .waiting .spinner {
+            position: absolute;
+            top: 50%;
+            z-index: 999999;
+            left: 50%;
+        }
+        .loaded .spinner {
+            display: none;
+        }

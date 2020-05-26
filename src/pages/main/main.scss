@@ -1,0 +1,39 @@
+body.scrollable-body  {
+    background-size: cover;
+    background-repeat:  no-repeat;
+    overflow-y: scroll;
+
+    #textCtn {
+        background-color: #E6E6FAAA;
+        padding: 0 8em;
+    }
+    #audio-player {
+        margin: 0 auto;
+        display: flex;
+    }
+    .closeBtn {
+        position: fixed;
+        right: .5em;
+        z-index: 5;
+    }
+
+    .hidden {
+        display: none;
+    }
+    
+    #title {
+        font-size: 32px;
+        margin-top: 0;
+    }
+
+    #text {
+	    font-size: 24px;
+    }
+
+    #overlaybuttonback {
+        position: fixed; 
+        z-index: 2; 
+        width:10%;
+        bottom: 0px;
+    }
+}

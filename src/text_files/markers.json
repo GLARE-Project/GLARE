@@ -1,0 +1,437 @@
+{
+	"hotspots": [{
+			"position": 1,
+			"latitude": 41.150186857592914,
+			"longitude": -81.34437203407289,
+			"overlay_size": 5,
+			"overlay_offset_x": 0.512024174340570,
+			"overlay_offset_y": -2.1344952062933555,
+			"name": "Victory Bell",
+			"main_pages": [{
+				"title": "Context",
+				"description": "On May 1, 1970 a group of 500 students led by history graduate students gathered here at the Victory Bell to protest President Nixon’s announcement of the Cambodian Invasion the night before. After burying a copy of Constitution as a symbol of an expansion of an already unpopular war, the organizers called for a larger protest at noon on Monday, May 4, 1970.",
+				"background_image": "/images/VictoryBell-1.jpg",
+				"descriptive_audio": "/audio/Victory-Bell/1.Context.May 1st - 4720, 9.40 PM.m4a",
+				"oral_history_audio": "../../audio/a-context.mp3"
+			}, {
+				"title": "May 4, 1970",
+				"description": "After a weekend of turmoil off campus and on, an estimated 2000 people, gathered that Monday to protest the Vietnam War and the presence of the Ohio National Guard on campus",
+				"background_image": "/images/VictoryBell-2.jpg",
+				"descriptive_audio": "/audio/Victory-Bell/1.5.4.1970.m4a",
+				"oral_history_audio": "../../audio/a-5-4-1970.mp3"
+			}, {
+				"title": "Commemoration",
+				"description": "Since 1971, friends, family, and students gather in silence at the Victory Bell at 11:00 pm on May 3 for the start of the annual Candlelight Vigil and March. On May 4, the bell is rung 15 times-- once for each of the victims of the Kent State shooting and the two men killed at Jackson State.",
+				"background_image": "/images/VictoryBell-2.jpg",
+				"descriptive_audio": "/audio/Victory-Bell/1.Commemoration.m4a",
+				"oral_history_audio": "../../audio/a-commemoration.mp3"
+			}, {
+				"title": "Voices for Change",
+				"description": "How is student activism different today?",
+				"background_image": "/images/VictoryBell-2.jpg",
+				"descriptive_audio": "/audio/Victory-Bell/1.Voices for Change - 4720, 9.45 PM.m4a",
+				"oral_history_audio": "../../audio/a-voicesforchange.mp3"
+			}],
+			"media_pages": [{
+				"title": "Pictures",
+				"content_type": 0,
+				"content_items": [{
+					"item": "/images/VictoryBell-5a.jpg",
+					"item_description": "A growing crowd gathers at the Victory Bell, May 4, 1970."
+				}, {
+					"item": "/images/VictoryBell-5b.jpg",
+					"item_description": "Trails of light from the first annual Candlelight March and Vigil, May 3, 1971."
+				}]
+			}, {
+				"title": "Audio",
+				"content_type": 1,
+				"content_items": [{
+					"item": "https://omeka.library.kent.edu/special-collections/items/show/1579",
+					"item_description": "Oral History with Catherine Delattre."
+				}]
+			}, {
+				"title": "Links",
+				"content_type": 2,
+				"content_items": [{
+					"item": "https://www.youtube.com/watch?v=3cAAnoqmksg",
+					"item_description": "President Nixon's Cambodia Incursion Address."
+				}]
+			}],
+
+			"three_dimensional_image1" : "./images/startImageTwoTrans.png",
+			"three_dimensional_image2" : "./images/New360/VictoryBellB.JPG",
+			"start_audio" : "./audio/Victory-Bell/1.Possible Intro - 4720, 9.36 PM.m4a"
+		},
+		{
+			"position": 2,
+			"latitude": 41.15074024464588,
+			"longitude": -81.34593844413759,
+			"overlay_size": 5,
+			"overlay_offset_x": -0.7206190527714493,
+			"overlay_offset_y": -0.13672482624511084,
+			"name": "ROTC Building",
+			"main_pages": [{
+				"title": "Context",
+				"description": "On May 2, 1970, approximately 600 students gathered at the ROTC building with the intent to burn it down. During the Vietnam War,197 ROTC buildings on campuses around the country were the targets of protests. After some protesters disrupted the Fire Deparment’s attempt to put out the blaze, police arrived to disperse the crowd and the National Guard was called upon to escort the fireman. When the students left, the fire appeared under control. There is still controversy over who started the final blaze -- students or agents provocateurs.",
+				"background_image": "/images/ROTC-1.jpg",
+				"descriptive_audio": "/audio/ROTC-Building/2.Content.May.2nd - 4:12:20, 2.55 PM.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "May 4, 1970",
+				"description": "On the morning of May 4, 1970, approximately 100 guardsmen stood watch in front of the remains of the burned ROTC building. Just past noon, they split into two groups to disperse the protestors gathered on the Commons.",
+				"background_image": "/images/ROTC-2.jpg",
+				"descriptive_audio": "/audio/ROTC-Building/2.5.4.1970.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Commemoration",
+				"description": "During the annual Candlelight March and Vigil on the night of May 3, marchers walk past the area where the ROTC building once stood.",
+				"background_image": "/images/ROTC-3.jpg",
+				"descriptive_audio": "/audio/ROTC-Building/2.Commemoration.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Voices for Change",
+				"description": "Is violence or destruction of property ever an acceptable form of protest or does it simply generate more violence?",
+				"background_image": "/images/ROTC-4.jpg",
+				"descriptive_audio": "/audio/ROTC-Building/2.Voices for Change.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}],
+			"media_pages": [{
+				"title": "Pictures",
+				"content_type": 0,
+				"content_items": [{
+					"item": "/images/ROTC-5a.jpg",
+					"item_description": "Front of ROTC remains, 5/3, 11:00 AM."
+				}, {
+					"item": "/images/ROTC-5b.jpg",
+					"item_description": "Crowd gathers near ROTC remains, 5/3, 11:30-noon."
+				}]
+			}, {
+				"title": "Audio",
+				"content_type": 1,
+				"content_items": [{
+					"item": "https://www.library.kent.edu/leslie-wasson-personal-narrative",
+					"item_description": "Personal Statement by Leslie Wasson after the burning of the ROTC Building."
+				}]
+			}, {
+				"title": "Links",
+				"content_type": 2,
+				"content_items": [{
+					"item": "https://www.youtube.com/watch?time_continue=10&v=UN4i7THVh90",
+					"item_description": "Video of ROTC burning (May 2 1970)."
+				}]
+			}],
+
+			"three_dimensional_image1": "./images/ROTC360-MERGED-trans.png",
+			"three_dimensional_image2": "./images/New360/RotcB.JPG",
+			"start_audio": "./audio/ROTC-Building/2.Possible Intro.m4a"
+		},
+		{
+			"position": 3,
+			"latitude": 41.14966174147182,
+			"longitude": -81.34408235549927,
+			"overlay_size": 5,
+			"overlay_offset_x": -1.2816962256110898,
+			"overlay_offset_y": -1.5187809344594534,
+			"name": "Pagoda",
+			"main_pages": [{
+				"title": "Context",
+				"description": "In 1970 the Architecture Department was housed in Taylor Hall. The Pagoda, was designed as a classroom project by five architecture students. Many people visit the Pagoda, the site where the guardsmen turned and fired.",
+				"background_image": "/images/Pagoda-1.jpg",
+				"descriptive_audio": "/audio/Pagoda/3.Context.May 1st.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "May 4, 1970",
+				"description": "At 12:24 pm, 28 guardsmen turned directly in front of the Pagoda and fired 67 shots into the Prentice Hall Parking Lot. One person was injured on the site of what is now the Gym Annex.",
+				"background_image": "/images/Pagoda-2.jpg",
+				"descriptive_audio": "/audio/Pagoda/3.5.4.1970.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Commemoration",
+				"description": "Many people visit the Pagoda, the site where the guardsmen turned and fired.",
+				"background_image": "/images/Pagoda-3.jpg",
+				"descriptive_audio": "/audio/Pagoda/3.Commemoration.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Voices for Change",
+				"description": "Under what circumstances would it be justified for the government to intervene when citizens are exercising their First Amendment rights?",
+				"background_image": "/images/Pagoda-4.jpg",
+				"descriptive_audio": "/audio/Pagoda/3.Voices for Change.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}],
+			"media_pages": [{
+				"title": "Pictures",
+				"content_type": 0,
+				"content_items": [{
+					"item": "/images/Pagoda-5a.jpg",
+					"item_description": "A view of National Guard around the time of the shooting."
+				}]
+			}, {
+				"title": "Audio",
+				"content_type": 1,
+				"content_items": [{
+					"item": "https://omeka.library.kent.edu/special-collections/items/show/1616",
+					"item_description": "Oral History with Naomi Goelman Etzkin."
+				}]
+			}, {
+				"title": "Links",
+				"content_type": 2,
+				"content_items": [{
+					"item": "https://en.wikipedia.org/wiki/First_Amendment_to_the_United_States_Constitution",
+					"item_description": "First Amendment to the United States Constitution."
+				}]
+			}],
+			"three_dimensional_image1": "./images/Pagoda360-MERGED-trans.png",
+			"three_dimensional_image2": "./images/New360/PagodaA.JPG",
+			"start_audio": "./audio/Pagoda/3.Possible Intro.m4a"
+		},
+		{
+			"position": 4,
+			"latitude": 41.15001720515217,
+			"longitude": -81.34374976158144,
+			"overlay_size": 5,
+			"overlay_offset_x": -3.337719984743633,
+			"overlay_offset_y": -0.3934524707976686,
+			"name": "Prentice Parking Lot",
+			"main_pages": [{
+				"title": "Context",
+				"description": "Prior to the shootings, the Prentice Hall Parking was like many of the parking lots on campus -- unremarkable.",
+				"background_image": "/images/ParkingLot-1.jpg",
+				"descriptive_audio": "/audio/Parking-Lot/1.Context.May 1st.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "May 4, 1970",
+				"description": "Jeffrey Miller, Allison Krause, William Schroeder, and Sandy Scheuer were killed in the Prentice Parking Lot. In 1971, the B'nai B'rith/Faculty Marker was erected in their honor.  In 1999, markers were added to identify the spots where they fell.",
+				"background_image": "/images/ParkingLot-2.jpg",
+				"descriptive_audio": "/audio/Parking-Lot/4.5.4.1970.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Commemoration",
+				"description": "In 1971, Hillel, with faculty support, erected the first marker to honor the students. In 1999, bollards were added to identify where they fell. Every year, volunteers silently stand vigil inside each marker from midnight May 4 until the start of the commemoration program at noon.",
+				"background_image": "/images/ParkingLot-3.jpg",
+				"descriptive_audio": "/audio/Parking-Lot/4.Commemoration.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Voices for Change",
+				"description": "How do memorials help us to consider and reconsider what we know about historical events?",
+				"background_image": "/images/ParkingLot-4.jpg",
+				"descriptive_audio": "/audio/Parking-Lot/4.Voices for Change.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}],
+			"media_pages": [{
+				"title": "Pictures",
+				"content_type": 0,
+				"content_items": [{
+					"item": "/images/ParkingLot-5a.jpg",
+					"item_description": "The first official May 4 memorial, the B'nai B'rith Hillel/Faculty marker, 1977."
+			        }, {
+					"item": "/images/ParkingLot-5b.jpg",
+					"item_description": "Dean Kahler, a wounded students, holds a candle where Jeffery Miller died during the Candlelight Vigil, 1977."
+				}]
+			}, {
+				"title": "Audio",
+				"content_type": 1,
+				"content_items": [{
+					"item": "https://omeka.library.kent.edu/special-collections/items/show/2661",
+					"item_description": "Dedication ceremony for the Parking Lot Markers, 1999."
+				}]
+			}, {
+				"title": "Links",
+				"content_type": 2,
+				"content_items": [{
+					"item": "https://www.kent.edu/may-4-historical-accuracy",
+					"item_description": "The May 4 shootings at Kent State Unversity: The search for historical accuracy."
+				}]
+			}],
+
+			"three_dimensional_image1": "./images/ParkingLot360-MERGED-trans.png",
+			"three_dimensional_image2": "./images/New360/ParkingLotB.JPG",
+			"start_audio": "./audio/Parking-Lot/4.Possible Intro.m4a"
+		},
+		{
+			"position": 5,
+			"latitude": 41.150170700236515,
+			"longitude": -81.34366929531099,
+			"overlay_size": 5,
+			"overlay_offset_x": 0.51202417434057,
+			"overlay_offset_y": -2.1344952062933555,
+			"name": "Solar Totem",
+			"main_pages": [{
+				"title": "Context",
+				"description": "Don Drumm, an acclaimed sculptor and Kent State alumnus, created this sculpture, Solar Totem #1 in 1967. It is made of corten steel designed to weather over time.",
+				"background_image": "/images/SolarTotem-1.jpg",
+				"descriptive_audio": "/audio/Solar-Totem/5.Context.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "May 4, 1970",
+				"description": "One of the 67 shots fired by the National Guard pierced the Solar Totem.  Two students, John Cleary and Joe Lewis, were injured nearby.",
+				"background_image": "/images/SolarTotem-2.jpg",
+				"descriptive_audio": "/audio/Solar-Totem/5.5.4.1970.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Commemoration",
+				"description": "After the events of the May 4, 1970, the University asked Don Drumm to repair the bullet hole, but he refused. Every year as part of the May 4 commemoration, visitors decorate the sculpture with chalked messages of peace and remembrance.",
+				"background_image": "/images/SolarTotem-3.jpg",
+				"descriptive_audio": "/audio/Solar-Totem/5.Commemoration.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}, {
+				"title": "Voices for Change",
+				"description": "How has the meaning of the Solar Totem sculpture changed over time?",
+				"background_image": "/images/SolarTotem-4.jpg",
+				"descriptive_audio": "/audio/Solar-Totem/5.Voices of Change.m4a",
+				"oral_history_audio": "DATA NEEDED"
+			}],
+			"media_pages": [{
+				"title": "Pictures",
+				"content_type": 0,
+				"content_items": [{
+					"item": "/images/SolarTotem-5.jpg",
+					"item_description": "Bullet hole in tree by Don Drumm sculpture."
+				}]
+			}, {
+				"title": "Audio",
+				"content_type": 1,
+				"content_items": [{
+					"item": "https://youtu.be/amqSHPNhGjc",
+					"item_description": "Reflections on May 4: Don Drumm."
+				}]
+			}, {
+				"title": "Links",
+				"content_type": 2,
+				"content_items": [{
+					"item": "https://www.kent.edu/kent/news/heart-steel",
+					"item_description": "Artist Don Drumm reflects on his sculpture’s role in May 4."
+				}]
+			}],
+
+			"three_dimensional_image1": "./images/SolarTotem360-MERGED-trans.png",
+			"three_dimensional_image2": "./images/New360/SolarTotem.JPG",
+			"start_audio": "./audio/Solar-Totem/5.Possible Intro.m4a"
+		},
+		{
+			"position": 6,
+			"latitude": 41.150360548922706,
+			"longitude": -81.34346008300783,
+			"overlay_size": 7,
+			"overlay_offset_x": -1.7037338025306845,
+			"overlay_offset_y": -1.024672051139108,
+			"name": "Gym Annex",
+			"main_pages": [{
+				"title": "Context",
+				"description": "The University built the Gym Annex in 1977 over an area of significance to the May 4 shootings. Its construction inspired a major protest that drew national attention to the preservation of the May 4 site.",
+				"background_image": "/images/GymAnnex-1.jpg",
+				"descriptive_audio": "/audio/Gym-Annex/6.Context.m4a",
+				"oral_history_audio": "../../audio/gymannexS1.mp3"
+			}, {
+				"title": "May 4, 1970",
+				"description": "While most guardsman fired in the direction of the Prentice Hall Parking Lot, one guardsman turned and fired his shotgun at Jim Russell in the area that is now covered by the Gym Annex.",
+				"background_image": "/images/GymAnnex-2.jpg",
+				"descriptive_audio": "/audio/Gym-Annex/6.5.4.1970.m4a",
+				"oral_history_audio": "../../audio/gymannexS2.mp3"
+			}, {
+				"title": "Commemoration",
+				"description": "In 1977, protesters pitched tents and created a community known as Tent City on the proposed construction site. After months of demonstrations and negotiations, 193 individuals were arrested for their role in obstructing the construction. Among those arrested were the parents of Sandy Scheurer and family members of Alan Canfora, one of the students wounded that day. There are still calls to “Tear Down the Gym.”",
+				"background_image": "/images/GymAnnex-3.jpg",
+				"descriptive_audio": "/audio/Gym-Annex/6.Commemoration.m4a",
+				"oral_history_audio": "../../audio/gymannexS3.mp3"
+			}, {
+				"title": "Voices for Change",
+				"description": "What is the role of place in memory?",
+				"background_image": "/images/GymAnnex-4.jpg",
+				"descriptive_audio": "/audio/Gym-Annex/6.Voices for Change.m4a",
+				"oral_history_audio": "../../audio/gymannexS4.mp3"
+			}],
+			"media_pages": [{
+				"title": "Pictures",
+				"content_type": 0,
+				"content_items": [{
+					"item": "/images/GymAnnex-5a.jpg",
+					"item_description": "Students from schools across the nation gathered in support of the Tent City."
+				}, {
+					"item": "/images/GymAnnex-5b.jpg",
+					"item_description": "A view of Tent City."
+				}, {
+					"item": "/images/GymAnnex-5c.jpg",
+					"item_description": "An aerial view of Gym Annex contruction site."
+				}]
+			}, {
+				"title": "Audio",
+				"content_type": 1,
+				"content_items": [{
+					"item": "https://omeka.library.kent.edu/special-collections/items/show/1648",
+					"item_description": "Oral History with Barry Seybert."
+				}]
+			}, {
+				"title": "Links",
+				"content_type": 2,
+				"content_items": [{
+					"item": "https://www.library.kent.edu/special-collections-and-archives/tent-city-gym-annex-protest-chronology",
+					"item_description": "Tent City / Gym Annex Protest Chronology."
+				}]
+			}],
+
+			"three_dimensional_image1": "./images/GymAnnex360-MERGED-trans.png",
+			"three_dimensional_image2": "./images/New360/GymAnnexB.JPG",
+			"start_audio": "./audio/Gym-Annex/6.Possilbe Intro.m4a"
+		},
+		{
+			"position": 7,
+			"latitude": 41.150421138813215,
+			"longitude": -81.34406626224519,
+			"overlay_size": 5,
+			"overlay_offset_x": -0.11396707877489609,
+			"overlay_offset_y": 0.01864298851322149,
+			"name": "May 4th Memorial",
+			"main_pages": [{
+				"title": "Context",
+				"description": "The May 4 Memorial was dedicated in 1990, after a controversial design competition.",
+				"background_image": "/images/Memorial-1.jpg",
+				"descriptive_audio": "/audio/May-4th-Memorial/7.Context.m4a",
+				"oral_history_audio": "../../audio/RC Memorial rec 1.mp3"
+			}, {
+				"title": "May 4, 1970",
+				"description": "The site for the Memorial was selected in part because it overlooks the Commons, the site of many of the events of May 1 - 4, 1970.",
+				"background_image": "/images/Memorial-2.jpg",
+				"descriptive_audio": "/audio/May-4th-Memorial/7.5.4.1970.m4a",
+				"oral_history_audio": "../../audio/RC Memorial rec 2.mp3"
+			}, {
+				"title": "Commemoration",
+				"description": "After a national competition where the original winner was disqualified, Architect Bruno Ast's second place design was selected and built at a much smaller scale than he initially proposed. Today, the Memorial serves as a place to silently reflect on the legacy of May 4, 1970.",
+				"background_image": "/images/Memorial-3.jpg",
+				"descriptive_audio": "/audio/May-4th-Memorial/7.Commemoration.m4a",
+				"oral_history_audio": "../../audio/RC Memorial rec 3.mp3"
+			}, {
+				"title": "Voices for Change",
+				"description": "What are the lessons and legacy of May 4, 1970?",
+				"background_image": "/images/Memorial-4.jpg",
+				"descriptive_audio": "/audio/May-4th-Memorial/7.Voices for Change.m4a",
+				"oral_history_audio": "../../audio/RC Memorial rec 4.mp3"
+			}],
+			"media_pages": [{
+				"title": "Pictures",
+				"content_type": 0,
+				"content_items": [{
+					"item": "/images/Memorial-5a.jpg",
+					"item_description": "A view of the hill before the Memorial."
+				}]
+			}, {
+				"title": "Audio",
+				"content_type": 1,
+				"content_items": [{
+					"item": "https://omeka.library.kent.edu/special-collections/items/show/2655",
+					"item_description": "Video of the May 4 Memorial Dedication."
+				}]
+			}, {
+				"title": "Links",
+				"content_type": 2,
+				"content_items": [{
+					"item": "https://www.library.kent.edu/may-4-memorial-chronology",
+					"item_description": "May 4 Memorial Chronology."
+				}]
+			}],
+
+			"three_dimensional_image1": "./images/Memorial360-MERGED-trans.png",
+			"three_dimensional_image2": "./images/New360/Memorial.JPG",
+			"start_audio": "./audio/May-4th-Memorial/7.Possible Intro.m4a"
+		}
+	]
+}

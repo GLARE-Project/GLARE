@@ -1,0 +1,153 @@
+#overlaybuttonback {
+    position: fixed; 
+    z-index: 2; 
+	width:10%;
+	bottom: 0px;
+}
+.header {
+    text-align: center;
+    color: white;
+    font-size: 3em;
+    text-transform: uppercase;
+    font-family: sans-serif;
+}
+.accordion {
+    margin: 0 8em;
+    overflow: hidden;
+}
+
+.accordion__button {
+    font-size: 2em;
+    font-family: sans-serif;
+}
+
+.accordion p, .accordion a {
+    font-size: 1.5em;
+}
+.accordion p {
+    color: white;
+}
+.accordion a {
+    color: #8BD2CF;
+}
+
+.accordion__panel p {
+    margin: 0;
+    padding: 1em .5em;
+}
+
+.accordion__button {
+    border: 3px solid white;
+    border-radius: 1em;
+    margin: 1em 0;
+    color: white;
+    cursor: pointer;
+    padding: .5em;
+    text-align: left;
+}
+
+.accordion__button:after {
+    display: inline-block;
+    content: '';
+    height: .5em;
+    width: .5em;
+    margin-right: 1em;
+    margin-top: .25em;
+    float: right;
+    border-bottom: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    transform: rotate(-45deg);
+}
+
+.accordion__button[aria-expanded='true'] {
+    background-color: white;
+    color: black;
+}
+
+.accordion__button[aria-expanded='true']::after, .accordion__button[aria-selected='true']::after {
+    transform: rotate(45deg);
+}
+
+.no-image {
+    background-image: none;
+    overflow: auto;
+	background-color: black;
+}
+
+img {
+	width: 100%;
+}
+
+.carousel__slide {
+    padding-bottom: 0 !important;
+    height: unset;
+}
+
+.carousel {
+    position: relative;
+}
+
+.carousel__inner-slide {
+    position: relative;
+    left: 5em;
+    width: calc(100% - 10em);
+}
+
+.carousel__back-button, .carousel__next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(calc(-50% + 2.5em));
+    width: 5em;
+    height: 5em;
+    color: rgba(255, 255, 255, .75);
+    background-color: transparent;
+    border: none;
+}
+
+.carousel__back-button:hover,
+.carousel__next-button:hover
+ {
+    color: #8BD2CF;
+}
+
+.carousel__back-button {
+    left: 0;
+}
+.carousel__next-button {
+    right: 0;
+}
+.back-icon, .next-icon {
+    font-size: 3em;
+}
+
+.carousel__dot {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    border-width: 2px;
+    border-style: solid;
+    background-color: black;
+    margin-right: .5em;
+}
+
+.carousel__dot:hover {
+    background-color: #8BD2CF;
+}
+
+.carousel__dot--selected {
+    background-color: white;
+}
+.carousel__dot-group {
+    text-align: center;
+    padding: 1em 0;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .carousel__back-button, .carousel__next-button {
+        display: none;
+    }
+    .carousel__inner-slide {
+        width: 100% !important;
+        left: 0 !important;
+    }
+}

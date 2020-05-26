@@ -1,0 +1,91 @@
+.Modal {
+    color: white;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding: 0 5em 0 5em;
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color: #000000, $alpha: .9);
+    z-index: 9999;
+}
+
+.menu-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "sans-serif";
+    font-size: 4em;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-bottom: solid 3px white;
+}
+
+.menu-ctn {
+    display: flex;
+}
+
+.menu-content {
+    margin: 0 auto;
+    width: 100%;
+  
+    .navigation-menu {
+        width: 50%;
+        float: left;
+    
+        a[class^="menu-item"] {
+            border-right-width: 3px;
+        }
+        
+        .menu-item {
+            border-bottom-width: 3px;
+        }
+    }
+
+    .media-menu {
+        width: 50%;
+        float: right;
+    }
+  
+}
+
+a[class^="menu-item"] {
+    display: block;
+    padding: .5em 0;
+    text-align: center;
+    font-size: 1.5em;
+    text-decoration: none;
+    color: white;
+    border-color: white;
+    border-style: solid;
+    border-width: 0;
+    &:active, &:hover {
+        color: #8BD2CF !important;
+    }
+}
+
+.media-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    .menu-item {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        align-self: center;
+    }
+    .menu-item-last {
+        border-top-width: 3px !important;
+    }
+}
+
+.ReactModal__Body--open  {
+    .overlay-icon:not(.closeBtn), #fixed-footer, #title-ctn {
+        display: none !important;
+    }
+}

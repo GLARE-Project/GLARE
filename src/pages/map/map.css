@@ -1,0 +1,38 @@
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+.leaflet-container {
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+}
+
+.userLocation {
+  animation: blink 4s ease infinite;
+}
+
+@keyframes blink {
+  0% {
+    stroke-width: 3;
+  }
+  50% {
+    stroke-width: 6;
+  }
+  100% {
+    stroke-width: 3;
+  }
+}
+
+/* Optional: Makes the sample page fill the window. */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#overlaybuttonback {
+    position: fixed; /* Sit on top of the page content */
+    width: 10%; /* Full width (cover the whole page) */
+    left: 0;
+    bottom: 0;
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+}
