@@ -1,4 +1,3 @@
-import jsonMarkers from "./../text_files/markers.json";
 import React from 'react';
 import { toast } from "react-toastify";
 
@@ -10,7 +9,6 @@ const CAMPUS_RADIUS = 0.1087359848; // 0.1087 miles == 82 feet + 150 meter accur
 
 // global values
 var currentMarker = null;
-var markers = jsonMarkers['hotspots'];
 
 const AlertLocation = ({ markerName, history  }) => {
 	return (
@@ -58,9 +56,9 @@ const styles = {
 }
 
 // when the user moves postions
-export function onPositionUpdate( position, history ) {
+export function onPositionUpdate( position, history, markerData ) {
     // and fine the next closest points
-	checkForCloseMarker( position.coords, history );
+	checkForCloseMarker( position.coords, history, markerData );
 }
 
 // setter function for current marker
@@ -69,8 +67,8 @@ function setCurrentMarker( marker ) {
 }
 
 // checks to see if near a hotspot
-function checkForCloseMarker( position, history ) {
-	var markerObj = markers.map( marker => {		
+function checkForCloseMarker( position, history, markerData ) {
+	var markerObj = markerData.map( marker => {		
         var dist = distance( position.latitude, position.longitude, marker.latitude, marker.longitude );
 		// build an object of marker and its distance
 		return {...marker,  dist};
@@ -135,8 +133,8 @@ function distance(lat1, lon1, lat2, lon2) {
 // checks for the closest marker on campus
 // if the closest marker exceeds the campus radius
 // then the user is not on campus
-export function isOnCampus( position ) {
-	const distList = markers.map( marker => {		
+export function isOnCampus( position, markerData ) {
+	const distList = markerData.map( marker => {		
 		return distance( position.coords.latitude, position.coords.longitude, marker.latitude, marker.longitude );
 	});
 	return  Math.min(...distList) <= CAMPUS_RADIUS;

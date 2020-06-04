@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { BrowserRouter } from "react-router-dom"
@@ -12,12 +12,28 @@ export const Context = React.createContext();
 function Provider({ children }) {
     const [onCampus, setOnCampus] = useState(false);
     const [modelOpen, toggleModel] = useState(false);
+
+    const [markerData, setData] = useState([]);
+
+    useEffect(() => {
+      const fetchMarkerData = async () => {
+          await fetch(process.env.PUBLIC_URL + "/markers.json")
+          .then(res => res.json() )
+          .then(res => {
+              if(res.hasOwnProperty("hotspots")) setData(res["hotspots"]) 
+            })
+          .catch(err => console.error("[Error]: " + err));
+      };
+      fetchMarkerData();
+    }, []);
+
     return (
         <Context.Provider value={{
             onCampus,
             setOnCampus: val => setOnCampus(val),
             modelOpen,
-            toggleModel: val => toggleModel(val)
+            toggleModel: val => toggleModel(val),
+            markerData
         }}
         >
             { children }

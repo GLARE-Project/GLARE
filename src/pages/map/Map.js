@@ -1,17 +1,15 @@
 import React, { useLayoutEffect, useState, useContext } from 'react';
 import { Map as LeafletMap, TileLayer, Marker, CircleMarker } from "react-leaflet";
 import L from "leaflet";
-import jsonMarkers from "./../../text_files/markers.json";
 import BackButton from '../../components/BackButton';
 import {onPositionUpdate, isOnCampus} from "./../../utils/gpsManager";
 import { Context } from "./../../index";
 import './map.css';
 
 function Map(props) {
-  const [markers, setMarkers] = useState([]);
   const [currentPos, setCurrentPos] = useState([]);
   const [GeoError, setError] = useState(null);
-  const {onCampus, setOnCampus} = useContext(Context);
+  const {onCampus, setOnCampus, markerData} = useContext(Context);
 
   const initalRegion = {
     lat: 41.150121,
@@ -40,8 +38,8 @@ function Map(props) {
 
   // create current postion point
   function success(pos) {
-    onPositionUpdate(pos, props.history);
-    setOnCampus(isOnCampus(pos));
+    onPositionUpdate(pos, props.history, markerData);
+    setOnCampus(isOnCampus(pos, markerData));
     checkCamera();
     setError(null);
     setCurrentPos([pos.coords.latitude, pos.coords.longitude]);
@@ -69,7 +67,6 @@ function Map(props) {
         // Browser doesn't support Geolocation
         setError('Error: Your browser doesn\'t support geolocation.');
       }
-      setMarkers(jsonMarkers['hotspots']);
   }, [onCampus]);
 
   return (
@@ -81,7 +78,7 @@ function Map(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
-        {markers.map(marker => {
+        {markerData.map(marker => {
         // store for later use
         localStorage.setItem(marker.name, JSON.stringify(marker));
         return (
