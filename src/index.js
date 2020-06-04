@@ -28,7 +28,7 @@ function Provider({ children }) {
 
 ReactDOM.render(
     <Provider>
-        <BrowserRouter basename={process.env.NODE_ENV === 'production' ? process.env.PUBLIC_URL : "/"}>
+        <BrowserRouter>
             <App />
         </BrowserRouter>
     </Provider>
