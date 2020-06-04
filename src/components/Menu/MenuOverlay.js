@@ -31,7 +31,7 @@ function MenuOverlay({children, history, data}){
                     pages={data.main_pages}/>
                     <div className="media-menu">
                         <a 
-                        //href={"/XR/media?name=" + data.name}
+                        //href={"/media?name=" + data.name}
                         className="menu-item"
                         onClick={() => history.push("/media?name=" + data.name)}>
                             Library
@@ -79,7 +79,7 @@ const MenuComponent = React.memo(function MenuComponent({name, pages, history}) 
             {pages.map((media, index) => {
                 return (
                     <a 
-                        //href={"/XR/main?name=" + name + "&type=" + media.title}
+                        //href={"/main?name=" + name + "&type=" + media.title}
                         onClick={() => handleClick(media.title)} 
                         className={pages.length === index + 1 ? "menu-item-last" : "menu-item"}
                         key={index}

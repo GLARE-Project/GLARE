@@ -85,7 +85,7 @@ function Home() {
         <div id="buttona" >
           <button onClick={handleClick} type="button">BEGIN TOUR</button>
         </div>
-        <div id="may4txt">An Augmented May 4<sup>th</sup> Experience</div>
+        <div id="introTxt">An Augmented May 4<sup>th</sup> Experience</div>
       </div>
     </React.Fragment>
   );
