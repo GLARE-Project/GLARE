@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import AudioPlayer from "./../../components/AutoPlayer";
 import MenuOverlay from "../../components/Menu/MenuOverlay";
 import { Context } from "./../../index";
+import renderFace from "./../../utils/imageConvert";
 import './tours.css';
 
 library.add(faMapMarkerAlt, faEye);
@@ -70,6 +71,27 @@ const Tour = React.memo(function Tour({history}) {
     }
     /* End of debugging code block */
 
+    
+    // input the image equirectangular data
+    // return a texture for each face as a collective material
+    function processFace(imgData) {
+        const faces = [
+            'px', 'nx',
+            'py', 'ny',
+            'pz', 'nz'
+        ];
+        // for each face
+        return faces.map(faceName => {
+            // get that face using sample
+            const [faceData, faceWidth, faceHeight] = renderFace(imgData, faceName);
+            // Create a texture based on the data
+            const texture = new THREE.DataTexture( faceData.data, faceWidth, faceHeight, THREE.RGBAFormat );
+            texture.needsUpdate = true;
+            // return a mesh for that face
+            return new THREE.MeshBasicMaterial( { map: texture } );
+        });
+    }
+
     const StorageData = JSON.parse(localStorage.getItem(name));
     // data was never set go to maps to set
     if (StorageData == null) history.push("/map");
@@ -80,7 +102,7 @@ const Tour = React.memo(function Tour({history}) {
     var width = window.innerWidth;
     var height = window.innerHeight;
     var fov = onCampus ? 30 : 45;
-    function init() {
+    async function init() {
         var webglEl = document.getElementById('sphere');
 
         scene = new THREE.Scene();
@@ -99,30 +121,32 @@ const Tour = React.memo(function Tour({history}) {
             
         } else {
             geometry = new THREE.BoxGeometry(20, 20, 20);
-            var basePath = './images/360-cubes/' + name.split(' ').join('-') + '/';
 
-            const textures = [
-                'right.jpg',
-                'left.jpg',
-                'top.jpg',
-                'down.jpg',
-                'front.jpg',
-                'back.jpg'
-            ];
+            // wait for the equirectangular to load in
+            material = await new Promise((resolve, reject) =>
+                new THREE.ImageLoader().load( process.env.PUBLIC_URL + overlayImage, image => {
+                    const {width:imageWidth, height:imageHeight} = image;
+                    console.log("width", imageWidth);
+                    console.log("height", imageHeight);
+                    const canvas = document.createElement( 'canvas' );
+                    canvas.width = imageWidth;
+                    canvas.height = imageHeight;
+                    
+                    const context = canvas.getContext( '2d' );
+                    context.drawImage( image, 0, 0);
 
-            material = [];
-            textures.map(texture => {
-                material.push(
-                    new THREE.MeshBasicMaterial({
-                        map : new THREE.TextureLoader().load(basePath +  texture,  setStatus("loaded"))
-                    }) 
-                );
-                return () => {};
+                    const imageData = context.getImageData( 0, 0, imageWidth, imageHeight );
+                    // return the mesh for each face's given texture
+                    resolve(processFace(imageData))
+                }, {}, err => reject("Image failed to load :"  + err))
+            ).then(mats =>{
+                setStatus("loaded");
+                return mats;
             });
+
         }
 
         mesh = new THREE.Mesh( geometry, material );
-
 
         if (onCampus)
 			mesh.geometry.scale( -1, 1, 1 );
@@ -130,7 +154,6 @@ const Tour = React.memo(function Tour({history}) {
             mesh.geometry.scale( 1, 1, - 1 );
 
         scene.add(mesh);
-
 
         // build the floor to cover-up black outlines in 360 images
         if (!onCampus) {
@@ -176,15 +199,9 @@ const Tour = React.memo(function Tour({history}) {
         }
     }
 
-    function loadTexture(url) {
-        return new Promise(resolve => {
-            new THREE.TextureLoader().load(url, resolve);
-        });
-    }
-
     function setUp() {
         if (StorageData != null) {
-            overlayImage = StorageData.three_dimensional_image1;
+            overlayImage = onCampus ? StorageData.three_dimensional_image1 : StorageData.three_dimensional_image2;
         }
         // used to get rid of the bar in safari
         scrollToTop();
