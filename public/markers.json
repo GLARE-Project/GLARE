@@ -11,26 +11,22 @@
 				"title": "Context",
 				"description": "On May 1, 1970 a group of 500 students led by history graduate students gathered here at the Victory Bell to protest President Nixon’s announcement of the Cambodian Invasion the night before. After burying a copy of Constitution as a symbol of an expansion of an already unpopular war, the organizers called for a larger protest at noon on Monday, May 4, 1970.",
 				"background_image": "/images/VictoryBell-1.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.Context.May 1st - 4720, 9.40 PM.m4a",
-				"oral_history_audio": "../../audio/a-context.mp3"
+				"descriptive_audio": "/audio/Victory-Bell/1.Context.May 1st - 4720, 9.40 PM.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "After a weekend of turmoil off campus and on, an estimated 2000 people, gathered that Monday to protest the Vietnam War and the presence of the Ohio National Guard on campus",
 				"background_image": "/images/VictoryBell-2.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.5.4.1970.m4a",
-				"oral_history_audio": "../../audio/a-5-4-1970.mp3"
+				"descriptive_audio": "/audio/Victory-Bell/1.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "Since 1971, friends, family, and students gather in silence at the Victory Bell at 11:00 pm on May 3 for the start of the annual Candlelight Vigil and March. On May 4, the bell is rung 15 times-- once for each of the victims of the Kent State shooting and the two men killed at Jackson State.",
 				"background_image": "/images/VictoryBell-2.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.Commemoration.m4a",
-				"oral_history_audio": "../../audio/a-commemoration.mp3"
+				"descriptive_audio": "/audio/Victory-Bell/1.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "How is student activism different today?",
 				"background_image": "/images/VictoryBell-2.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.Voices for Change - 4720, 9.45 PM.m4a",
-				"oral_history_audio": "../../audio/a-voicesforchange.mp3"
+				"descriptive_audio": "/audio/Victory-Bell/1.Voices for Change - 4720, 9.45 PM.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
@@ -60,7 +56,8 @@
 
 			"three_dimensional_image1" : "./images/startImageTwoTrans.png",
 			"three_dimensional_image2" : "./images/New360/VictoryBellB.JPG",
-			"start_audio" : "./audio/Victory-Bell/1.Possible Intro - 4720, 9.36 PM.m4a"
+			"start_audio" : "./audio/Victory-Bell/1.Possible Intro - 4720, 9.36 PM.m4a",
+			"VR_overylay" : "/images/overlays/Victory-Bell.jpg"
 		},
 		{
 			"position": 2,
@@ -74,26 +71,22 @@
 				"title": "Context",
 				"description": "On May 2, 1970, approximately 600 students gathered at the ROTC building with the intent to burn it down. During the Vietnam War,197 ROTC buildings on campuses around the country were the targets of protests. After some protesters disrupted the Fire Deparment’s attempt to put out the blaze, police arrived to disperse the crowd and the National Guard was called upon to escort the fireman. When the students left, the fire appeared under control. There is still controversy over who started the final blaze -- students or agents provocateurs.",
 				"background_image": "/images/ROTC-1.jpg",
-				"descriptive_audio": "/audio/ROTC-Building/2.Content.May.2nd - 4:12:20, 2.55 PM.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/ROTC-Building/2.Content.May.2nd - 4:12:20, 2.55 PM.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "On the morning of May 4, 1970, approximately 100 guardsmen stood watch in front of the remains of the burned ROTC building. Just past noon, they split into two groups to disperse the protestors gathered on the Commons.",
 				"background_image": "/images/ROTC-2.jpg",
-				"descriptive_audio": "/audio/ROTC-Building/2.5.4.1970.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/ROTC-Building/2.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "During the annual Candlelight March and Vigil on the night of May 3, marchers walk past the area where the ROTC building once stood.",
 				"background_image": "/images/ROTC-3.jpg",
-				"descriptive_audio": "/audio/ROTC-Building/2.Commemoration.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/ROTC-Building/2.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "Is violence or destruction of property ever an acceptable form of protest or does it simply generate more violence?",
 				"background_image": "/images/ROTC-4.jpg",
-				"descriptive_audio": "/audio/ROTC-Building/2.Voices for Change.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/ROTC-Building/2.Voices for Change.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
@@ -123,7 +116,8 @@
 
 			"three_dimensional_image1": "./images/ROTC360-MERGED-trans.png",
 			"three_dimensional_image2": "./images/New360/RotcB.JPG",
-			"start_audio": "./audio/ROTC-Building/2.Possible Intro.m4a"
+			"start_audio": "./audio/ROTC-Building/2.Possible Intro.m4a",
+			"VR_overylay" : "/images/overlays/ROTC-Building.jpg"
 		},
 		{
 			"position": 3,
@@ -137,26 +131,22 @@
 				"title": "Context",
 				"description": "In 1970 the Architecture Department was housed in Taylor Hall. The Pagoda, was designed as a classroom project by five architecture students. Many people visit the Pagoda, the site where the guardsmen turned and fired.",
 				"background_image": "/images/Pagoda-1.jpg",
-				"descriptive_audio": "/audio/Pagoda/3.Context.May 1st.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Pagoda/3.Context.May 1st.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "At 12:24 pm, 28 guardsmen turned directly in front of the Pagoda and fired 67 shots into the Prentice Hall Parking Lot. One person was injured on the site of what is now the Gym Annex.",
 				"background_image": "/images/Pagoda-2.jpg",
-				"descriptive_audio": "/audio/Pagoda/3.5.4.1970.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Pagoda/3.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "Many people visit the Pagoda, the site where the guardsmen turned and fired.",
 				"background_image": "/images/Pagoda-3.jpg",
-				"descriptive_audio": "/audio/Pagoda/3.Commemoration.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Pagoda/3.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "Under what circumstances would it be justified for the government to intervene when citizens are exercising their First Amendment rights?",
 				"background_image": "/images/Pagoda-4.jpg",
-				"descriptive_audio": "/audio/Pagoda/3.Voices for Change.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Pagoda/3.Voices for Change.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
@@ -182,7 +172,8 @@
 			}],
 			"three_dimensional_image1": "./images/Pagoda360-MERGED-trans.png",
 			"three_dimensional_image2": "./images/New360/PagodaA.JPG",
-			"start_audio": "./audio/Pagoda/3.Possible Intro.m4a"
+			"start_audio": "./audio/Pagoda/3.Possible Intro.m4a",
+			"VR_overylay" : "/images/overlays/Pagoda.jpg"
 		},
 		{
 			"position": 4,
@@ -196,26 +187,22 @@
 				"title": "Context",
 				"description": "Prior to the shootings, the Prentice Hall Parking was like many of the parking lots on campus -- unremarkable.",
 				"background_image": "/images/ParkingLot-1.jpg",
-				"descriptive_audio": "/audio/Parking-Lot/1.Context.May 1st.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Parking-Lot/1.Context.May 1st.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "Jeffrey Miller, Allison Krause, William Schroeder, and Sandy Scheuer were killed in the Prentice Parking Lot. In 1971, the B'nai B'rith/Faculty Marker was erected in their honor.  In 1999, markers were added to identify the spots where they fell.",
 				"background_image": "/images/ParkingLot-2.jpg",
-				"descriptive_audio": "/audio/Parking-Lot/4.5.4.1970.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Parking-Lot/4.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "In 1971, Hillel, with faculty support, erected the first marker to honor the students. In 1999, bollards were added to identify where they fell. Every year, volunteers silently stand vigil inside each marker from midnight May 4 until the start of the commemoration program at noon.",
 				"background_image": "/images/ParkingLot-3.jpg",
-				"descriptive_audio": "/audio/Parking-Lot/4.Commemoration.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Parking-Lot/4.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "How do memorials help us to consider and reconsider what we know about historical events?",
 				"background_image": "/images/ParkingLot-4.jpg",
-				"descriptive_audio": "/audio/Parking-Lot/4.Voices for Change.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Parking-Lot/4.Voices for Change.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
@@ -245,7 +232,8 @@
 
 			"three_dimensional_image1": "./images/ParkingLot360-MERGED-trans.png",
 			"three_dimensional_image2": "./images/New360/ParkingLotB.JPG",
-			"start_audio": "./audio/Parking-Lot/4.Possible Intro.m4a"
+			"start_audio": "./audio/Parking-Lot/4.Possible Intro.m4a",
+			"VR_overylay" : "/images/overlays/Prentice-Parking-Lot.jpg"
 		},
 		{
 			"position": 5,
@@ -259,26 +247,22 @@
 				"title": "Context",
 				"description": "Don Drumm, an acclaimed sculptor and Kent State alumnus, created this sculpture, Solar Totem #1 in 1967. It is made of corten steel designed to weather over time.",
 				"background_image": "/images/SolarTotem-1.jpg",
-				"descriptive_audio": "/audio/Solar-Totem/5.Context.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Solar-Totem/5.Context.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "One of the 67 shots fired by the National Guard pierced the Solar Totem.  Two students, John Cleary and Joe Lewis, were injured nearby.",
 				"background_image": "/images/SolarTotem-2.jpg",
-				"descriptive_audio": "/audio/Solar-Totem/5.5.4.1970.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Solar-Totem/5.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "After the events of the May 4, 1970, the University asked Don Drumm to repair the bullet hole, but he refused. Every year as part of the May 4 commemoration, visitors decorate the sculpture with chalked messages of peace and remembrance.",
 				"background_image": "/images/SolarTotem-3.jpg",
-				"descriptive_audio": "/audio/Solar-Totem/5.Commemoration.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Solar-Totem/5.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "How has the meaning of the Solar Totem sculpture changed over time?",
 				"background_image": "/images/SolarTotem-4.jpg",
-				"descriptive_audio": "/audio/Solar-Totem/5.Voices of Change.m4a",
-				"oral_history_audio": "DATA NEEDED"
+				"descriptive_audio": "/audio/Solar-Totem/5.Voices of Change.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
@@ -305,7 +289,8 @@
 
 			"three_dimensional_image1": "./images/SolarTotem360-MERGED-trans.png",
 			"three_dimensional_image2": "./images/New360/SolarTotem.JPG",
-			"start_audio": "./audio/Solar-Totem/5.Possible Intro.m4a"
+			"start_audio": "./audio/Solar-Totem/5.Possible Intro.m4a",
+			"VR_overylay" : "/images/overlays/Solar-Totem.jpg"
 		},
 		{
 			"position": 6,
@@ -319,26 +304,22 @@
 				"title": "Context",
 				"description": "The University built the Gym Annex in 1977 over an area of significance to the May 4 shootings. Its construction inspired a major protest that drew national attention to the preservation of the May 4 site.",
 				"background_image": "/images/GymAnnex-1.jpg",
-				"descriptive_audio": "/audio/Gym-Annex/6.Context.m4a",
-				"oral_history_audio": "../../audio/gymannexS1.mp3"
+				"descriptive_audio": "/audio/Gym-Annex/6.Context.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "While most guardsman fired in the direction of the Prentice Hall Parking Lot, one guardsman turned and fired his shotgun at Jim Russell in the area that is now covered by the Gym Annex.",
 				"background_image": "/images/GymAnnex-2.jpg",
-				"descriptive_audio": "/audio/Gym-Annex/6.5.4.1970.m4a",
-				"oral_history_audio": "../../audio/gymannexS2.mp3"
+				"descriptive_audio": "/audio/Gym-Annex/6.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "In 1977, protesters pitched tents and created a community known as Tent City on the proposed construction site. After months of demonstrations and negotiations, 193 individuals were arrested for their role in obstructing the construction. Among those arrested were the parents of Sandy Scheurer and family members of Alan Canfora, one of the students wounded that day. There are still calls to “Tear Down the Gym.”",
 				"background_image": "/images/GymAnnex-3.jpg",
-				"descriptive_audio": "/audio/Gym-Annex/6.Commemoration.m4a",
-				"oral_history_audio": "../../audio/gymannexS3.mp3"
+				"descriptive_audio": "/audio/Gym-Annex/6.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "What is the role of place in memory?",
 				"background_image": "/images/GymAnnex-4.jpg",
-				"descriptive_audio": "/audio/Gym-Annex/6.Voices for Change.m4a",
-				"oral_history_audio": "../../audio/gymannexS4.mp3"
+				"descriptive_audio": "/audio/Gym-Annex/6.Voices for Change.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
@@ -371,7 +352,8 @@
 
 			"three_dimensional_image1": "./images/GymAnnex360-MERGED-trans.png",
 			"three_dimensional_image2": "./images/New360/GymAnnexB.JPG",
-			"start_audio": "./audio/Gym-Annex/6.Possilbe Intro.m4a"
+			"start_audio": "./audio/Gym-Annex/6.Possilbe Intro.m4a",
+			"VR_overylay" : "/images/overlays/Gym-Annex.jpg"
 		},
 		{
 			"position": 7,
@@ -385,26 +367,22 @@
 				"title": "Context",
 				"description": "The May 4 Memorial was dedicated in 1990, after a controversial design competition.",
 				"background_image": "/images/Memorial-1.jpg",
-				"descriptive_audio": "/audio/May-4th-Memorial/7.Context.m4a",
-				"oral_history_audio": "../../audio/RC Memorial rec 1.mp3"
+				"descriptive_audio": "/audio/May-4th-Memorial/7.Context.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "The site for the Memorial was selected in part because it overlooks the Commons, the site of many of the events of May 1 - 4, 1970.",
 				"background_image": "/images/Memorial-2.jpg",
-				"descriptive_audio": "/audio/May-4th-Memorial/7.5.4.1970.m4a",
-				"oral_history_audio": "../../audio/RC Memorial rec 2.mp3"
+				"descriptive_audio": "/audio/May-4th-Memorial/7.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "After a national competition where the original winner was disqualified, Architect Bruno Ast's second place design was selected and built at a much smaller scale than he initially proposed. Today, the Memorial serves as a place to silently reflect on the legacy of May 4, 1970.",
 				"background_image": "/images/Memorial-3.jpg",
-				"descriptive_audio": "/audio/May-4th-Memorial/7.Commemoration.m4a",
-				"oral_history_audio": "../../audio/RC Memorial rec 3.mp3"
+				"descriptive_audio": "/audio/May-4th-Memorial/7.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "What are the lessons and legacy of May 4, 1970?",
 				"background_image": "/images/Memorial-4.jpg",
-				"descriptive_audio": "/audio/May-4th-Memorial/7.Voices for Change.m4a",
-				"oral_history_audio": "../../audio/RC Memorial rec 4.mp3"
+				"descriptive_audio": "/audio/May-4th-Memorial/7.Voices for Change.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
@@ -431,7 +409,8 @@
 
 			"three_dimensional_image1": "./images/Memorial360-MERGED-trans.png",
 			"three_dimensional_image2": "./images/New360/Memorial.JPG",
-			"start_audio": "./audio/May-4th-Memorial/7.Possible Intro.m4a"
+			"start_audio": "./audio/May-4th-Memorial/7.Possible Intro.m4a",
+			"VR_overylay" : "/images/overlays/May-4th-Memorial.jpg"
 		}
 	]
 }

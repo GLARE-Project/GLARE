@@ -126,8 +126,6 @@ const Tour = React.memo(function Tour({history}) {
             material = await new Promise((resolve, reject) =>
                 new THREE.ImageLoader().load( process.env.PUBLIC_URL + overlayImage, image => {
                     const {width:imageWidth, height:imageHeight} = image;
-                    console.log("width", imageWidth);
-                    console.log("height", imageHeight);
                     const canvas = document.createElement( 'canvas' );
                     canvas.width = imageWidth;
                     canvas.height = imageHeight;
@@ -160,7 +158,7 @@ const Tour = React.memo(function Tour({history}) {
             // size should be effected by zoom?
             var OverlayGeometry = new THREE.PlaneGeometry(StorageData.overlay_size, StorageData.overlay_size);
             OverlayMaterial = new THREE.MeshBasicMaterial( {
-                map: new THREE.TextureLoader().load(process.env.PUBLIC_URL + "/images/overlays/" + name.split(' ').join('-') + ".jpg"),
+                map: new THREE.TextureLoader().load(process.env.PUBLIC_URL + StorageData.VR_overylay),
                 transparent: true,
                 side : THREE.FrontSide
             } );
