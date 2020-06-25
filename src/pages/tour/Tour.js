@@ -199,7 +199,7 @@ const Tour = React.memo(function Tour({history}) {
 
     function setUp() {
         if (StorageData != null) {
-            overlayImage = onCampus ? StorageData.three_dimensional_image1 : StorageData.three_dimensional_image2;
+            overlayImage = onCampus ? StorageData.AR_overlay : StorageData.panorama_image;
         }
         // used to get rid of the bar in safari
         scrollToTop();

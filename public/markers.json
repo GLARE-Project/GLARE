@@ -54,8 +54,8 @@
 				}]
 			}],
 
-			"three_dimensional_image1" : "./images/startImageTwoTrans.png",
-			"three_dimensional_image2" : "./images/New360/VictoryBellB.JPG",
+			"AR_overlay" : "./images/startImageTwoTrans.png",
+			"panorama_image" : "./images/New360/VictoryBellB.JPG",
 			"start_audio" : "./audio/Victory-Bell/1.Possible Intro - 4720, 9.36 PM.m4a",
 			"VR_overylay" : "/images/overlays/Victory-Bell.jpg"
 		},
@@ -114,8 +114,8 @@
 				}]
 			}],
 
-			"three_dimensional_image1": "./images/ROTC360-MERGED-trans.png",
-			"three_dimensional_image2": "./images/New360/RotcB.JPG",
+			"AR_overlay": "./images/ROTC360-MERGED-trans.png",
+			"panorama_image": "./images/New360/RotcB.JPG",
 			"start_audio": "./audio/ROTC-Building/2.Possible Intro.m4a",
 			"VR_overylay" : "/images/overlays/ROTC-Building.jpg"
 		},
@@ -170,8 +170,8 @@
 					"item_description": "First Amendment to the United States Constitution."
 				}]
 			}],
-			"three_dimensional_image1": "./images/Pagoda360-MERGED-trans.png",
-			"three_dimensional_image2": "./images/New360/PagodaA.JPG",
+			"AR_overlay": "./images/Pagoda360-MERGED-trans.png",
+			"panorama_image": "./images/New360/PagodaA.JPG",
 			"start_audio": "./audio/Pagoda/3.Possible Intro.m4a",
 			"VR_overylay" : "/images/overlays/Pagoda.jpg"
 		},
@@ -230,8 +230,8 @@
 				}]
 			}],
 
-			"three_dimensional_image1": "./images/ParkingLot360-MERGED-trans.png",
-			"three_dimensional_image2": "./images/New360/ParkingLotB.JPG",
+			"AR_overlay": "./images/ParkingLot360-MERGED-trans.png",
+			"panorama_image": "./images/New360/ParkingLotB.JPG",
 			"start_audio": "./audio/Parking-Lot/4.Possible Intro.m4a",
 			"VR_overylay" : "/images/overlays/Prentice-Parking-Lot.jpg"
 		},
@@ -287,8 +287,8 @@
 				}]
 			}],
 
-			"three_dimensional_image1": "./images/SolarTotem360-MERGED-trans.png",
-			"three_dimensional_image2": "./images/New360/SolarTotem.JPG",
+			"AR_overlay": "./images/SolarTotem360-MERGED-trans.png",
+			"panorama_image": "./images/New360/SolarTotem.JPG",
 			"start_audio": "./audio/Solar-Totem/5.Possible Intro.m4a",
 			"VR_overylay" : "/images/overlays/Solar-Totem.jpg"
 		},
@@ -350,8 +350,8 @@
 				}]
 			}],
 
-			"three_dimensional_image1": "./images/GymAnnex360-MERGED-trans.png",
-			"three_dimensional_image2": "./images/New360/GymAnnexB.JPG",
+			"AR_overlay": "./images/GymAnnex360-MERGED-trans.png",
+			"panorama_image": "./images/New360/GymAnnexB.JPG",
 			"start_audio": "./audio/Gym-Annex/6.Possilbe Intro.m4a",
 			"VR_overylay" : "/images/overlays/Gym-Annex.jpg"
 		},
@@ -407,8 +407,8 @@
 				}]
 			}],
 
-			"three_dimensional_image1": "./images/Memorial360-MERGED-trans.png",
-			"three_dimensional_image2": "./images/New360/Memorial.JPG",
+			"AR_overlay": "./images/Memorial360-MERGED-trans.png",
+			"panorama_image": "./images/New360/Memorial.JPG",
 			"start_audio": "./audio/May-4th-Memorial/7.Possible Intro.m4a",
 			"VR_overylay" : "/images/overlays/May-4th-Memorial.jpg"
 		}
