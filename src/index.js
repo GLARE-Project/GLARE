@@ -20,7 +20,10 @@ function Provider({ children }) {
           await fetch(process.env.PUBLIC_URL + "/markers.json")
           .then(res => res.json() )
           .then(res => {
-              if(res.hasOwnProperty("hotspots")) setData(res["hotspots"]) 
+              if(res.hasOwnProperty("hotspots")) {
+                setData(res["hotspots"]);
+                localStorage.setItem("markerData", JSON.stringify(res));
+              }
             })
           .catch(err => console.error("[Error]: " + err));
       };

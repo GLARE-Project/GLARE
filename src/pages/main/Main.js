@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useLocation } from "react-router-dom";
 import BackButton from '../../components/BackButton';
 import AudioPlayer from "./../../components/AutoPlayer";
@@ -6,6 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import "./main.scss"
+import { Context } from "./../../index";
 
 library.add(faTimes);
 
@@ -14,14 +15,14 @@ const Main = React.memo(function Main(props) {
     let name = query.get("name");
     let type = query.get("type");
     const [faded, setFaded] = useState(false);
+    const { markerData } = useContext(Context);
+
 
     // set local to component so if we set the inverval
     // and leave, we can clear it
     let fadeEffect;
 
-    const StorageData = JSON.parse(localStorage.getItem(name));
-    // data was never set go to maps to set
-    if (StorageData == null) props.history.push("/map");
+    const StorageData = markerData.filter(marker => marker.name === name);
 
     function fadeOutEffect(time) {
         const fadeTarget = document.querySelector("#textCtn");

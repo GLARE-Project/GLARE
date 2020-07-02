@@ -20,7 +20,7 @@ const Tour = React.memo(function Tour({history}) {
     let query = new URLSearchParams(useLocation().search);
     let name = query.get("name");
 
-    const { onCampus } = useContext(Context);
+    const { onCampus, markerData } = useContext(Context);
     const [status, setStatus] = useState("waiting");
 
     // event so that if the user resizes, it will adjust
@@ -92,9 +92,8 @@ const Tour = React.memo(function Tour({history}) {
         });
     }
 
-    const StorageData = JSON.parse(localStorage.getItem(name));
-    // data was never set go to maps to set
-    if (StorageData == null) history.push("/map");
+    const StorageData = markerData.filter(marker => marker.name === name);
+
 
     var overlayImage;
 

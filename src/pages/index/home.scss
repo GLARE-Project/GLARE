@@ -36,7 +36,7 @@ body {
 }
 
 body.homepage {
-    background-image: url("/images/rotc4.png");
+    background-image: var(--homepage-background);
     background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center; 

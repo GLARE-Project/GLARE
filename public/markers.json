@@ -1,4 +1,7 @@
 {
+	"project_name": "The May 4th AR Experience",
+	"intro_audio": "/audio/intro/Introduction.m4a",
+	"homepage_image": "/images/rotc4.png",
 	"hotspots": [{
 			"position": 1,
 			"latitude": 41.150186857592914,

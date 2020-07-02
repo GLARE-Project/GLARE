@@ -79,8 +79,6 @@ function Map(props) {
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
         {markerData.map(marker => {
-        // store for later use
-        localStorage.setItem(marker.name, JSON.stringify(marker));
         return (
             <Marker
               icon={ PointIcon(marker.position.toString()) }

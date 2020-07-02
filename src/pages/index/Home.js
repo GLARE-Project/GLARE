@@ -64,6 +64,10 @@ function Home() {
 
   let history = useHistory();
 
+  const backgroundImg = JSON.parse(localStorage.getItem("markerData")).homepage_image;
+  const projectName = JSON.parse(localStorage.getItem("markerData")).project_name;
+  const introAudio = JSON.parse(localStorage.getItem("markerData")).intro_audio;
+
   function handleClick() {
     setFullScreen();
     setUpDeviceMotion();
@@ -73,19 +77,22 @@ function Home() {
   useEffect(() => {
       setOrientation();
       document.body.classList.add("homepage");
+      document.body.style.setProperty('--homepage-background', 
+        "url(" + backgroundImg + ")"
+      );
       return () =>  document.body.classList.remove("homepage");
   }, []);
 
   return (
     <React.Fragment>
-      <Rehowl src={process.env.PUBLIC_URL + '/audio/intro/Introduction.m4a'}>{
+      <Rehowl src={process.env.PUBLIC_URL + introAudio}>{
         ({ howl }) => <Play howl={howl} />
       }</Rehowl>
       <div className="homepage">
         <div id="buttona" >
           <button onClick={handleClick} type="button">BEGIN TOUR</button>
         </div>
-        <div id="introTxt">An Augmented May 4<sup>th</sup> Experience</div>
+        <div id="introTxt">{ projectName }</div>
       </div>
     </React.Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useLocation } from "react-router-dom";
 import {
     Accordion,
@@ -14,6 +14,7 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import BackButton from '../../components/BackButton';
 import './media.css';
+import { Context } from "./../../index";
 
 library.add(faChevronLeft, faChevronRight);
 
@@ -22,10 +23,10 @@ function Media(props) {
     let name = query.get("name");
     let type = query.get("type");
 
-    const StorageData = JSON.parse(localStorage.getItem(name));
-    // data was never set go to maps to set
-    if (StorageData == null) props.history.push("/map");
+    const { markerData } = useContext(Context);
 
+
+    const StorageData = markerData.filter(marker => marker.name === name);
 
     useEffect(() => {
         // remove the image from loading in from the homepages
