@@ -37,6 +37,7 @@ body {
 
 body.homepage {
     background-image: var(--homepage-background);
+    background-color: black;
     background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center; 
@@ -84,12 +85,12 @@ body.homepage {
         position: relative;
         top: 1em;
         z-index: 4;
-        font-size: 4vw;
+        font-size: 5vw;
         font-weight: bold;
         font-style: italic;
+        color: white;
         text-shadow: 
-        2px 2px 4px #ffffff,
-        1px 1px 2px #000000;
+        2px 2px 4px #000;
     }
     
     #overlay {
