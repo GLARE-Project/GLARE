@@ -161,7 +161,7 @@ const Steps360 = [
         image: "Step2-remote.png"
     },
     {
-        description: "Each hotspot shows an historical image from May, 1970, displayed on a 360 image from today. You can use your mouse to look around the picture. Use the various icons to access additional information or to return to the map.",
+        description: "Each hotspot shows an historical image, displayed on a 360 image from today. You can use your mouse to look around the picture. Use the various icons to access additional information or to return to the map.",
         image: "Step3-remote.png"
     }
 ];

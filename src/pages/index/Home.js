@@ -63,8 +63,6 @@ function scrollToBottom() {
 function Home() {
 
   let history = useHistory();
-
-  const backgroundImg = JSON.parse(localStorage.getItem("markerData")).homepage_image;
   const projectName = JSON.parse(localStorage.getItem("markerData")).project_name;
   const introAudio = JSON.parse(localStorage.getItem("markerData")).intro_audio;
 
@@ -76,6 +74,9 @@ function Home() {
 
   useEffect(() => {
       setOrientation();
+
+      const backgroundImg = JSON.parse(localStorage.getItem("markerData")).homepage_image;
+
       document.body.classList.add("homepage");
       document.body.style.setProperty('--homepage-background', 
         "url(" + backgroundImg + ")"
