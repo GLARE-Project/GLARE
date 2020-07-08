@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { Map as LeafletMap, TileLayer, Marker, CircleMarker } from "react-leaflet";
 import L from "leaflet";
 import BackButton from '../../components/BackButton';
@@ -20,7 +20,7 @@ function Map(props) {
 
   // if the camera fails, we know they aren't able to run the AR
   // so we set them off campus, even though they might be there
-  function checkCamera() {
+  const checkCamera = useCallback(() => {
     // check to see if the devices are undefine
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
         navigator.mediaDevices.getUserMedia({
@@ -34,27 +34,36 @@ function Map(props) {
     } else {
         setOnCampus(false);
     }
-  }
+  }, [setOnCampus]);
+
+
+  //set the error value and log it to console
+  const setAndLogError = useCallback(err => {
+    // don't repeat errors
+    if (GeoError !== err) {
+      console.warn(err);
+      setError(err);
+    }
+  }, [GeoError]);
 
   // create current postion point
-  function success(pos) {
+  const success = useCallback(pos => {
     onPositionUpdate(pos, props.history, markerData);
     setOnCampus(isOnCampus(pos, markerData));
     checkCamera();
+    // reset the error value as it worked
     setError(null);
     setCurrentPos([pos.coords.latitude, pos.coords.longitude]);
+  }, [setOnCampus, props.history, checkCamera, markerData]);
 
-  }
-
-  function error(err) {
+  const error = useCallback(err => {
     setCurrentPos([]);
     // gps failed, so we just go to off-campus
     setOnCampus(false);
-    setError('Error: The Geolocation service failed.');
-    console.warn(err);
-  }
+    setAndLogError('Error: The Geolocation service failed.');
+  }, [setOnCampus, setAndLogError]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
       // Try HTML5 geolocation.
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(success, error,
@@ -65,9 +74,9 @@ function Map(props) {
           });
       } else {
         // Browser doesn't support Geolocation
-        setError('Error: Your browser doesn\'t support geolocation.');
+        setAndLogError('Error: Your browser doesn\'t support geolocation.');
       }
-  }, [onCampus]);
+  }, [success, error, setAndLogError, onCampus]);
 
   return (
     <React.Fragment>
