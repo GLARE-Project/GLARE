@@ -1,7 +1,7 @@
 {
 	"project_name": "The May 4th AR Experience",
-	"intro_audio": "/audio/intro/Introduction.m4a",
-	"homepage_image": "/images/rotc4.png",
+	"intro_audio": "/demo/Introduction.m4a",
+	"homepage_image": "/demo/rotc4.png",
 	"hotspots": [{
 			"position": 1,
 			"latitude": 41.150186857592914,
@@ -13,32 +13,32 @@
 			"main_pages": [{
 				"title": "Context",
 				"description": "On May 1, 1970 a group of 500 students led by history graduate students gathered here at the Victory Bell to protest President Nixon’s announcement of the Cambodian Invasion the night before. After burying a copy of Constitution as a symbol of an expansion of an already unpopular war, the organizers called for a larger protest at noon on Monday, May 4, 1970.",
-				"background_image": "VictoryBell-1.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.Context.May 1st - 4720, 9.40 PM.m4a"
+				"background_image": "/demo/VictoryBell-1.jpg",
+				"descriptive_audio": "/demo/1.Context.May 1st - 4720, 9.40 PM.m4a"
 			}, {
 				"title": "May 4, 1970",
 				"description": "After a weekend of turmoil off campus and on, an estimated 2000 people, gathered that Monday to protest the Vietnam War and the presence of the Ohio National Guard on campus",
-				"background_image": "VictoryBell-2.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.5.4.1970.m4a"
+				"background_image": "/demo/VictoryBell-2.jpg",
+				"descriptive_audio": "/demo/1.5.4.1970.m4a"
 			}, {
 				"title": "Commemoration",
 				"description": "Since 1971, friends, family, and students gather in silence at the Victory Bell at 11:00 pm on May 3 for the start of the annual Candlelight Vigil and March. On May 4, the bell is rung 15 times-- once for each of the victims of the Kent State shooting and the two men killed at Jackson State.",
-				"background_image": "VictoryBell-2.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.Commemoration.m4a"
+				"background_image": "/demo/VictoryBell-2.jpg",
+				"descriptive_audio": "/demo/1.Commemoration.m4a"
 			}, {
 				"title": "Voices for Change",
 				"description": "How is student activism different today?",
-				"background_image": "VictoryBell-2.jpg",
-				"descriptive_audio": "/audio/Victory-Bell/1.Voices for Change - 4720, 9.45 PM.m4a"
+				"background_image": "/demo/VictoryBell-2.jpg",
+				"descriptive_audio": "/demo/1.Voices for Change - 4720, 9.45 PM.m4a"
 			}],
 			"media_pages": [{
 				"title": "Pictures",
 				"content_type": 0,
 				"content_items": [{
-					"item": "VictoryBell-5a.jpg",
+					"item": "/demo/VictoryBell-5a.jpg",
 					"item_description": "A growing crowd gathers at the Victory Bell, May 4, 1970."
 				}, {
-					"item": "VictoryBell-5b.jpg",
+					"item": "/demo/VictoryBell-5b.jpg",
 					"item_description": "Trails of light from the first annual Candlelight March and Vigil, May 3, 1971."
 				}]
 			}, {
@@ -57,10 +57,10 @@
 				}]
 			}],
 
-			"AR_overlay" : "startImageTwoTrans.png",
-			"panorama_image" : "VictoryBellB.JPG",
-			"start_audio" : "1.Possible Intro - 4720, 9.36 PM.m4a",
-			"VR_overylay" : "Victory-Bell.jpg"
+			"AR_overlay" : "/demo/startImageTwoTrans.png",
+			"panorama_image" : "/demo/VictoryBellB.JPG",
+			"start_audio" : "/demo/1.Possible Intro - 4720, 9.36 PM.m4a",
+			"VR_overylay" : "/demo/Victory-Bell.jpg"
 		}
 	]
 }
