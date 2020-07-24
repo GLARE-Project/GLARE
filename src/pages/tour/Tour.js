@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext, Suspense } from 'react';
-import { Canvas } from 'react-three-fiber';
+import { Canvas, useThree, useFrame } from 'react-three-fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { Html } from 'drei'
+import { Euler } from 'three'
+import { useSpring } from "react-spring"
 import AudioPlayer from "./../../components/AutoPlayer";
 import MenuOverlay from "../../components/Menu/MenuOverlay";
 import { Context } from "./../../index";
@@ -27,6 +29,22 @@ const Tour = ({ history }) => {
     const { onCampus, markerData } = useContext(Context);
     const [StorageData, setStoredData] = useState(null);
 
+    const [cameraRotation, setRotationFinished] = useState(false)
+
+    const { camera } = useThree()
+    /*
+    const {x, y, z} = useSpring({
+        from: { x: 0, y: 0, z: 1 }, 
+        to: { x: 0, y: 0, z: 1 },
+        onRest: () => setRotationFinished(false)
+    });
+    
+    useFrame(() => {
+        if (cameraRotation) camera.rotation = new Euler(x.value, y.value, z.value);
+    });
+    */
+      
+
     function scrollToTop() {
         window.scrollTo(0, 0);
         window.scrollTo(0, 1);
@@ -37,7 +55,7 @@ const Tour = ({ history }) => {
     }
 
     function focusCamera() {
-
+        if (camera) cameraRotation(true)
     }
 
     useEffect(() => {
@@ -58,7 +76,10 @@ const Tour = ({ history }) => {
 
                     <Canvas id="canvas" camera={{ position: [0, 0, 1], fov: 45 }}>
                         <Suspense fallback={<Fallback />}>
-                            {onCampus ? <SphereMapAR data={StorageData} /> : <CubeMapVR data={StorageData} />}
+                            {onCampus ?
+                                <SphereMapAR data={StorageData} /> :
+                                <CubeMapVR data={StorageData} />
+                            }
                         </Suspense>
                     </Canvas>
 
