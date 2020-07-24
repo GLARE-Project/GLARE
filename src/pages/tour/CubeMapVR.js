@@ -27,7 +27,7 @@ function processFace(imgData) {
 
 
 const OverlayVR = ({ data }) => {
-  const { overlay_size=10 , overlay_offset_x=0, overlay_offset_y=0, VR_overylay } = data;
+  const { overlay_size = 10, overlay_offset_x = 0, overlay_offset_y = 0, VR_overylay } = data;
   const texture = useLoader(TextureLoader, VR_overylay);
 
   return (
@@ -47,15 +47,15 @@ const CubeMapVR = React.memo(({ data }) => {
 
   const textureImg = useLoader(TextureLoader, panorama_image);
 
-  const {width, height} = textureImg.image;
-  const canvas = document.createElement( 'canvas' );
+  const { width, height } = textureImg.image;
+  const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
-  
-  const context = canvas.getContext( '2d' );
-  context.drawImage( textureImg.image, 0, 0);
-  
-  const imageData = context.getImageData( 0, 0, width, height );
+
+  const context = canvas.getContext('2d');
+  context.drawImage(textureImg.image, 0, 0);
+
+  const imageData = context.getImageData(0, 0, width, height);
   const textures = processFace(imageData);
 
   return (
@@ -70,7 +70,7 @@ const CubeMapVR = React.memo(({ data }) => {
             return (<meshBasicMaterial key={index} attachArray="material" map={faceTexture} side={FrontSide} />);
           })}
         </mesh>
-        <OverlayVR data={data}/>
+        <OverlayVR data={data} />
       </group>
       <OrbitControls
         enablePan={false}

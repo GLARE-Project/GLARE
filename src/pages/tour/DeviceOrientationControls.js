@@ -1,4 +1,4 @@
-import React, {forwardRef, useRef, useEffect} from 'react'
+import React, { forwardRef, useRef, useEffect } from 'react'
 import { extend, useThree, useFrame } from 'react-three-fiber'
 import { DeviceOrientationControls as DeviceOrientationControlsImp } from 'three/examples/jsm/controls/DeviceOrientationControls';
 import mergeRefs from 'react-merge-refs'
