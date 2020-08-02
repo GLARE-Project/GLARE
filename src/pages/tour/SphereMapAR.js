@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLoader } from 'react-three-fiber';
 import { TextureLoader, BackSide } from 'three';
-import { DeviceOrientationControls } from "./DeviceOrientationControls"
-
+import { DeviceOrientationControls } from 'drei'
 
 function handleVideo() {
     // Older browsers might not implement mediaDevices at all, so we set an empty object first
