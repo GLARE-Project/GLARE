@@ -1,30 +1,7 @@
 import React from 'react';
 import { useLoader } from 'react-three-fiber';
 import { OrbitControls } from 'drei'
-import { TextureLoader, FrontSide, DataTexture, RGBAFormat } from 'three';
-import renderFace from "./../../utils/imageConvert";
-
-
-// input the image equirectangular data
-// return a texture for each face as a collective material
-function processFace(imgData) {
-  const faces = [
-    'px', 'nx',
-    'py', 'ny',
-    'pz', 'nz'
-  ];
-  // for each face
-  return faces.map(faceName => {
-    // get that face using sample
-    const [faceData, faceWidth, faceHeight] = renderFace(imgData, faceName);
-    // Create a texture based on the data
-    const texture = new DataTexture(faceData.data, faceWidth, faceHeight, RGBAFormat);
-    texture.needsUpdate = true;
-    return texture;
-  });
-}
-
-
+import { TextureLoader, FrontSide, Vector3 } from 'three';
 
 const OverlayVR = ({ data }) => {
   const { overlay_size = 10, overlay_offset_x = 0, overlay_offset_y = 0, VR_overylay } = data;
@@ -45,18 +22,47 @@ const OverlayVR = ({ data }) => {
 const CubeMapVR = React.memo(({ data }) => {
   const { panorama_image } = data;
 
-  const textureImg = useLoader(TextureLoader, panorama_image);
+  const texture = useLoader(TextureLoader, panorama_image);
 
-  const { width, height } = textureImg.image;
-  const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
+  // Begin shaders to add mipmaps, remove seams, and convert to cubemap
+  const vertexShader = `
+  varying vec3 worldPosition;
+  void main () {
+    vec4 p = vec4 (position, 1.0);
+    worldPosition = (modelMatrix * p).xyz;
+    gl_Position = projectionMatrix * modelViewMatrix * p;
+  }`
 
-  const context = canvas.getContext('2d');
-  context.drawImage(textureImg.image, 0, 0);
+  const fragmentShader = `
+  uniform sampler2D map;
+  uniform vec3 placement;
+  varying vec3 worldPosition;
+  const float seamWidth = 0.01;
+  void main () {
+    vec3 R = worldPosition - placement;
+    float r = length (R);
+    float c = -R.y / r;
+    float theta = acos (c);
+    float phi = atan (R.x, -R.z);
+    float seam = 
+      max (0.0, 1.0 - abs (R.x / r) / seamWidth) *
+      clamp (1.0 + (R.z / r) / seamWidth, 0.0, 1.0);
+    gl_FragColor = texture2D (map, vec2 (
+      0.5 + phi / ${2 * Math.PI},
+      theta / ${ Math.PI }
+    ), -2.0 * log2(1.0 + c * c) -12.3 * seam);
+  }`
 
-  const imageData = context.getImageData(0, 0, width, height);
-  const textures = processFace(imageData);
+  const uniforms = {
+    map: {
+      type: 't', value: texture
+    },
+    placement: {
+      type: 'v3', value: new Vector3()
+    }
+  }
+
+  // end shader content
 
   return (
     <>
@@ -65,10 +71,7 @@ const CubeMapVR = React.memo(({ data }) => {
           {/*Inverse on z axis to make cubemap
           * this is like setting the scale [1, 1, -1]  */}
           <boxGeometry attach="geometry" args={[20, 20, -20]} />
-          {/* the cube map textures, TODO: should fill will 6 faces */}
-          {textures.map((faceTexture, index) => {
-            return (<meshBasicMaterial key={index} attachArray="material" map={faceTexture} side={FrontSide} />);
-          })}
+          <shaderMaterial attach="material" uniforms={uniforms} fragmentShader={fragmentShader} vertexShader={vertexShader} />
         </mesh>
         <OverlayVR data={data} />
       </group>
