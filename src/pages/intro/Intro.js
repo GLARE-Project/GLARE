@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { useHowl, Play } from 'rehowl';
 import { useHistory } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -20,12 +20,12 @@ function Intro() {
     const { howl } = useHowl({ src: process.env.PUBLIC_URL + '/audio/intro/' + (stepNum + 1) + audioPrefix + '.m4a', html5: true})
 
 
-    const handleFinish = () => {
+    const handleFinish = useCallback(() => {
         localStorage.setItem("introCount", StepData.length);
         history.replace("/map");
-    }
+    }, [StepData.length, history]);
 
-    function checkCamera() {
+    const checkCamera = useCallback(() => {
         // check to see if the devices are undefine
         if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
             navigator.mediaDevices.getUserMedia({
@@ -39,9 +39,9 @@ function Intro() {
         } else {
             setOnCampus(false);
         }
-    }
+    }, [setOnCampus]);
 
-    function checkPos() {
+    const checkPos = useCallback(() => {
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(() => setOnCampus(true),() => setOnCampus(false),
             {
@@ -52,7 +52,7 @@ function Intro() {
           } else {
             setOnCampus(false);
           }
-    }
+    }, [setOnCampus]);
 
 
     const handleBack = () => {
@@ -107,7 +107,7 @@ function Intro() {
                 SetStepNum(IntroCount);
         }
         return () =>  document.body.classList.remove("IntroPage");
-    }, [StepData, onCampus]);
+    }, [StepData, onCampus, IntroCount, checkCamera, checkPos, handleFinish]);
 
     if (StepData.length > 0 && StepData.length > stepNum)
         return (
