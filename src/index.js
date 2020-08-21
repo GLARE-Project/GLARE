@@ -22,7 +22,13 @@ function Provider({ children }) {
           .then(res => {
               if(res.hasOwnProperty("hotspots")) {
                 setData(res["hotspots"]);
-                localStorage.setItem("markerData", JSON.stringify(res));
+                // state data might need set again, but localstorage usually propigates fine
+                if (localStorage.getItem("markerData") !== JSON.stringify(res)) {
+                    localStorage.setItem("markerData", JSON.stringify(res));
+                    // reload so that the localstorage can be used
+                    window.location.reload(false);
+                }
+
               }
             })
           .catch(err => console.error("[Error]: " + err));

@@ -63,8 +63,7 @@ function scrollToBottom() {
 function Home() {
 
   let history = useHistory();
-  const projectName = JSON.parse(localStorage.getItem("markerData")).project_name;
-  const introAudio = JSON.parse(localStorage.getItem("markerData")).intro_audio;
+  const { project_name, intro_audio } = JSON.parse(localStorage.getItem("markerData")) || { project_name: "", intro_audio: "" };
 
   function handleClick() {
     setFullScreen();
@@ -75,25 +74,25 @@ function Home() {
   useEffect(() => {
       setOrientation();
 
-      const backgroundImg = JSON.parse(localStorage.getItem("markerData")).homepage_image;
+      const { homepage_image } = JSON.parse(localStorage.getItem("markerData")) || { homepage_image: "" };
 
       document.body.classList.add("homepage");
       document.body.style.setProperty('--homepage-background', 
-        "url(" + backgroundImg + ")"
+        "url(" + homepage_image + ")"
       );
       return () =>  document.body.classList.remove("homepage");
   }, []);
 
   return (
     <React.Fragment>
-      <Rehowl src={process.env.PUBLIC_URL + introAudio}>{
+      {intro_audio && (<Rehowl src={process.env.PUBLIC_URL + intro_audio}>{
         ({ howl }) => <Play howl={howl} />
-      }</Rehowl>
+      }</Rehowl>)}
       <div className="homepage">
         <div id="buttona" >
           <button onClick={handleClick} type="button">BEGIN TOUR</button>
         </div>
-        <div id="introTxt">{ projectName }</div>
+        <div id="introTxt">{ project_name }</div>
       </div>
     </React.Fragment>
   );
