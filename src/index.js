@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom"
 import * as serviceWorker from './utils/serviceWorker';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTitle } from 'react-use';
 
 export const Context = React.createContext();
 
@@ -15,25 +16,28 @@ function Provider({ children }) {
 
     const [markerData, setData] = useState([]);
 
-    useEffect(() => {
-      const fetchMarkerData = async () => {
-          await fetch(process.env.PUBLIC_URL + "/markers.json")
-          .then(res => res.json() )
-          .then(res => {
-              if(res.hasOwnProperty("hotspots")) {
-                setData(res["hotspots"]);
-                // state data might need set again, but localstorage usually propigates fine
-                if (localStorage.getItem("markerData") !== JSON.stringify(res)) {
-                    localStorage.setItem("markerData", JSON.stringify(res));
-                    // reload so that the localstorage can be used
-                    window.location.reload(false);
-                }
+    const { project_name } = JSON.parse(localStorage.getItem("markerData")) || { project_name: "" };
+    useTitle(project_name);
 
-              }
-            })
-          .catch(err => console.error("[Error]: " + err));
-      };
-      fetchMarkerData();
+    useEffect(() => {
+        const fetchMarkerData = async () => {
+            await fetch(process.env.PUBLIC_URL + "/markers.json")
+                .then(res => res.json())
+                .then(res => {
+                    if (res.hasOwnProperty("hotspots")) {
+                        setData(res["hotspots"]);
+                        // state data might need set again, but localstorage usually propigates fine
+                        if (localStorage.getItem("markerData") !== JSON.stringify(res)) {
+                            localStorage.setItem("markerData", JSON.stringify(res));
+                            // reload so that the localstorage can be used
+                            window.location.reload(false);
+                        }
+
+                    }
+                })
+                .catch(err => console.error("[Error]: " + err));
+        };
+        fetchMarkerData();
     }, []);
 
     return (
@@ -45,7 +49,7 @@ function Provider({ children }) {
             markerData
         }}
         >
-            { children }
+            {children}
             <ToastContainer />
         </Context.Provider>
     );
@@ -57,7 +61,7 @@ ReactDOM.render(
             <App />
         </BrowserRouter>
     </Provider>
-, 
-document.getElementById('root'));
+    ,
+    document.getElementById('root'));
 
 serviceWorker.register();

@@ -2,6 +2,7 @@
 	"project_name": "The May 4th AR Experience",
 	"intro_audio": "/demo/Introduction.m4a",
 	"homepage_image": "/demo/rotc4.png",
+	"ga_tracking_id": "UA-162868232-1",
 	"hotspots": [{
 			"position": 1,
 			"latitude": 41.150186857592914,
