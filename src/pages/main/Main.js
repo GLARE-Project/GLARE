@@ -64,7 +64,8 @@ const Main = ({ history }) => {
                                     handleFade( 200 / FADE_MULTIPLIER);
                                 }}
                             />
-                            <Frame 
+                            <Frame
+                                position={"relative"}
                                 animate={controls} 
                                 className="textCtn"
                                 initial={{
