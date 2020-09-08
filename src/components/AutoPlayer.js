@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from "./../index";
 
-const AutoPlayer = React.memo(function AutoPlayer({source, name, cb}) {
+const AutoPlayer = React.memo(function AutoPlayer({source, name, onLoad, onPause}) {
     const {modelOpen} = useContext(Context);
 
     // mark audio finished an no-longer autoplay
@@ -20,7 +20,8 @@ const AutoPlayer = React.memo(function AutoPlayer({source, name, cb}) {
             controls="controls"
             autoPlay={autoPlay}
             onEnded={name ? onEnd : () => {}}
-            onLoadedMetadata={cb ? ()=> cb(getAudioTime()) : () => {}}
+            onLoadedMetadata={onLoad ? ()=> onLoad(getAudioTime()) : () => {}}
+            onPause={onPause ? ()=> onPause() : () => {}}
         >
             <source id="mp3_src" type="audio/mp3" src={source}/>
             Your browser does not support the audio element.

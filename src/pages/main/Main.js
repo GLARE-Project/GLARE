@@ -5,56 +5,41 @@ import AudioPlayer from "./../../components/AutoPlayer";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Frame, useAnimation } from 'framer'
 import "./main.scss"
 import { Context } from "./../../index";
 
 library.add(faTimes);
 
-const Main = React.memo(function Main(props) {
+const Main = ({ history }) => {
     const query = new URLSearchParams(useLocation().search);
     const name = query.get("name");
     const type = query.get("type");
-    const [faded, setFaded] = useState(false);
-    const { markerData } = useContext(Context);
 
     const [content, setContent] = useState([]);
 
-    // set local to component so if we set the inverval
-    // and leave, we can clear it
-    let fadeEffect;
+    const [faded, setFaded] = useState(false);
 
     const { markerData } = useContext(Context);
 
-    function fadeOutEffect(time) {
-        const fadeTarget = document.querySelector("#textCtn");
-        const rateOfFade = 200;
-        fadeEffect = setInterval(() => {
-            if (!fadeTarget.style.opacity) {
-                fadeTarget.style.opacity = 1;
-            }
-            if (fadeTarget.style.opacity > 0) {
-                fadeTarget.style.opacity -= rateOfFade / time;
-            } else {
-                setFaded(true);
-                clearInterval(fadeEffect);
-            }
-        }, rateOfFade);
-    }
+    const controls = useAnimation();
+
+    const FADE_MULTIPLIER = 1.3; // 130% to make content readable before it is completely gone
 
     const handleFade = (time) => {
-        fadeOutEffect(time * 1.3);
+        controls.start({
+            opacity: 0,
+            transition: { duration: (time * FADE_MULTIPLIER) / 1000 }, // make everything in terms of a milliseconds
+        }).then(() => setFaded(true));
     }
-
 
     useEffect(() => {
         // remove the image from loading in from the homepages
         document.body.classList.add("scrollable-body");
-
         return () => {
-            clearInterval(fadeEffect);
             document.body.attributes.removeNamedItem("style");
             document.body.classList.remove("scrollable-body");
-        }       
+        }
     }, []); // ignore rerun from fade state update
 
     useEffect(() => { // to set the content 
@@ -67,22 +52,31 @@ const Main = React.memo(function Main(props) {
             {content.map((main, index) => {
                 if (type === main.title) {
                     document.body.style.backgroundImage = 'url(' + process.env.PUBLIC_URL + main.background_image + ')';
-                    return(
+                    return (
                         <main key={index}>
-                            <FontAwesomeIcon 
+                            <FontAwesomeIcon
                                 className={[
                                     "overlay-icon", "closeBtn",
                                     faded ? "hidden" : "visible"
                                 ].join(' ')}
                                 icon={faTimes}
-                                onClick={() => {fadeOutEffect(200)}}
+                                onClick={() => {
+                                    handleFade( 200 / FADE_MULTIPLIER);
+                                }}
                             />
-                            <div className={faded ? "hidden" : "visible"} id="textCtn">
-                                <h1 id="title">{ main.title }</h1>
-                                <p id="text">{ main.description }</p>
-                            </div>
-                            <AudioPlayer source={process.env.PUBLIC_URL + main.descriptive_audio} cb={time => handleFade(time)}/>
-                            <BackButton history={props.history}/>
+                            <Frame 
+                                animate={controls} 
+                                className="textCtn"
+                                initial={{
+                                    opacity: 1,
+                                    width: 'calc(100% - 16em)' 
+                                }}
+                            >
+                                <h1 id="title">{main.title}</h1>
+                                <p id="text">{main.description}</p>
+                            </Frame>
+                            <AudioPlayer source={process.env.PUBLIC_URL + main.descriptive_audio} onLoad={time => handleFade(time)} onPause={controls.stop} />
+                            <BackButton history={history} />
                         </main>
                     );
                 }
@@ -92,6 +86,6 @@ const Main = React.memo(function Main(props) {
         </React.Fragment>
     );
 
-});
+};
 
 export default Main;
