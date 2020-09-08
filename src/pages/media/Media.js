@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import {
     Accordion,
@@ -23,82 +23,87 @@ function Media(props) {
     let name = query.get("name");
     let type = query.get("type");
 
+    const [content, setContent] = useState([]);
+
     const { markerData } = useContext(Context);
-
-
-    const StorageData = markerData.filter(marker => marker.name === name);
 
     useEffect(() => {
         // remove the image from loading in from the homepages
         document.body.classList.add("no-image");
-        return () => { document.body.classList.remove("no-image"); }          
+        return () => { document.body.classList.remove("no-image"); }
+
     });
+
+    useEffect(() => { // to set the content 
+        const { media_pages } = markerData.filter(marker => marker.name === name).pop() || { media_pages: [] };
+        if (JSON.stringify(media_pages) !== JSON.stringify(content)) setContent(media_pages);
+    }, [content, markerData, name]);
 
     return (
         <main>
             <h1 className="header">Library</h1>
             <Accordion>
-            {StorageData.media_pages.map(media => {
-                if (type === null || type === media.title) {
-                    return (
-                        <AccordionItem allowZeroExpanded={true}>
-                            <div className="text">
-                                <AccordionItemHeading>
-                                    <AccordionItemButton id="title">
-                                        {media.title}
-                                    </AccordionItemButton>
-                                </AccordionItemHeading>
-                                <AccordionItemPanel>
-                                {media.title === "Pictures" ? (
-                                    <CarouselProvider
-                                        naturalSlideWidth={100}
-                                        naturalSlideHeight={100}
-                                        infinite
-                                        totalSlides={media.content_items.length}
-                                    >
-                                        <Slider>
-                                            {media.content_items.map((content, index) => {
-                                                return (
-                                                    <PictureContent  URL={content.item} description={content.item_description} index={index}/>
-                                                )
-                                            })}
-                                        </Slider>
-                                        <DotGroup />
-                                        <ButtonBack>
-                                        <FontAwesomeIcon 
-                                            className={"back-icon"}
-                                            icon={faChevronLeft}
-                                        />
-                                        </ButtonBack>
-                                        <ButtonNext>
-                                        <FontAwesomeIcon 
-                                            className={"next-icon"}
-                                            icon={faChevronRight}
-                                        />
-                                        </ButtonNext>
-                                    </CarouselProvider>) : (
-                                    ( media.content_items.map(content => {
-                                        return (<LinksContent URL={content.item} description={content.item_description} />)
-                                    }))
-                                    )}
-                                </AccordionItemPanel>
-                            </div>
-                        </AccordionItem>
-                    );
-                }
-                return null;
-            })}
+                {content.map(media => {
+                    if (type === null || type === media.title) {
+                        return (
+                            <AccordionItem allowZeroExpanded={true}>
+                                <div className="text">
+                                    <AccordionItemHeading>
+                                        <AccordionItemButton id="title">
+                                            {media.title}
+                                        </AccordionItemButton>
+                                    </AccordionItemHeading>
+                                    <AccordionItemPanel>
+                                        {media.title === "Pictures" ? (
+                                            <CarouselProvider
+                                                naturalSlideWidth={100}
+                                                naturalSlideHeight={100}
+                                                infinite
+                                                totalSlides={media.content_items.length}
+                                            >
+                                                <Slider>
+                                                    {media.content_items.map((content, index) => {
+                                                        return (
+                                                            <PictureContent URL={content.item} description={content.item_description} index={index} />
+                                                        )
+                                                    })}
+                                                </Slider>
+                                                <DotGroup />
+                                                <ButtonBack>
+                                                    <FontAwesomeIcon
+                                                        className={"back-icon"}
+                                                        icon={faChevronLeft}
+                                                    />
+                                                </ButtonBack>
+                                                <ButtonNext>
+                                                    <FontAwesomeIcon
+                                                        className={"next-icon"}
+                                                        icon={faChevronRight}
+                                                    />
+                                                </ButtonNext>
+                                            </CarouselProvider>) : (
+                                                (media.content_items.map(content => {
+                                                    return (<LinksContent URL={content.item} description={content.item_description} />)
+                                                }))
+                                            )}
+                                    </AccordionItemPanel>
+                                </div>
+                            </AccordionItem>
+                        );
+                    }
+                    return null;
+                })}
             </Accordion>
-            <BackButton history={props.history}/>
+            <BackButton history={props.history} />
         </main>
     )
 }
 
-function PictureContent({ URL,  description, index}) {
+function PictureContent({ URL, description, index }) {
     return (
         <Slide index={index}>
             <p>{description}</p>
-            <img src={process.env.PUBLIC_URL + URL} alt={description}/>
+            <img src={process.env.PUBLIC_URL + URL} alt={description} />
         </Slide>
     );
 }

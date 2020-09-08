@@ -11,18 +11,19 @@ import { Context } from "./../../index";
 library.add(faTimes);
 
 const Main = React.memo(function Main(props) {
-    let query = new URLSearchParams(useLocation().search);
-    let name = query.get("name");
-    let type = query.get("type");
+    const query = new URLSearchParams(useLocation().search);
+    const name = query.get("name");
+    const type = query.get("type");
     const [faded, setFaded] = useState(false);
     const { markerData } = useContext(Context);
 
+    const [content, setContent] = useState([]);
 
     // set local to component so if we set the inverval
     // and leave, we can clear it
     let fadeEffect;
 
-    const StorageData = markerData.filter(marker => marker.name === name);
+    const { markerData } = useContext(Context);
 
     function fadeOutEffect(time) {
         const fadeTarget = document.querySelector("#textCtn");
@@ -56,9 +57,14 @@ const Main = React.memo(function Main(props) {
         }       
     }, []); // ignore rerun from fade state update
 
-    return(
+    useEffect(() => { // to set the content 
+        const { main_pages } = markerData.filter(marker => marker.name === name).pop() || { main_pages: [] };
+        if (JSON.stringify(main_pages) !== JSON.stringify(content)) setContent(main_pages);
+    }, [content, markerData, name]);
+
+    return (
         <React.Fragment>
-            {StorageData.main_pages.map((main, index) => {
+            {content.map((main, index) => {
                 if (type === main.title) {
                     document.body.style.backgroundImage = 'url(' + process.env.PUBLIC_URL + main.background_image + ')';
                     return(
@@ -82,7 +88,7 @@ const Main = React.memo(function Main(props) {
                 }
                 return null;
             })}
-        
+
         </React.Fragment>
     );
 
