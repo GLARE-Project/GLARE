@@ -24,10 +24,10 @@ const Fallback = () => (
 
 const Tour = ({ history }) => {
     const query = new URLSearchParams(useLocation().search);
-    const INITAL_STATE = { name: "", start_audio: "" };
+    const INITIAL_STATE = { name: "", start_audio: "" };
 
     const { onCampus, markerData } = useContext(Context);
-    const [StorageData, setStoredData] = useState(INITAL_STATE);
+    const [StorageData, setStoredData] = useState(INITIAL_STATE);
     const { name, start_audio } = StorageData;
 
     const [isRotating, setIsRoating] = useState(false);
@@ -46,14 +46,14 @@ const Tour = ({ history }) => {
         const data = markerData.filter(marker => marker.name === markerName).pop();
         // if data hasn't loaded yet, it'll be undefined. So ignore it then and wait for it to load
         if (typeof data !== 'undefined') {
-            // we make sure there exists INITAL_STATE if they don't exist in the data
-            const mutatedData = { ...INITAL_STATE, ...data };
+            // we make sure there exists INITIAL_STATE if they don't exist in the data
+            const mutatedData = { ...INITIAL_STATE, ...data };
             if (JSON.stringify(StorageData) !== JSON.stringify(mutatedData)) setStoredData(mutatedData)
         }
         // used to get rid of the bar in safari
         scrollToTop();
         scrollToBottom();
-    }, [markerData, query, StorageData, INITAL_STATE]);
+    }, [markerData, query, StorageData, INITIAL_STATE]);
 
     return (
         <div id="container" style={{ overflow: "hidden" }}>
