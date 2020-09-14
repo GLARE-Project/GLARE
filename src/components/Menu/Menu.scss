@@ -37,6 +37,10 @@
     .navigation-menu {
         width: 50%;
         float: left;
+
+        &:empty {
+            display: none;
+        }
     
         a[class^="menu-item"] {
             border-right-width: 3px;
@@ -50,6 +54,7 @@
     .media-menu {
         width: 50%;
         float: right;
+        flex-grow: 1;
     }
   
 }
