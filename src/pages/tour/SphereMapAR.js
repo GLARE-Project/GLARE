@@ -80,7 +80,8 @@ const SphereMapAR = React.memo(({ data }) => {
                     {/* only show the backside of texture and rotate it to the front
                       *         this is like setting the scale [-1, 1, 1]        */}
                     <sphereGeometry attach="geometry" args={[20, 20, 20, (Math.PI / 2)]} />
-                    <meshBasicMaterial attach="material" map={texture} side={BackSide} />
+                    { /* only render the material if we have the overlay */ }
+                    {AR_overlay && <meshBasicMaterial attach="material" map={texture} side={BackSide} />}
                 </mesh>
             </group>
             <DeviceOrientationControls />
