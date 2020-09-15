@@ -7,9 +7,6 @@ const HOTSPOT_RADIUS = 0.0076; // 0.0075 miles == 40 feet
 
 const CAMPUS_RADIUS = 0.1087359848; // 0.1087 miles == 82 feet + 150 meter accuracy
 
-// global values
-var currentMarker = null;
-
 const AlertLocation = ({ markerName, history  }) => {
 	return (
 		<div>
@@ -56,18 +53,13 @@ const styles = {
 }
 
 // when the user moves postions
-export function onPositionUpdate( position, history, markerData ) {
+export function onPositionUpdate( position, history, markerData, currentMarker, setCurrentMarker ) {
     // and fine the next closest points
-	checkForCloseMarker( position.coords, history, markerData );
-}
-
-// setter function for current marker
-function setCurrentMarker( marker ) {
-	currentMarker = marker;
+	checkForCloseMarker( position.coords, history, markerData, currentMarker, setCurrentMarker );
 }
 
 // checks to see if near a hotspot
-function checkForCloseMarker( position, history, markerData ) {
+function checkForCloseMarker( position, history, markerData, currentMarker, setCurrentMarker ) {
 	var markerObj = markerData.map( marker => {		
         var dist = distance( position.latitude, position.longitude, marker.latitude, marker.longitude );
 		// build an object of marker and its distance

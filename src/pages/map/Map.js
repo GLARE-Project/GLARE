@@ -9,7 +9,7 @@ import './map.css';
 function Map(props) {
   const [currentPos, setCurrentPos] = useState([]);
   const [GeoError, setError] = useState(null);
-  const {onCampus, setOnCampus, markerData} = useContext(Context);
+  const {onCampus, setOnCampus, markerData, currentMarker, setCurrentMarker } = useContext(Context);
 
   const initalRegion = {
     lat: 41.150121,
@@ -48,13 +48,13 @@ function Map(props) {
 
   // create current postion point
   const success = useCallback(pos => {
-    onPositionUpdate(pos, props.history, markerData);
+    onPositionUpdate(pos, props.history, markerData, currentMarker, setCurrentMarker);
     setOnCampus(isOnCampus(pos, markerData));
     checkCamera();
     // reset the error value as it worked
     setError(null);
     setCurrentPos([pos.coords.latitude, pos.coords.longitude]);
-  }, [setOnCampus, props.history, checkCamera, markerData]);
+  }, [setOnCampus, props.history, checkCamera, markerData, currentMarker, setCurrentMarker]);
 
   const error = useCallback(err => {
     setCurrentPos([]);
