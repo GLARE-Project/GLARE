@@ -71,7 +71,7 @@ const CubeMapVR = React.memo(({ data }) => {
           {/*Inverse on z axis to make cubemap
           * this is like setting the scale [1, 1, -1]  */}
           <boxGeometry attach="geometry" args={[20, 20, -20]} />
-          <shaderMaterial attach="material" uniforms={uniforms} fragmentShader={fragmentShader} vertexShader={vertexShader} />
+          {panorama_image && <shaderMaterial attach="material" uniforms={uniforms} fragmentShader={fragmentShader} vertexShader={vertexShader} /> }
         </mesh>
         {VR_overylay && <OverlayVR data={data} /> }
       </group>

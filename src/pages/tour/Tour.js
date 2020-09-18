@@ -5,7 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
-import { Html } from 'drei'
+import { Html, useProgress } from 'drei'
 import AudioPlayer from "./../../components/AutoPlayer";
 import MenuOverlay from "../../components/Menu/MenuOverlay";
 import { Context } from "./../../index";
@@ -16,11 +16,16 @@ import './tours.css';
 
 library.add(faMapMarkerAlt, faEye);
 
-const Fallback = () => (
-    <Html>
-        <Ellipsis className="spinner" color="#fff" />
-    </Html>
-);
+const Loader = () => {
+    const { active } = useProgress();
+    if (active) {
+        return (
+            <Html center>
+                <Ellipsis className="spinner" color="#fff" />
+            </Html>
+        )
+    } else return null
+};
 
 const Tour = ({ history }) => {
     const query = new URLSearchParams(useLocation().search);
@@ -62,7 +67,7 @@ const Tour = ({ history }) => {
                 {onCampus && (<video autoPlay={true} muted="" playsInline="" id="videoElement" />)}
 
                 <Canvas id="canvas" camera={{ position: [0, 0, 1], fov: 45 }}>
-                    <Suspense fallback={<Fallback />}>
+                    <Suspense fallback={<Loader />}>
                         {onCampus ?
                             <SphereMapAR data={StorageData} /> :
                             <CubeMapVR data={StorageData} />
