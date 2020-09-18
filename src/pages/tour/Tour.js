@@ -3,7 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faEye, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { Html, useProgress } from 'drei'
 import AudioPlayer from "./../../components/AutoPlayer";
@@ -12,9 +12,10 @@ import { Context } from "./../../index";
 import { AnimateCamera } from "./AnimateCamera"
 import CubeMapVR from "./CubeMapVR";
 import SphereMapAR from "./SphereMapAR";
+import { distance } from "./../../utils/gpsManager";
 import './tours.css';
 
-library.add(faMapMarkerAlt, faEye);
+library.add(faMapMarkerAlt, faEye, faChevronRight, faChevronLeft);
 
 const Loader = () => {
     const { active } = useProgress();
@@ -76,9 +77,7 @@ const Tour = ({ history }) => {
                     </Suspense>
                 </Canvas>
 
-                <div onSelect={e => e.preventDefault()} id="title-ctn" >
-                    {name}
-                </div>
+                <HotspotController baseName={query.get("name")} handleData={setStoredData} markerData={markerData} data={StorageData} />
 
                 <div id="fixed-footer">
                     <AudioPlayer name={name} source={start_audio} />
@@ -103,6 +102,62 @@ const Tour = ({ history }) => {
     );
 };
 
+const HotspotController = ({ baseName, data, markerData, handleData }) => {
+
+    const [hostspotIndex, setHostspotIndex] = useState(0);
+
+    // the hotspots that act as the starting node
+    const baseHotspots = markerData.filter(hotspot => { return (typeof hotspot.position === 'number') });
+    // the other hotspots
+    const closeHotspots = markerData.filter(hotspot => { return (typeof hotspot.position !== 'number') });
+
+    const baseHotspot = baseHotspots.filter(marker => marker.name === baseName).pop();
+
+    const locationQueue = closeHotspots.filter(closeHotspot => {
+        if (baseHotspot) {
+            const {latitude, longitude} = baseHotspot;
+            return latitude && longitude && Math.abs(distance(latitude, longitude, closeHotspot.latitude, closeHotspot.longitude)) <= 0.0076;
+        } // otherwise it's not a basehotspot
+        return false;
+    });
+
+    const CAN_USE_QUEUE = ( locationQueue.length > 0 && hostspotIndex !== 0);
+    const HAS_RIGHT_DATA = hostspotIndex < locationQueue.length;
+    const HAS_LEFT_DATA = hostspotIndex > 0;
+    const { name } = CAN_USE_QUEUE ? locationQueue[hostspotIndex - 1] : data;
+
+    const handleLocation = direction => {
+        if(direction === "next" &&  HAS_RIGHT_DATA) {
+            setHostspotIndex(currentIndex => currentIndex + 1);
+            handleData( locationQueue[hostspotIndex] );
+        } else if (direction === "back" && HAS_LEFT_DATA) {
+            setHostspotIndex(currentIndex => currentIndex - 1);
+            handleData( CAN_USE_QUEUE ? locationQueue[hostspotIndex - 2] : data);
+        }
+    }
+    
+    return (
+        <div className="hotspotControls">
+            {locationQueue.length > 0 && HAS_LEFT_DATA && (<div className="control-left">
+                <FontAwesomeIcon
+                    className="overlay-icon"
+                    icon={faChevronLeft}
+                    onClick={() => {handleLocation("back")}}
+                />
+            </div>)}
+            <div onSelect={e => e.preventDefault()} id="title-ctn" >
+                { name }
+            </div>
+            {locationQueue.length > 0 && HAS_RIGHT_DATA && (<div className="control-right">
+                <FontAwesomeIcon
+                    className="overlay-icon"
+                    icon={faChevronRight}
+                    onClick={() => {handleLocation("next")}}
+                />
+            </div>)}
+        </div>
+    )
+};
 
 export default Tour;
 

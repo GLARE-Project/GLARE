@@ -102,7 +102,7 @@ function checkForCloseMarker( position, history, markerData, currentMarker, setC
 
 
 // https://www.geodatasource.com/developers/javascript
-function distance(lat1, lon1, lat2, lon2) {
+export function distance(lat1, lon1, lat2, lon2) {
 	if ((lat1 === lat2) && (lon1 === lon2)) {
 		return 0;
 	}
@@ -132,4 +132,4 @@ export function isOnCampus( position, markerData ) {
 	return  Math.min(...distList) <= CAMPUS_RADIUS;
 }
 
-export default {onPositionUpdate, isOnCampus};
+export default {onPositionUpdate, isOnCampus, distance};
