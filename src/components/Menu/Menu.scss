@@ -89,3 +89,42 @@ a[class^="menu-item"] {
         display: none !important;
     }
 }
+.svgicon path {
+stroke-width: 10%;
+}
+.svgicon g {
+    fill: darkblue;
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-iteration-count: 5;
+   }
+@keyframes flash{
+    from{background-color:white; fill:darkblue;}
+    to{background-color:darkblue; fill: #ffffff;}
+    
+}
+.svgicon  {
+    transform: scale(1.25);
+    height: 4em;
+    width: 4em;
+    background-color: #ffffff;
+    border-radius: 1em;
+    padding: 2px;
+    animation-name: flash;
+    animation-duration: 1s;
+    animation-iteration-count: 5;
+    position: absolute;
+    z-index: 10;
+}
+.dialog
+{
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+    padding-left: 100px;
+    z-index: 11;
+    border-radius: 2em;
+    
+}
+
+

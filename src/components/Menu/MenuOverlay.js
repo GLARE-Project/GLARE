@@ -5,14 +5,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import './Menu.scss';
 import { Context } from "./../../index";
+import {ReactComponent as ReactLogo} from './book.svg';
+
+import { motion } from "framer-motion"
+import { Box } from 'drei';
+import {useCookies} from 'react-cookie';
 
 Modal.setAppElement('#root');
 library.add(faBars, faTimes);
 
 
 function MenuOverlay({children, history, data}){
+    const [cookies,setCookie] = useCookies(["VisitedLibrary"]);
+    function handleCookie() {
+        setCookie("VisitedLibrary", "True", {
+            path: "/media"
+          });
+        }
     const {modelOpen, toggleModel} = useContext(Context);
-    return (
+        return (
         <React.Fragment>
             <Modal
             isOpen={modelOpen}
@@ -33,7 +44,8 @@ function MenuOverlay({children, history, data}){
                         <a 
                         //href={"/media?name=" + data.name}
                         className="menu-item"
-                        onClick={() => history.push("/media?name=" + data.name)}>
+                        onClick={() => {history.push("/media?name=" + data.name); 
+                                        handleCookie();}}>
                             Library
                         </a>
                         <a
@@ -63,6 +75,29 @@ function MenuOverlay({children, history, data}){
                 </div>
                 {children}
             </div>
+            
+            <div id="overlay-content">
+            {cookies.VisitedLibrary!=='True' &&
+                <motion.div style={styles.overlayBtnLib} 
+                initial={{x: 11, y: 50, opacity: 0}} 
+                animate={{opacity: 1, fill: '#000000' }} 
+                transition={{delay: 1.5}}
+                >
+
+                    <ReactLogo
+                        className="svgicon"
+                    />
+                <motion.div className="dialog" initial={{x: -10, y: -35,opacity: 0}} whileTap={{opacity: 1}}>
+                    <h1>Check out the Library!</h1>
+                    <p>The library offers more information about each hotspot, including additional photos,<br/> 
+                    audio, videos and content. The library can be found under the menu bar above. Enjoy<br/>
+                    the rest of the rich history of the May 4th Augmented Reality Experience.
+                    </p>
+                </motion.div>  
+                </motion.div>
+        }
+            </div>
+
         </React.Fragment>
     );
 }
@@ -93,6 +128,13 @@ const MenuComponent = React.memo(function MenuComponent({name, pages, history}) 
 });
 
 const styles = {
+    overlayBtnLib:{
+        position: "fixed",
+        left: ".000001em",
+        top: "3em",
+        zIndex: 10,
+        
+    },
     overlayBtn: {
         position: "fixed",
         left: ".5em",

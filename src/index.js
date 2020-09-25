@@ -6,6 +6,9 @@ import * as serviceWorker from './utils/serviceWorker';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTitle } from 'react-use';
+import { CookiesProvider } from "react-cookie";
+
+
 
 export const Context = React.createContext();
 
@@ -56,11 +59,13 @@ function Provider({ children }) {
 }
 
 ReactDOM.render(
+    <CookiesProvider>
     <Provider>
         <BrowserRouter>
             <App />
         </BrowserRouter>
     </Provider>
+    </CookiesProvider>
     ,
     document.getElementById('root'));
 
