@@ -18,7 +18,9 @@ const Main = ({ history }) => {
 
     const [content, setContent] = useState([]);
 
-    const [faded, setFaded] = useState(false);
+
+    const [audioTime, setAudioTime] = useState(0);
+    const [isFaded, setFaded] = useState(false);
 
     const { markerData } = useContext(Context);
 
@@ -26,11 +28,21 @@ const Main = ({ history }) => {
 
     const FADE_MULTIPLIER = 1.3; // 130% to make content readable before it is completely gone
 
+    // TODO: figure how to do onRestart for audio and to set opacity back to inital
+
     const handleFade = (time) => {
         controls.start({
             opacity: 0,
-            transition: { duration: (time * FADE_MULTIPLIER) / 1000 }, // make everything in terms of a milliseconds
-        }).then(() => setFaded(true));
+            transition: { duration: time / 1000 }, // make everything in terms of a milliseconds
+        }).then(() => setFaded(true))
+    }
+
+    const startFade = () => {
+        handleFade(audioTime * FADE_MULTIPLIER);
+    }
+
+    const stopFade = () => {
+        controls.stop();
     }
 
     useEffect(() => {
@@ -57,25 +69,33 @@ const Main = ({ history }) => {
                             <FontAwesomeIcon
                                 className={[
                                     "overlay-icon", "closeBtn",
-                                    faded ? "hidden" : "visible"
+                                    isFaded ? "hidden" : "visible"
                                 ].join(' ')}
                                 icon={faTimes}
                                 onClick={() => {
-                                    handleFade( 200 / FADE_MULTIPLIER);
+                                    handleFade(200);
                                 }}
                             />
-                            <Frame 
-                                animate={controls} 
-                                className="textCtn"
+                            <Frame
+                                position={"relative"}
+                                animate={controls}
+                                className={[
+                                    "textCtn",
+                                    isFaded ? "hidden" : "visible"
+                                ].join(' ')}
                                 initial={{
                                     opacity: 1,
-                                    width: 'calc(100% - 16em)' 
+                                    width: 'calc(100% - 16em)'
                                 }}
+                                exit={{ opacity: 0 }}
                             >
                                 <h1 id="title">{main.title}</h1>
                                 <p id="text">{main.description}</p>
                             </Frame>
-                            <AudioPlayer source={process.env.PUBLIC_URL + main.descriptive_audio} onLoad={time => handleFade(time)} onPause={controls.stop} />
+                            <AudioPlayer 
+                                source={process.env.PUBLIC_URL + main.descriptive_audio} 
+                                onLoad={time => setAudioTime(time)} onPause={stopFade} onPlaying={startFade} 
+                            />
                             <BackButton history={history} />
                         </main>
                     );

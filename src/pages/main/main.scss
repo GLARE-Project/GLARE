@@ -4,7 +4,7 @@ body.scrollable-body  {
     overflow-y: scroll;
 
     .textCtn {
-        background-color: #E6E6FAAA;
+        background-color: #E6E6FAAA !important;
         padding: 0 8em;
     }
     #audio-player {
@@ -18,7 +18,7 @@ body.scrollable-body  {
     }
 
     .hidden {
-        display: none;
+        display: none !important;
     }
     
     #title {

@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Context } from "./../index";
 
-const AutoPlayer = React.memo(function AutoPlayer({source, name, onLoad, onPause}) {
-    const {modelOpen} = useContext(Context);
+const AutoPlayer = React.memo(function AutoPlayer({ source, name, onLoad, onPause, onPlaying }) {
+
+    const controls = useRef(null);
+    const { modelOpen } = useContext(Context);
 
     // mark audio finished an no-longer autoplay
     const onEnd = () => {
@@ -15,15 +17,17 @@ const AutoPlayer = React.memo(function AutoPlayer({source, name, onLoad, onPause
 
     const autoPlay = (parseInt(localStorage.getItem(name + "-audio")) !== 1 && !modelOpen);
 
-    return(
+    return (
         <audio id="audio-player"
-            controls="controls"
+            controls={true}
             autoPlay={autoPlay}
-            onEnded={name ? onEnd : () => {}}
-            onLoadedMetadata={onLoad ? ()=> onLoad(getAudioTime()) : () => {}}
-            onPause={onPause ? ()=> onPause() : () => {}}
+            ref={controls}
+            onEnded={name ? onEnd : () => { }}
+            onLoadedMetadata={onLoad ? () => onLoad(getAudioTime()) : () => { }}
+            onPause={onPause ? () => { if (!controls.current.ended) onPause(); } : () => { }} // paused event can be triggered when onEnd, so ignore
+            onPlaying={onPlaying ? () => onPlaying() : () => { }}
         >
-            <source id="mp3_src" type="audio/mp3" src={source}/>
+            <source id="mp3_src" type="audio/mp3" src={source} />
             Your browser does not support the audio element.
         </audio>
     );

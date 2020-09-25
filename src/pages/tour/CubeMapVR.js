@@ -20,7 +20,7 @@ const OverlayVR = ({ data }) => {
 
 
 const CubeMapVR = React.memo(({ data }) => {
-  const { panorama_image } = data;
+  const { panorama_image, VR_overylay } = data;
 
   const texture = useLoader(TextureLoader, panorama_image);
 
@@ -71,9 +71,9 @@ const CubeMapVR = React.memo(({ data }) => {
           {/*Inverse on z axis to make cubemap
           * this is like setting the scale [1, 1, -1]  */}
           <boxGeometry attach="geometry" args={[20, 20, -20]} />
-          <shaderMaterial attach="material" uniforms={uniforms} fragmentShader={fragmentShader} vertexShader={vertexShader} />
+          {panorama_image && <shaderMaterial attach="material" uniforms={uniforms} fragmentShader={fragmentShader} vertexShader={vertexShader} /> }
         </mesh>
-        <OverlayVR data={data} />
+        {VR_overylay && <OverlayVR data={data} /> }
       </group>
       <OrbitControls
         enablePan={false}
