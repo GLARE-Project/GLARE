@@ -3,11 +3,12 @@ import Modal from 'react-modal';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { NavLink } from 'react-router-dom';
+import { Frame } from 'framer'
+import { useCookie } from "react-use";
 import './Menu.scss';
 import { Context } from "./../../index";
 import { ReactComponent as ReactLogo } from './book.svg';
-import { Frame } from 'framer'
-import { useCookie } from "react-use";
 
 Modal.setAppElement('#root');
 library.add(faBars, faTimes);
@@ -35,25 +36,20 @@ function MenuOverlay({ children, history, data }) {
                     <p className="menu-title">Menu</p>
                     <div className="menu-ctn">
                         <MenuComponent
-                            history={history}
                             name={data.name}
                             pages={data.main_pages} />
                         <div className="media-menu">
-                            <a
-                                //href={"/media?name=" + data.name}
+                            <NavLink
+                                to={`${process.env.PUBLIC_URL}/media?name=${data.name}`}
                                 className="menu-item"
-                                onClick={() => {
-                                    history.push("/media?name=" + data.name);
-                                    setVisited();
-                                }}>
+                                onClick={() => { setVisited(); }}>
                                 Library
-                        </a>
-                            <a
-                                //href="#help"
-                                className="menu-item-last"
-                                onClick={() => history.push("/help")}>
+                        </NavLink>
+                            <NavLink
+                                to={`${process.env.PUBLIC_URL}/help`}
+                                className="menu-item-last">
                                 Help
-                        </a>
+                        </NavLink>
                         </div>
                     </div>
                 </div>
@@ -115,24 +111,23 @@ const LibraryAlert = ({ visitedLibrary }) => {
     )
 }
 
-const MenuComponent = React.memo(function MenuComponent({ name, pages, history }) {
+const MenuComponent = React.memo(function MenuComponent({ name, pages }) {
     const { toggleModel } = useContext(Context);
     const handleClick = (title) => {
         toggleModel(false);
-        history.push("/main?name=" + name + "&type=" + title);
     };
     return (
         <div className="navigation-menu">
             {pages.map((media, index) => {
                 return (
-                    <a
-                        //href={"/main?name=" + name + "&type=" + media.title}
-                        onClick={() => handleClick(media.title)}
+                    <NavLink
+                        to={`${process.env.PUBLIC_URL}/main?name=${name}&type=${ media.title}`}
+                        onClick={() => handleClick()}
                         className={pages.length === index + 1 ? "menu-item-last" : "menu-item"}
                         key={index}
                     >
                         { media.title}
-                    </a>
+                    </NavLink>
                 );
             })}
         </div>

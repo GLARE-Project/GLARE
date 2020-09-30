@@ -117,7 +117,7 @@ function Intro() {
             <div className="intro">
                 <Play howl={howl} />
                 <h1 className="title">Step {stepNum + 1}</h1>
-                {StepData.length - 1 > stepNum && (<a className="skipBtn" onClick={handleFinish}>skip</a>)}
+                {StepData.length - 1 > stepNum && (<p className="skipBtn" onClick={handleFinish}>skip</p>)}
                 <div className="content">
                     <img className="icons" alt="icon" src={process.env.PUBLIC_URL + "/images/intro/" + StepData[stepNum].image} />
                     <p className="description">{addIcons(StepData[stepNum].description)}</p>
