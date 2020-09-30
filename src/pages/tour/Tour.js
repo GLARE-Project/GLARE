@@ -81,7 +81,7 @@ const Tour = ({ history }) => {
                 </div>
 
                 <div id="fixed-footer">
-                    <AudioPlayer name={name} source={start_audio} />
+                    <AudioPlayer name={name} source={process.env.PUBLIC_URL + start_audio} />
                 </div>
 
                 <div className="overlay-ctn-show">

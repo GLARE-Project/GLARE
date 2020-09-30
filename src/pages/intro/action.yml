@@ -1,0 +1,29 @@
+name: Build and zip server files
+on:
+  push:	
+    branches:	
+      - master
+
+jobs:
+  build:
+    name: Build and zip steps
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: npm install and build
+      run: |
+        npm install
+        npm run build
+
+    - name: Zip build folder
+      uses: thedoctor0/zip-release@master
+      with:
+        filename: 'server-files.zip'
+        directory: 'build'
