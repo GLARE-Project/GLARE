@@ -96,7 +96,7 @@ function Intro() {
     useEffect(() => {
         document.body.classList.add("IntroPage");
         document.body.style.setProperty('--intro-background',
-            "url(" + process.env.PUBLIC_URL + "/../../images/intro/Background_Tile.png" + ")"
+            "url(" + process.env.PUBLIC_URL + "/../../images/intro/Background_Tile.png)"
         );
         checkPos();
         checkCamera();
