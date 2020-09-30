@@ -8,7 +8,6 @@ import { Context } from "./../../index";
 import { ReactComponent as ReactLogo } from './book.svg';
 import { Frame } from 'framer'
 import { useCookie } from "react-use";
-import AutoPlayer from '../AutoPlayer';
 
 Modal.setAppElement('#root');
 library.add(faBars, faTimes);
