@@ -78,7 +78,7 @@ function Home() {
 
       document.body.classList.add("homepage");
       document.body.style.setProperty('--homepage-background', 
-        "url(" + homepage_image + ")"
+        "url(" + process.env.PUBLIC_URL + "/../../" + homepage_image + ")"
       );
       return () =>  document.body.classList.remove("homepage");
   }, []);
