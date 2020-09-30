@@ -100,6 +100,7 @@ const LibraryAlert = ({ visitedLibrary }) => {
                     animate={{ opacity: 1, fill: '#000000' }}
                     transition={{ delay: 1.5 }}
                     onTap={toggleLibrary}
+                    className={"libraryOverlay"}
                 >
                     <ReactLogo className="svgicon" />
                     <div className="dialog" style={{ display: isToggled ? 'block' : 'none' }} >
