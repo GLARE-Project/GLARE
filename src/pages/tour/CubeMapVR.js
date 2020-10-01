@@ -5,7 +5,7 @@ import { TextureLoader, FrontSide, Vector3 } from 'three';
 
 const OverlayVR = ({ data }) => {
   const { overlay_size = 10, overlay_offset_x = 0, overlay_offset_y = 0, VR_overylay } = data;
-  const texture = useLoader(TextureLoader, process.env.PUBLIC_URL + VR_overylay);
+  const texture = useLoader(TextureLoader, VR_overylay);
 
   return (
     <mesh position={[overlay_offset_x, overlay_offset_y, -9]}>
@@ -22,7 +22,7 @@ const OverlayVR = ({ data }) => {
 const CubeMapVR = React.memo(({ data }) => {
   const { panorama_image, VR_overylay } = data;
 
-  const texture = useLoader(TextureLoader, process.env.PUBLIC_URL + panorama_image);
+  const texture = useLoader(TextureLoader, panorama_image);
 
   // Begin shaders to add mipmaps, remove seams, and convert to cubemap
   const vertexShader = `

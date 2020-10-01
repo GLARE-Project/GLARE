@@ -85,7 +85,7 @@ function Home() {
 
   return (
     <React.Fragment>
-      {intro_audio && (<Rehowl src={process.env.PUBLIC_URL + intro_audio}>{
+      {intro_audio && (<Rehowl src={intro_audio}>{
         ({ howl }) => <Play howl={howl} />
       }</Rehowl>)}
       <div className="homepage">

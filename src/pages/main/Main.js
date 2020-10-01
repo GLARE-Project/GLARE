@@ -63,7 +63,7 @@ const Main = ({ history }) => {
         <React.Fragment>
             {content.map((main, index) => {
                 if (type === main.title) {
-                    document.body.style.backgroundImage = 'url(' + process.env.PUBLIC_URL + main.background_image + ')';
+                    document.body.style.backgroundImage = 'url(' + main.background_image + ')';
                     return (
                         <main key={index}>
                             <FontAwesomeIcon
@@ -93,7 +93,7 @@ const Main = ({ history }) => {
                                 <p id="text">{main.description}</p>
                             </Frame>
                             <AudioPlayer 
-                                source={process.env.PUBLIC_URL + main.descriptive_audio} 
+                                source={main.descriptive_audio} 
                                 onLoad={time => setAudioTime(time)} onPause={stopFade} onPlaying={startFade} 
                             />
                             <BackButton history={history} />

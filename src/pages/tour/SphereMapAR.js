@@ -67,7 +67,7 @@ function handleVideo() {
 const SphereMapAR = React.memo(({ data }) => {
     const { AR_overlay } = data;
 
-    const texture = useLoader(TextureLoader, process.env.PUBLIC_URL + AR_overlay);
+    const texture = useLoader(TextureLoader, AR_overlay);
 
     useEffect(() => {
         handleVideo();

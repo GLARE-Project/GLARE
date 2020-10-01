@@ -106,7 +106,7 @@ function PictureContent({ URL, description, index }) {
     return (
         <Slide index={index}>
             <p>{description}</p>
-            <img src={process.env.PUBLIC_URL + URL} alt={description} />
+            <img src={URL} alt={description} />
         </Slide>
     );
 }
