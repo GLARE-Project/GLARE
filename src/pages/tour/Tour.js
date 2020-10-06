@@ -62,7 +62,7 @@ const Tour = ({ history }) => {
 
     return (
         <div id="container" style={{ overflow: "hidden" }}>
-            <MenuOverlay history={history} data={StorageData}>
+            <MenuOverlay data={StorageData}>
 
                 {onCampus && (<video autoPlay={true} muted="" playsInline="" id="videoElement" />)}
 

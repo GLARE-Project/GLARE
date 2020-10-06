@@ -14,7 +14,7 @@ Modal.setAppElement('#root');
 library.add(faBars, faTimes);
 
 
-function MenuOverlay({ children, history, data }) {
+function MenuOverlay({ children, data }) {
     const [visitedLibrary, setCookie] = useCookie("VisitedLibrary");
 
     function setVisited() {
@@ -22,6 +22,12 @@ function MenuOverlay({ children, history, data }) {
     }
 
     const { modelOpen, toggleModel } = useContext(Context);
+
+
+    const { media_pages, main_pages, name } = data;
+
+    const HAS_LIBRARY_ITEMS = typeof (media_pages) !== 'undefined' && media_pages.length > 0;
+
     return (
         <React.Fragment>
             <Modal
@@ -36,15 +42,16 @@ function MenuOverlay({ children, history, data }) {
                     <p className="menu-title">Menu</p>
                     <div className="menu-ctn">
                         <MenuComponent
-                            name={data.name}
-                            pages={data.main_pages} />
+                            name={name}
+                            pages={main_pages} />
                         <div className="media-menu">
-                            <NavLink
-                                to={`${process.env.PUBLIC_URL}/media?name=${data.name}`}
+                            {HAS_LIBRARY_ITEMS && <NavLink
+                                to={`${process.env.PUBLIC_URL}/media?name=${name}`}
                                 className="menu-item"
                                 onClick={() => { setVisited(); }}>
                                 Library
                         </NavLink>
+                            }
                             <NavLink
                                 to={`${process.env.PUBLIC_URL}/help`}
                                 className="menu-item-last">
@@ -72,7 +79,7 @@ function MenuOverlay({ children, history, data }) {
                 {children}
             </div>
 
-            <LibraryAlert visitedLibrary={visitedLibrary} />
+            {HAS_LIBRARY_ITEMS && <LibraryAlert visitedLibrary={visitedLibrary} />}
 
         </React.Fragment>
     );
@@ -89,7 +96,7 @@ const LibraryAlert = ({ visitedLibrary }) => {
     return (
         <>
             {!visitedLibrary &&
-                <Frame 
+                <Frame
                     position={"relative"}
                     style={styles.overlayBtnLib}
                     initial={{ opacity: 0 }}
@@ -111,9 +118,9 @@ const LibraryAlert = ({ visitedLibrary }) => {
     )
 }
 
-const MenuComponent = React.memo(function MenuComponent({ name, pages }) {
+const MenuComponent = React.memo(function MenuComponent({ name, pages=[] }) {
     const { toggleModel } = useContext(Context);
-    const handleClick = (title) => {
+    const handleClick = () => {
         toggleModel(false);
     };
     return (
@@ -121,7 +128,7 @@ const MenuComponent = React.memo(function MenuComponent({ name, pages }) {
             {pages.map((media, index) => {
                 return (
                     <NavLink
-                        to={`${process.env.PUBLIC_URL}/main?name=${name}&type=${ media.title}`}
+                        to={`${process.env.PUBLIC_URL}/main?name=${name}&type=${media.title}`}
                         onClick={() => handleClick()}
                         className={pages.length === index + 1 ? "menu-item-last" : "menu-item"}
                         key={index}
