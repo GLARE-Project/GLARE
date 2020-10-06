@@ -55,6 +55,15 @@
         width: 50%;
         float: right;
         flex-grow: 1;
+
+        &.library-empty {
+            justify-content: center !important;
+
+            & a[class^="menu-item"] {
+                border: none !important;
+            }
+
+        }
     }
   
 }

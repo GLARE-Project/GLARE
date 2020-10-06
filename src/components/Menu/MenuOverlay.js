@@ -44,7 +44,7 @@ function MenuOverlay({ children, data }) {
                         <MenuComponent
                             name={name}
                             pages={main_pages} />
-                        <div className="media-menu">
+                        <div className={["media-menu", HAS_LIBRARY_ITEMS ? "library-full" : "library-empty"].join(' ')}>
                             {HAS_LIBRARY_ITEMS && <NavLink
                                 to={`${process.env.PUBLIC_URL}/media?name=${name}`}
                                 className="menu-item"
