@@ -1,15 +1,18 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
-import { Map as LeafletMap, TileLayer, Marker, CircleMarker } from "react-leaflet";
+import React, { useEffect, useState, useContext, useCallback, useRef } from 'react';
+import { Map as LeafletMap, TileLayer, Marker, CircleMarker, FeatureGroup } from "react-leaflet";
 import L from "leaflet";
 import BackButton from '../../components/BackButton';
-import {onPositionUpdate, isOnCampus} from "./../../utils/gpsManager";
+import { onPositionUpdate, isOnCampus } from "./../../utils/gpsManager";
 import { Context } from "./../../index";
 import './map.css';
 
 function Map(props) {
   const [currentPos, setCurrentPos] = useState([]);
   const [GeoError, setError] = useState(null);
-  const {onCampus, setOnCampus, markerData, currentMarker, setCurrentMarker } = useContext(Context);
+  const { onCampus, setOnCampus, markerData, currentMarker, setCurrentMarker } = useContext(Context);
+
+  const mapRef = useRef(null);
+  const hotspotRef = useRef(null);
 
   const initalRegion = {
     lat: 41.150121,
@@ -23,19 +26,18 @@ function Map(props) {
   const checkCamera = useCallback(() => {
     // check to see if the devices are undefine
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-        navigator.mediaDevices.getUserMedia({
-            audio: false,
-            video: {
-                facingMode: {
-                    exact: "environment" // the front camera, if prefered
-                }
-            }
-          }).catch(err => setOnCampus(false));
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          facingMode: {
+            exact: "environment" // the front camera, if prefered
+          }
+        }
+      }).catch(err => setOnCampus(false));
     } else {
-        setOnCampus(false);
+      setOnCampus(false);
     }
   }, [setOnCampus]);
-
 
   //set the error value and log it to console
   const setAndLogError = useCallback(err => {
@@ -64,42 +66,57 @@ function Map(props) {
   }, [setOnCampus, setAndLogError]);
 
   useEffect(() => {
-      // Try HTML5 geolocation.
-      if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(success, error,
-          {
-            enableHighAccuracy: true,
-            timeout: Infinity,
-            maximumAge: 0
-          });
-      } else {
-        // Browser doesn't support Geolocation
-        setAndLogError('Error: Your browser doesn\'t support geolocation.');
-      }
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(success, error,
+        {
+          enableHighAccuracy: true,
+          timeout: Infinity,
+          maximumAge: 0
+        });
+    } else {
+      // Browser doesn't support Geolocation
+      setAndLogError('Error: Your browser doesn\'t support geolocation.');
+    }
   }, [success, error, setAndLogError, onCampus]);
+
+  const adjustMap = useCallback(() => {
+    if (mapRef.current && hotspotRef.current) {
+      const map = mapRef.current.leafletElement;
+      const group = hotspotRef.current.leafletElement;
+      map.fitBounds(group.getBounds());
+    }
+  }, [mapRef, hotspotRef]);
+
+  useEffect(() => {
+    // on load, we should bound the map and show all points
+    adjustMap();
+  }, [adjustMap, markerData])
 
   return (
     <React.Fragment>
       <link rel="stylesheet" href="//unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-      <BackButton history={props.history}/>
-      <LeafletMap center={position} zoom={initalRegion.zoom} onCampus={onCampus} currentPos={currentPos}>
+      <BackButton history={props.history} />
+      <LeafletMap center={position} zoom={initalRegion.zoom} currentPos={currentPos} ref={mapRef}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
-        {markerData.map(marker => {
-        return (
-            <Marker
-              icon={ PointIcon(marker.position.toString()) }
-              position={[marker.latitude, marker.longitude]}
-              title={marker.name}
-              zIndexOffset={-1}
-              key={marker.position}
-              onClick={() => props.history.push('/tour?name=' + marker.name )}
-            />
-        );
-      })}
-      {currentPos.length > 0 && onCampus === true && (
+        <FeatureGroup ref={hotspotRef}>
+          {markerData.map(marker => {
+            return (
+              <Marker
+                icon={PointIcon(marker.position.toString())}
+                position={[marker.latitude, marker.longitude]}
+                title={marker.name}
+                zIndexOffset={-1}
+                key={marker.position}
+                onClick={() => props.history.push('/tour?name=' + marker.name)}
+              />
+            );
+          })}
+        </FeatureGroup>
+        {currentPos.length > 0 && onCampus === true && (
           <CircleMarker
             title={"Current Location"}
             className={"userLocation"}
@@ -118,10 +135,10 @@ function Map(props) {
 
 const PointIcon = (id) => {
   return new L.Icon({
-  // see more at https://developers.google.com/chart/image/docs/gallery/dynamic_icons#plain_pin
-  iconUrl: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=.6|0|add8e6|16|b|' + id,
-  iconSize: [23, 41]
+    // see more at https://developers.google.com/chart/image/docs/gallery/dynamic_icons#plain_pin
+    iconUrl: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=.6|0|add8e6|16|b|' + id,
+    iconSize: [23, 41]
   });
-} 
+}
 
 export default Map;
