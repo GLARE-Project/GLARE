@@ -132,4 +132,4 @@ export function isOnCampus( position, markerData ) {
 	return  Math.min(...distList) <= CAMPUS_RADIUS;
 }
 
-export default {onPositionUpdate, isOnCampus, distance};
+export default {onPositionUpdate, isOnCampus, distance, HOTSPOT_RADIUS};

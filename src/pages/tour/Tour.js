@@ -12,7 +12,7 @@ import { Context } from "./../../index";
 import { AnimateCamera } from "./AnimateCamera"
 import CubeMapVR from "./CubeMapVR";
 import SphereMapAR from "./SphereMapAR";
-import { distance } from "./../../utils/gpsManager";
+import HOTSPOT_RADIUS, { distance } from "./../../utils/gpsManager";
 import './tours.css';
 
 library.add(faMapMarkerAlt, faEye, faChevronRight, faChevronLeft);
@@ -106,6 +106,10 @@ const HotspotController = ({ baseName, data, markerData, handleData }) => {
 
     const [hostspotIndex, setHostspotIndex] = useState(0);
 
+
+    //TODO: Sound add a system in markers.json to pick what is a "basestation"
+    // it can find the points that are too close and let you pick one to be the base
+    
     // the hotspots that act as the starting node
     const baseHotspots = markerData.filter(hotspot => { return (typeof hotspot.position === 'number') });
     // the other hotspots
@@ -113,10 +117,12 @@ const HotspotController = ({ baseName, data, markerData, handleData }) => {
 
     const baseHotspot = baseHotspots.filter(marker => marker.name === baseName).pop();
 
+    // for some reason radius doesn't like to descruct properly so we do it here
+    const {HOTSPOT_RADIUS:radius} = HOTSPOT_RADIUS;
     const locationQueue = closeHotspots.filter(closeHotspot => {
         if (baseHotspot) {
             const {latitude, longitude} = baseHotspot;
-            return latitude && longitude && Math.abs(distance(latitude, longitude, closeHotspot.latitude, closeHotspot.longitude)) <= 0.0076;
+            return latitude && longitude && Math.abs(distance(latitude, longitude, closeHotspot.latitude, closeHotspot.longitude)) <= radius;
         } // otherwise it's not a basehotspot
         return false;
     });
