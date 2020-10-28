@@ -77,7 +77,7 @@ const Tour = ({ history }) => {
                     </Suspense>
                 </Canvas>
 
-                <HotspotController baseName={query.get("name")} handleData={setStoredData} data={StorageData} />
+                <HotspotController baseName={query.get("name")} handleData={setStoredData} data={StorageData} markerData={markerData} />
 
                 <div id="fixed-footer">
                     <AudioPlayer name={name} source={start_audio} />
@@ -102,10 +102,10 @@ const Tour = ({ history }) => {
     );
 };
 
-const HotspotController = ({ baseName, data, handleData }) => {
+const HotspotController = ({ baseName, data, handleData, markerData }) => {
 
     const [hostspotIndex, setHostspotIndex] = useState(0);
-    const { onCampus, markerData } = useContext(Context);
+    const { onCampus } = useContext(Context);
 
 
     //TODO: Sound add a system in markers.json to pick what is a "basestation"
