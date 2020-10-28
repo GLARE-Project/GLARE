@@ -77,7 +77,7 @@ const Tour = ({ history }) => {
                     </Suspense>
                 </Canvas>
 
-                <HotspotController baseName={query.get("name")} handleData={setStoredData} data={StorageData} markerData={markerData} />
+                <HotspotController baseName={query.get("name")} handleData={setStoredData} data={StorageData} markerData={markerData} onCampus={onCampus}/>
 
                 <div id="fixed-footer">
                     <AudioPlayer name={name} source={start_audio} />
@@ -102,11 +102,9 @@ const Tour = ({ history }) => {
     );
 };
 
-const HotspotController = ({ baseName, data, handleData, markerData }) => {
+const HotspotController = ({ baseName, data, handleData, markerData, onCampus }) => {
 
     const [hostspotIndex, setHostspotIndex] = useState(0);
-    const { onCampus } = useContext(Context);
-
 
     //TODO: Sound add a system in markers.json to pick what is a "basestation"
     // it can find the points that are too close and let you pick one to be the base
