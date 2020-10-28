@@ -77,7 +77,7 @@ const Tour = ({ history }) => {
                     </Suspense>
                 </Canvas>
 
-                <HotspotController baseName={query.get("name")} handleData={setStoredData} markerData={markerData} data={StorageData} />
+                <HotspotController baseName={query.get("name")} handleData={setStoredData} data={StorageData} />
 
                 <div id="fixed-footer">
                     <AudioPlayer name={name} source={start_audio} />
@@ -102,14 +102,15 @@ const Tour = ({ history }) => {
     );
 };
 
-const HotspotController = ({ baseName, data, markerData, handleData }) => {
+const HotspotController = ({ baseName, data, handleData }) => {
 
     const [hostspotIndex, setHostspotIndex] = useState(0);
+    const { onCampus, markerData } = useContext(Context);
 
 
     //TODO: Sound add a system in markers.json to pick what is a "basestation"
     // it can find the points that are too close and let you pick one to be the base
-    
+
     // the hotspots that act as the starting node
     const baseHotspots = markerData.filter(hotspot => { return (typeof hotspot.position === 'number') });
     // the other hotspots
@@ -120,7 +121,7 @@ const HotspotController = ({ baseName, data, markerData, handleData }) => {
     // for some reason radius doesn't like to descruct properly so we do it here
     const {HOTSPOT_RADIUS:radius} = HOTSPOT_RADIUS;
     const locationQueue = closeHotspots.filter(closeHotspot => {
-        if (baseHotspot) {
+        if (baseHotspot && onCampus) {
             const {latitude, longitude} = baseHotspot;
             return latitude && longitude && Math.abs(distance(latitude, longitude, closeHotspot.latitude, closeHotspot.longitude)) <= radius;
         } // otherwise it's not a basehotspot
@@ -128,6 +129,7 @@ const HotspotController = ({ baseName, data, markerData, handleData }) => {
     });
 
     const CAN_USE_QUEUE = ( locationQueue.length > 0 && hostspotIndex !== 0);
+    
     const HAS_RIGHT_DATA = hostspotIndex < locationQueue.length;
     const HAS_LEFT_DATA = hostspotIndex > 0;
     const { name } = CAN_USE_QUEUE ? locationQueue[hostspotIndex - 1] : data;
