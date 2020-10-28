@@ -128,11 +128,18 @@ const HotspotController = ({ baseName, data, markerData, handleData }) => {
 
     const handleLocation = direction => {
         if(direction === "next" &&  HAS_RIGHT_DATA) {
-            setHostspotIndex(currentIndex => currentIndex + 1);
-            handleData( locationQueue[hostspotIndex] );
+            setHostspotIndex(currentIndex => {
+                const nextIndex = currentIndex + 1;
+                handleData( locationQueue[currentIndex] );
+                return nextIndex;
+            });
         } else if (direction === "back" && HAS_LEFT_DATA) {
-            setHostspotIndex(currentIndex => currentIndex - 1);
-            handleData( CAN_USE_QUEUE ? locationQueue[hostspotIndex - 2] : data);
+            setHostspotIndex(currentIndex => {
+                const previousIndex = currentIndex - 1;
+                handleData( CAN_USE_QUEUE ? locationQueue[previousIndex] : data);
+                return previousIndex;
+            });
+            
         }
     }
     
