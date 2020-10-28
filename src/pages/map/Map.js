@@ -25,16 +25,18 @@ function Map(props) {
   const checkCamera = useCallback(() => {
     // check to see if the devices are undefine
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-      navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: {
-          facingMode: {
-            exact: "environment" // the front camera, if prefered
-          }
-        }
-      }).catch(err => setOnCampus(false));
+        navigator.mediaDevices.getUserMedia({
+            audio: false,
+            video: {
+                facingMode: {
+                    exact: "environment" // the front camera, if prefered
+                }
+            }
+          }).catch(err => {
+            if (process.env.NODE_ENV !== 'production') setOnCampus(false);
+          });
     } else {
-      setOnCampus(false);
+      if (process.env.NODE_ENV !== 'production') setOnCampus(false);
     }
   }, [setOnCampus]);
 

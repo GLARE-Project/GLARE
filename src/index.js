@@ -44,7 +44,7 @@ function Provider({ children }) {
     return (
         <Context.Provider value={{
             onCampus,
-            setOnCampus: val => setOnCampus(val),
+            setOnCampus: val => { if( val !== onCampus) setOnCampus(val) },
             modelOpen,
             toggleModel: val => toggleModel(val),
             markerData,

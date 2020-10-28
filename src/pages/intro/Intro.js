@@ -35,9 +35,12 @@ function Intro() {
                         exact: "environment" // the front camera, if prefered
                     }
                 }
-            }).catch(err => setOnCampus(false));
+                // if constains don't pass for camera and is production - it isn't on campus
+              }).catch(err => {
+                if (process.env.NODE_ENV !== 'production') setOnCampus(false);
+              });
         } else {
-            setOnCampus(false);
+            if (process.env.NODE_ENV !== 'production') setOnCampus(false);
         }
     }, [setOnCampus]);
 
