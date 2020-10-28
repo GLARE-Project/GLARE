@@ -16,6 +16,7 @@ import BackButton from '../../components/BackButton';
 import './media.css';
 import { Context } from "./../../index";
 
+
 library.add(faChevronLeft, faChevronRight);
 
 function Media(props) {
@@ -26,6 +27,8 @@ function Media(props) {
     const [content, setContent] = useState([]);
 
     const { markerData } = useContext(Context);
+    
+
 
     useEffect(() => {
         // remove the image from loading in from the homepages
@@ -103,7 +106,7 @@ function PictureContent({ URL, description, index }) {
     return (
         <Slide index={index}>
             <p>{description}</p>
-            <img src={process.env.PUBLIC_URL + URL} alt={description} />
+            <img src={URL} alt={description} />
         </Slide>
     );
 }

@@ -19,8 +19,7 @@ const OverlayVR = ({ data }) => {
 };
 
 
-const CubeMapVR = React.memo(({ data }) => {
-  const { panorama_image, VR_overylay } = data;
+const CubeMap = ({ panorama_image }) => {
 
   const texture = useLoader(TextureLoader, panorama_image);
 
@@ -49,7 +48,7 @@ const CubeMapVR = React.memo(({ data }) => {
       clamp (1.0 + (R.z / r) / seamWidth, 0.0, 1.0);
     gl_FragColor = texture2D (map, vec2 (
       0.5 + phi / ${2 * Math.PI},
-      theta / ${ Math.PI }
+      theta / ${Math.PI}
     ), -2.0 * log2(1.0 + c * c) -12.3 * seam);
   }`
 
@@ -65,15 +64,24 @@ const CubeMapVR = React.memo(({ data }) => {
   // end shader content
 
   return (
+    <mesh>
+      {/*Inverse on z axis to make cubemap
+          * this is like setting the scale [1, 1, -1]  */}
+      <boxGeometry attach="geometry" args={[20, 20, -20]} />
+      <shaderMaterial attach="material" uniforms={uniforms} fragmentShader={fragmentShader} vertexShader={vertexShader} />
+    </mesh>
+  )
+}
+
+
+const CubeMapVR = React.memo(({ data }) => {
+  const { panorama_image, VR_overylay } = data;
+
+  return (
     <>
       <group dispose={null}>
-        <mesh>
-          {/*Inverse on z axis to make cubemap
-          * this is like setting the scale [1, 1, -1]  */}
-          <boxGeometry attach="geometry" args={[20, 20, -20]} />
-          {panorama_image && <shaderMaterial attach="material" uniforms={uniforms} fragmentShader={fragmentShader} vertexShader={vertexShader} /> }
-        </mesh>
-        {VR_overylay && <OverlayVR data={data} /> }
+        {panorama_image && <CubeMap panorama_image={panorama_image} />}
+        {VR_overylay && <OverlayVR data={data} />}
       </group>
       <OrbitControls
         enablePan={false}

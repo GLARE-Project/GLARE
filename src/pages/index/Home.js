@@ -78,14 +78,14 @@ function Home() {
 
       document.body.classList.add("homepage");
       document.body.style.setProperty('--homepage-background', 
-        "url(" + homepage_image + ")"
+        "url(" + process.env.PUBLIC_URL + "/../../" + homepage_image + ")"
       );
       return () =>  document.body.classList.remove("homepage");
   }, []);
 
   return (
     <React.Fragment>
-      {intro_audio && (<Rehowl src={process.env.PUBLIC_URL + intro_audio}>{
+      {intro_audio && (<Rehowl src={intro_audio}>{
         ({ howl }) => <Play howl={howl} />
       }</Rehowl>)}
       <div className="homepage">

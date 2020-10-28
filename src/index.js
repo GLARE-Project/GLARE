@@ -44,7 +44,7 @@ function Provider({ children }) {
     return (
         <Context.Provider value={{
             onCampus,
-            setOnCampus: val => setOnCampus(val),
+            setOnCampus: val => { if( val !== onCampus) setOnCampus(val) },
             modelOpen,
             toggleModel: val => toggleModel(val),
             markerData,
@@ -60,7 +60,7 @@ function Provider({ children }) {
 
 ReactDOM.render(
     <Provider>
-        <BrowserRouter>
+        <BrowserRouter basename={window.location.pathname.substr(0, window.location.pathname.lastIndexOf('/'))}>
             <App />
         </BrowserRouter>
     </Provider>
