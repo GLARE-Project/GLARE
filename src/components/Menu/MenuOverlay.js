@@ -8,7 +8,7 @@ import { Frame, Stack } from 'framer'
 import { useCookie } from "react-use";
 import './Menu.scss';
 import { Context } from "./../../index";
-//import { ReactComponent as ReactLogo } from './book.svg';
+import { isBaseHotspot } from "./../../utils/gpsManager";
 
 Modal.setAppElement('#root');
 library.add(faBars, faTimes, faBell);
@@ -20,12 +20,13 @@ function MenuOverlay({ children, data }) {
         setCookie(true);
     }
 
-    const { modelOpen, toggleModel } = useContext(Context);
+    const { modelOpen, toggleModel, onCampus } = useContext(Context);
 
 
     const { media_pages, main_pages, name } = data;
 
     const HAS_LIBRARY_ITEMS = typeof (media_pages) !== 'undefined' && media_pages.length > 0;
+    const IS_GROUPED_HOTSPOT = isBaseHotspot(data) && onCampus;
 
     return (
         <React.Fragment>
@@ -78,80 +79,61 @@ function MenuOverlay({ children, data }) {
                 {children}
             </div>
 
-            {HAS_LIBRARY_ITEMS && <NotificationSystem visitedLibrary={visitedLibrary} />}
+            <NotificationSystem visitedLibrary={visitedLibrary} HAS_LIBRARY_ITEMS={HAS_LIBRARY_ITEMS} IS_GROUPED_HOTSPOT={IS_GROUPED_HOTSPOT} />
 
         </React.Fragment>
     );
 }
 
 
-//const LibraryAlert = ({ visitedLibrary }) => {
-    //const [isToggled, setState] = useState(false);
-
-    //const toggleLibrary = () => {setState(!isToggled);}
-
-    //return (
-       // <>
-            //{!visitedLibrary &&
-               // <Frame
-                   // position={"relative"}
-                    //style={styles.overlayBtnLib}
-                    //initial={{ opacity: 0 }}
-                    //animate={{ opacity: 1, fill: '#000000' }}
-                    //transition={{ delay: 1.5 }}
-                    //onTap={toggleLibrary}
-                    //className={"libraryOverlay"}
-                //>
-                    //<ReactLogo className="svgicon" />
-                    //<div className="dialog" style={{ display: isToggled ? 'block' : 'none' }} >
-                        //<h1>Check out the Library!</h1>
-                        //<p>The library offers more information about each hotspot, including additional photos,<br />
-                        //audio, videos and content. The library can be found under the menu bar above. Enjoy<br />
-                        //the rest of the rich history of the May 4th Augmented Reality Experience.</p>
-                    //</div>
-                //</Frame>
-           // }
-        //</>
-    //)
-//}
-const NotificationSystem = ({ visitedLibrary }) => {
-    const [istoggled, setState] =useState(false);
-    const toggleHotspot =() => {
-        setState( state => !state);
+const NotificationSystem = ({ visitedLibrary, HAS_LIBRARY_ITEMS, IS_GROUPED_HOTSPOT }) => {
+    const [istoggled, setState] = useState(false);
+    const toggleHotspot = () => {
+        setState(state => !state);
     }
     const [flash, setAnimation] = React.useState(0)
+
+    const LIBRARY_EXISTS = (HAS_LIBRARY_ITEMS && !visitedLibrary);
+    const GROUP_HOTSPOT_EXISTS = IS_GROUPED_HOTSPOT;
+    const ONE_NOTIFICATIONS_EXIST = LIBRARY_EXISTS || GROUP_HOTSPOT_EXISTS;
+    const BOTH_NOTIFICATIONS_EXIST =  LIBRARY_EXISTS && GROUP_HOTSPOT_EXISTS;
+
     return (
         <>
-        {!visitedLibrary &&
-            <Stack> 
-                <Frame 
-                    width={"100px"} height={"100px"} top={15} right={-15} position={"fixed"} style={styles.overlayBtnAlert} 
-                    onTapStart={toggleHotspot} className={"HotspotOverlay"} onClick={() => setAnimation(1)} onAnimationEnd={() => setAnimation(0)}
-                    flash={flash}
-                >
-                <FontAwesomeIcon
-                    className="overlay-ctn-notification"
-                    icon={faBell}
-                />
-                <Frame 
-                    style={styles.overlayBtnAlert1} top={15} right={90} width={"350px"}
-                >
-                    <div className="hotspotdialog" style={{ display: istoggled ? 'block' : 'none' }} >
-                        <h3>Check out the other Hotspot Locations!</h3>
-                        <p>Make sure to check out the other hotspot locations in order to gain the full experience, along with their rich library content found under the menu bar.</p>
-                        <hr></hr>
-                        <h3>Check out the Library!</h3>
-                        <p>including photos, audio, and content regarding each of the hotspot. The library option can be found under the Menu bar on the upper left hand corner of the screen.</p>
-                    </div>
-                </Frame>
-                </Frame>
-            </Stack>
-        }
+            { ONE_NOTIFICATIONS_EXIST &&
+                <Stack>
+                    <Frame
+                        width={"100px"} height={"100px"} top={15} right={-15} position={"fixed"} style={styles.overlayBtnAlert}
+                        onTapStart={toggleHotspot} className={"HotspotOverlay"} onClick={() => setAnimation(1)} onAnimationEnd={() => setAnimation(0)}
+                        flash={flash}
+                    >
+                        <FontAwesomeIcon
+                            className="overlay-ctn-notification"
+                            icon={faBell}
+                        />
+                        <Frame
+                            style={styles.overlayBtnAlert1} top={15} right={90} width={"350px"}
+                        >
+                            <div className="hotspotdialog" style={{ display: istoggled ? 'block' : 'none' }} >
+                                {GROUP_HOTSPOT_EXISTS && <>
+                                    <h3>Check out the other Hotspot Locations!</h3>
+                                    <p>Make sure to check out the other hotspot locations in order to gain the full experience, along with their rich library content found under the menu bar.</p>
+                                </>}
+                                {BOTH_NOTIFICATIONS_EXIST && <hr />}
+                                {LIBRARY_EXISTS && <>
+                                    <h3>Check out the Library!</h3>
+                                    <p>including photos, audio, and content regarding each of the hotspot. The library option can be found under the Menu bar on the upper left hand corner of the screen.</p>
+                                </>}
+                            </div>
+                        </Frame>
+                    </Frame>
+                </Stack>
+            }
         </>
-   );
+    );
 };
 
-const MenuComponent = React.memo(function MenuComponent({ name, pages=[] }) {
+const MenuComponent = React.memo(function MenuComponent({ name, pages = [] }) {
     const { toggleModel } = useContext(Context);
     const handleClick = () => {
         toggleModel(false);
@@ -180,10 +162,10 @@ const styles = {
         backgroundColor: "none",
         zIndex: 11,
     },
-   overlayBtnAlert1: {
-    position: "fixed",
-    backgroundColor: "none",
-    zIndex: 10,
+    overlayBtnAlert1: {
+        position: "fixed",
+        backgroundColor: "none",
+        zIndex: 10,
     },
     overlayBtn: {
         position: "fixed",
