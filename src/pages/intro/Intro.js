@@ -35,9 +35,12 @@ function Intro() {
                         exact: "environment" // the front camera, if prefered
                     }
                 }
-            }).catch(err => setOnCampus(false));
+                // if constains don't pass for camera and is production - it isn't on campus
+            }).catch(err => {
+                if (process.env.NODE_ENV !== 'production') setOnCampus(false);
+            });
         } else {
-            setOnCampus(false);
+            if (process.env.NODE_ENV !== 'production') setOnCampus(false);
         }
     }, [setOnCampus]);
 
@@ -169,23 +172,35 @@ const Steps360 = [
     }
 ];
 
+
+const HelpElement = ({ description, icon, index }) => {
+    const pattern = /(\[icon\])/g;
+    const matchText = description.match(pattern);
+
+    return (<li key={index} >
+        {description.split(pattern)
+            .reduce((accumulator, currentValue) => {
+                // if no icon return the text
+                if (!icon) return accumulator;
+
+                // if current frament is the [icon]
+                if (matchText.includes(currentValue))
+                    // convert to a JS Element
+                    return [<>{accumulator}{icon}</>];
+                else
+                    // if not [icon just add the text]
+                    return [...accumulator, currentValue];
+            }
+            )}
+    </li>);
+}
+
 export const ProcessedSteps = () => {
     const { onCampus } = useContext(Context);
     const StepData = onCampus ? StepsMobile : Steps360;
     return StepData.map((step, index) => {
-        const text = step.description;
-        const pattern = /(\[icon\])/g;
-        const splitText = text.split(pattern);
-        const matches = text.match(pattern);
         return (
-            <li>{splitText.reduce((arr, element) => {
-                if (!element) return <li>arr</li>;
-
-                if (matches.includes(element))
-                    return [...arr, step.icon];
-
-                return [...arr, element];
-            })}</li>
+            <HelpElement {...step} index={index} key={index} />
         )
     });
 }
