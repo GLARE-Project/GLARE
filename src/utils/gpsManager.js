@@ -145,4 +145,4 @@ export const isBaseHotspot = (hotspotData) => {
 	return typeof position === 'number';
 }
 
-export default {onPositionUpdate, isOnCampus, isBaseHotspot};
+export default {onPositionUpdate, isOnCampus, HOTSPOT_RADIUS, isBaseHotspot};
