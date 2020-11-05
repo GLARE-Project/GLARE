@@ -12,7 +12,7 @@ import { Context } from "./../../index";
 import { AnimateCamera } from "./AnimateCamera"
 import CubeMapVR from "./CubeMapVR";
 import SphereMapAR from "./SphereMapAR";
-import HOTSPOT_RADIUS, { distance } from "./../../utils/gpsManager";
+import HOTSPOT_RADIUS, { distance, isBaseHotspot } from "./../../utils/gpsManager";
 import './tours.css';
 
 library.add(faMapMarkerAlt, faEye, faChevronRight, faChevronLeft);
@@ -110,9 +110,9 @@ const HotspotController = ({ baseName, data, handleData, markerData, onCampus })
     // it can find the points that are too close and let you pick one to be the base
 
     // the hotspots that act as the starting node
-    const baseHotspots = markerData.filter(hotspot => { return (typeof hotspot.position === 'number') });
+    const baseHotspots = markerData.filter(hotspot => { return isBaseHotspot(hotspot) });
     // the other hotspots
-    const closeHotspots = markerData.filter(hotspot => { return (typeof hotspot.position !== 'number') });
+    const closeHotspots = markerData.filter(hotspot => { return !isBaseHotspot(hotspot) });
 
     const baseHotspot = baseHotspots.filter(marker => marker.name === baseName).pop();
 
