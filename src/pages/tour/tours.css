@@ -5,7 +5,7 @@ body, html, .root, canvas, video {
 
 #title-ctn {
     position: fixed;
-    top: 0%;
+    top: 2.5%;
     width: 100%;
     text-align: center;
     z-index: 3;
@@ -31,6 +31,16 @@ div[class^="overlay-ctn-"]{
     right: .5em;
 }
 
+.overlay-ctn-notification{
+    top: .5em;
+    right: .5em;
+    font-size: 5rem;
+    animation-name: flash1;
+    animation-duration: 1s;
+    animation-iteration-count: 5;
+    color: rgba(255, 255, 255, .7);
+
+}
 .overlay-icon {
     font-size: 5rem;
     color: rgba(255, 255, 255, .7);
@@ -77,4 +87,6 @@ div[class^="overlay-ctn-"]{
     position: fixed;
     z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
 }
+
+
 
