@@ -3,7 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faEye, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faEye, faChevronRight, faChevronLeft, faBell } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { Html, useProgress } from 'drei'
 import AudioPlayer from "./../../components/AutoPlayer";
@@ -15,8 +15,8 @@ import SphereMapAR from "./SphereMapAR";
 import HOTSPOT_RADIUS, { distance, isBaseHotspot } from "./../../utils/gpsManager";
 import './tours.css';
 
-library.add(faMapMarkerAlt, faEye, faChevronRight, faChevronLeft);
-
+library.add(faMapMarkerAlt, faEye, faChevronRight, faChevronLeft, faBell);
+    
 const Loader = () => {
     const { active } = useProgress();
     if (active) {
@@ -28,7 +28,8 @@ const Loader = () => {
     } else return null
 };
 
-const Tour = ({ history }) => {
+const Tour = ({ history}) => {
+    
     const query = new URLSearchParams(useLocation().search);
     const INITIAL_STATE = { name: "", start_audio: "" };
 

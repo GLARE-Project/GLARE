@@ -103,42 +103,38 @@ a[class^="menu-item"] {
         display: none !important;
     }
 }
-.svgicon path {
-stroke-width: 10%;
-}
-.svgicon g {
-    fill: darkblue;
-    animation-name: flash;
-    animation-duration: 1s;
-    animation-iteration-count: 5;
-   }
-@keyframes flash{
-    from{background-color:white; fill:darkblue;}
-    to{background-color:darkblue; fill: #ffffff;}
-    
-}
-.svgicon  {
-    transform: scale(1.25);
-    height: 4em;
-    width: 4em;
-    background-color: #ffffff;
+
+.hotspoticon{
+    background-color:white;
+    transform: scale(1);
     border-radius: 1em;
-    padding: 2px;
-    animation-name: flash;
+    animation-name: flash1;
     animation-duration: 1s;
-    animation-iteration-count: 5;
-    position: absolute;
-    z-index: 10;
+    animation-iteration-count: 4;
+    animation-timing-function: linear;
+    border: black;
+    animation-play-state: paused;
+
 }
-.dialog {
-    background-color: #ffffff;
-    padding-bottom: .5em;
-    padding-top: .5em;
-    padding-left: 5.5em;
-    padding-right: .5em;
-    z-index: 11;
-    border-radius: 2em;
-    
+.hotspoticon[flash='1'] {
+    animation: flash1;
+  }
+
+@keyframes flash1{
+    from{color: rgba(255, 255, 255, .7); fill:#120896;}
+    to{color:#120896; fill:rgba(255, 255, 255, .7);}
+}
+.hotspotdialog {
+    background-color: rgba(255, 255, 255, .7);
+    z-index: 10;
+    border-radius: 1em;
+    padding: .75em; 
+    font-size: 15px;
+    padding-top: -3;
+}
+
+.HotspotOverlay {
+    z-index: 10;
 }
 
 
