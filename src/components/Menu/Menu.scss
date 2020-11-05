@@ -99,7 +99,7 @@ a[class^="menu-item"] {
 }
 
 .ReactModal__Body--open  {
-    .overlay-icon:not(.closeBtn), #fixed-footer, #title-ctn, .libraryOverlay {
+    .overlay-icon:not(.closeBtn), #fixed-footer, #title-ctn, .HotspotOverlay {
         display: none !important;
     }
 }
