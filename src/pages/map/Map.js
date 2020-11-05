@@ -25,18 +25,19 @@ function Map(props) {
   const checkCamera = useCallback(() => {
     // check to see if the devices are undefine
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-        navigator.mediaDevices.getUserMedia({
-            audio: false,
-            video: {
-                facingMode: {
-                    exact: "environment" // the front camera, if prefered
-                }
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: process.env.NODE_ENV === 'production' ?
+          {
+            facingMode: {
+              exact: "environment" // the front camera, if prefered
             }
-          }).catch(err => {
-            if (process.env.NODE_ENV !== 'production') setOnCampus(false);
-          });
+          } : {}
+      }).catch(err => {
+        setOnCampus(false);
+      });
     } else {
-      if (process.env.NODE_ENV !== 'production') setOnCampus(false);
+      setOnCampus(false);
     }
   }, [setOnCampus]);
 
@@ -99,7 +100,7 @@ function Map(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
-        {markerData.length > 0 && <FeatureGroup onAdd={ e => {adjustMap(e)}}>
+        {markerData.length > 0 && <FeatureGroup onAdd={e => { adjustMap(e) }}>
           {markerData.map(marker => {
             return (
               <Marker

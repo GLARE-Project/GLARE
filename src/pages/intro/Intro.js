@@ -30,17 +30,18 @@ function Intro() {
         if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
             navigator.mediaDevices.getUserMedia({
                 audio: false,
-                video: {
-                    facingMode: {
-                        exact: "environment" // the front camera, if prefered
-                    }
-                }
+                video: process.env.NODE_ENV === 'production' ?
+                    {
+                        facingMode: {
+                            exact: "environment" // the front camera, if prefered
+                        }
+                    } : {}
                 // if constains don't pass for camera and is production - it isn't on campus
             }).catch(err => {
-                if (process.env.NODE_ENV !== 'production') setOnCampus(false);
+                setOnCampus(false);
             });
         } else {
-            if (process.env.NODE_ENV !== 'production') setOnCampus(false);
+            setOnCampus(false);
         }
     }, [setOnCampus]);
 
