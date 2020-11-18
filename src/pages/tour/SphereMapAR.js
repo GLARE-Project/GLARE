@@ -32,11 +32,12 @@ function handleVideo() {
     // this gets the camera 
     navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: {
-            facingMode: {
-                exact: "environment" // the front camera, if prefered
-            }
-        }
+        video: process.env.NODE_ENV === 'production' ?
+            {
+                facingMode: {
+                    exact: "environment" // the front camera, if prefered
+                }
+            } : {}
     }).then(stream => {
         if (stream) {
             const video = document.querySelector("#videoElement");
@@ -80,7 +81,7 @@ const SphereMapAR = React.memo(({ data }) => {
                     {/* only show the backside of texture and rotate it to the front
                       *         this is like setting the scale [-1, 1, 1]        */}
                     <sphereGeometry attach="geometry" args={[20, 20, 20, (Math.PI / 2)]} />
-                    { /* only render the material if we have the overlay */ }
+                    { /* only render the material if we have the overlay */}
                     {AR_overlay && <meshBasicMaterial attach="material" map={texture} side={BackSide} />}
                 </mesh>
             </group>

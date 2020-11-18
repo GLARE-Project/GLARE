@@ -11,8 +11,7 @@ function Map(props) {
   const [GeoError, setError] = useState(null);
   const { onCampus, setOnCampus, markerData, currentMarker, setCurrentMarker } = useContext(Context);
 
-  const mapRef = useRef(null);
-  const hotspotRef = useRef(null);
+  const mapRef = useRef({ current: null });
 
   const initalRegion = {
     lat: 41.150121,
@@ -28,12 +27,15 @@ function Map(props) {
     if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
       navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: {
-          facingMode: {
-            exact: "environment" // the front camera, if prefered
-          }
-        }
-      }).catch(err => setOnCampus(false));
+        video: process.env.NODE_ENV === 'production' ?
+          {
+            facingMode: {
+              exact: "environment" // the front camera, if prefered
+            }
+          } : {}
+      }).catch(err => {
+        setOnCampus(false);
+      });
     } else {
       setOnCampus(false);
     }
@@ -80,18 +82,14 @@ function Map(props) {
     }
   }, [success, error, setAndLogError, onCampus]);
 
-  const adjustMap = useCallback(() => {
-    if (mapRef.current && hotspotRef.current) {
-      const map = mapRef.current.leafletElement;
-      const group = hotspotRef.current.leafletElement;
-      map.fitBounds(group.getBounds());
+  const adjustMap = ({ target }) => {
+    const { current } = mapRef;
+    if (current.hasOwnProperty("leafletElement")) {
+      const map = current.leafletElement;
+      map.fitBounds(target.getBounds())
     }
-  }, [mapRef, hotspotRef]);
+  };
 
-  useEffect(() => {
-    // on load, we should bound the map and show all points
-    adjustMap();
-  }, [adjustMap, markerData])
 
   return (
     <React.Fragment>
@@ -102,7 +100,7 @@ function Map(props) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
-        <FeatureGroup ref={hotspotRef}>
+        {markerData.length > 0 && <FeatureGroup onAdd={e => { adjustMap(e) }}>
           {markerData.map(marker => {
             return (
               <Marker
@@ -115,7 +113,7 @@ function Map(props) {
               />
             );
           })}
-        </FeatureGroup>
+        </FeatureGroup>}
         {currentPos.length > 0 && onCampus === true && (
           <CircleMarker
             title={"Current Location"}
