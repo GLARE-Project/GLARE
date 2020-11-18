@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLoader } from 'react-three-fiber';
-import { TextureLoader, BackSide } from 'three';
+import { TextureLoader } from 'three';
 import { DeviceOrientationControls } from 'drei'
 
-function handleVideo() {
+function handleVideo(video) {
+
     // Older browsers might not implement mediaDevices at all, so we set an empty object first
     if (navigator.mediaDevices === undefined) {
         navigator.mediaDevices = {};
@@ -40,19 +41,18 @@ function handleVideo() {
             } : {}
     }).then(stream => {
         if (stream) {
-            const video = document.querySelector("#videoElement");
 
             // Older browsers may not have srcObject
-            if ("srcObject" in video) {
-                video.srcObject = stream;
+            if ("srcObject" in video.current) {
+                video.current.srcObject = stream;
             } else {
                 // Avoid using this in new browsers, as it is going away.
-                video.src = window.URL.createObjectURL(stream);
+                video.current.src = window.URL.createObjectURL(stream);
             }
 
             // play the video stream
-            video.onloadedmetadata = function (e) {
-                video.play();
+            video.current.onloadedmetadata = function (e) {
+                video.current.play();
             };
 
         } else {
@@ -65,24 +65,23 @@ function handleVideo() {
         });
 }
 
-const SphereMapAR = React.memo(({ data }) => {
-    const { AR_overlay } = data;
+const SphereMapAR = React.memo(({ data, video }) => {
+    const { overylay } = data;
 
-    const texture = useLoader(TextureLoader, AR_overlay);
+    const texture = useLoader(TextureLoader, overylay);
 
     useEffect(() => {
-        handleVideo();
-    }, [])
+       handleVideo(video);
+    }, [video]);
 
     return (
         <>
             <group dispose={null}>
                 <mesh>
-                    {/* only show the backside of texture and rotate it to the front
-                      *         this is like setting the scale [-1, 1, 1]        */}
-                    <sphereGeometry attach="geometry" args={[20, 20, 20, (Math.PI / 2)]} />
-                    { /* only render the material if we have the overlay */}
-                    {AR_overlay && <meshBasicMaterial attach="material" map={texture} side={BackSide} />}
+                { /* only render the material if we have the overlay */}
+                    { overylay && <sprite scale={[1/2, 1/2]}>
+                        <spriteMaterial attach="material" map={texture} />
+                    </sprite>}
                 </mesh>
             </group>
             <DeviceOrientationControls />

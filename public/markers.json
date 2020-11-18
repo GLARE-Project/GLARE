@@ -58,10 +58,9 @@
 				}]
 			}],
 
-			"AR_overlay" : "/demo/startImageTwoTrans.png",
 			"panorama_image" : "/demo/VictoryBellB.JPG",
 			"start_audio" : "/demo/1.Possible Intro - 4720, 9.36 PM.m4a",
-			"VR_overylay" : "/demo/Victory-Bell.jpg"
+			"overylay" : "/demo/Victory-Bell.jpg"
 		}
 	]
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, Suspense } from 'react';
+import React, { useEffect, useState, useContext, Suspense, useRef } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -37,6 +37,8 @@ const Tour = ({ history }) => {
 
     const [isRotating, setIsRoating] = useState(false);
 
+    const videoRef = useRef();
+
     function scrollToTop() {
         window.scrollTo(0, 0);
         window.scrollTo(0, 1);
@@ -64,12 +66,12 @@ const Tour = ({ history }) => {
         <div id="container" style={{ overflow: "hidden" }}>
             <MenuOverlay data={StorageData}>
 
-                {onCampus && (<video autoPlay={true} muted="" playsInline="" id="videoElement" />)}
+                {onCampus && (<video ref={videoRef} autoPlay={true} muted playsInline id="videoElement" />)}
 
                 <Canvas id="canvas" camera={{ position: [0, 0, 1], fov: 45 }}>
                     <Suspense fallback={<Loader />}>
                         {onCampus ?
-                            <SphereMapAR data={StorageData} /> :
+                            <SphereMapAR data={StorageData} video={videoRef} /> :
                             <CubeMapVR data={StorageData} />
                         }
                         <AnimateCamera isRotating={isRotating} setIsRoating={setIsRoating} />

@@ -4,8 +4,8 @@ import { OrbitControls } from 'drei'
 import { TextureLoader, FrontSide, Vector3 } from 'three';
 
 const OverlayVR = ({ data }) => {
-  const { overlay_size = 10, overlay_offset_x = 0, overlay_offset_y = 0, VR_overylay } = data;
-  const texture = useLoader(TextureLoader, VR_overylay);
+  const { overlay_size = 10, overlay_offset_x = 0, overlay_offset_y = 0, overylay } = data;
+  const texture = useLoader(TextureLoader, overylay);
 
   return (
     <mesh position={[overlay_offset_x, overlay_offset_y, -9]}>
@@ -75,13 +75,13 @@ const CubeMap = ({ panorama_image }) => {
 
 
 const CubeMapVR = React.memo(({ data }) => {
-  const { panorama_image, VR_overylay } = data;
+  const { panorama_image, overylay } = data;
 
   return (
     <>
       <group dispose={null}>
         {panorama_image && <CubeMap panorama_image={panorama_image} />}
-        {VR_overylay && <OverlayVR data={data} />}
+        { overylay && <OverlayVR data={data} />}
       </group>
       <OrbitControls
         enablePan={false}
