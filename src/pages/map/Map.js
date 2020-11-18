@@ -109,7 +109,7 @@ function Map(props) {
                 title={marker.name}
                 zIndexOffset={-1}
                 key={marker.position}
-                onClick={() => props.history.push('/tour?name=' + marker.name)}
+                onClick={() => props.history.push(`/tour?name=${encodeURIComponent(marker.name)}`)}
               />
             );
           })}
