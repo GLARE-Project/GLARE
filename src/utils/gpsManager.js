@@ -13,7 +13,7 @@ const AlertLocation = ({ markerName, history  }) => {
 			<p style={styles.toastCtn}>
 				It appears that you're at the { markerName }.
 				<button 
-					onClick={() => history.push("/tour?name=" + markerName)}
+					onClick={() => history.push(`/tour?name=${encodeURI(markerName)}`)}
 					style={styles.toastBtn}
 				>
 					View Hotspot
