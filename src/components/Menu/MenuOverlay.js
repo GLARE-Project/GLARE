@@ -46,14 +46,14 @@ function MenuOverlay({ children, data }) {
                             pages={main_pages} />
                         <div className={["media-menu", HAS_LIBRARY_ITEMS ? "library-full" : "library-empty"].join(' ')}>
                             {HAS_LIBRARY_ITEMS && <NavLink
-                                to={`${process.env.PUBLIC_URL}/media?name=${name}`}
+                                to={encodeURI(`${process.env.PUBLIC_URL}/media?name=${name}`)}
                                 className="menu-item"
                                 onClick={() => { setVisited(); }}>
                                 Library
                         </NavLink>
                             }
                             <NavLink
-                                to={`${process.env.PUBLIC_URL}/help`}
+                                to={encodeURI(`${process.env.PUBLIC_URL}/help`)}
                                 className="menu-item-last">
                                 Help
                         </NavLink>
@@ -128,7 +128,7 @@ const MenuComponent = React.memo(function MenuComponent({ name, pages=[] }) {
             {pages.map((media, index) => {
                 return (
                     <NavLink
-                        to={`${process.env.PUBLIC_URL}/main?name=${name}&type=${media.title}`}
+                        to={encodeURI(`${process.env.PUBLIC_URL}/main?name=${name}&type=${media.title}`)}
                         onClick={() => handleClick()}
                         className={pages.length === index + 1 ? "menu-item-last" : "menu-item"}
                         key={index}
