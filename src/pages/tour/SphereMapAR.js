@@ -66,9 +66,9 @@ function handleVideo(video) {
 }
 
 const SphereMapAR = React.memo(({ data, video }) => {
-    const { overylay } = data;
+    const { overlay } = data;
 
-    const texture = useLoader(TextureLoader, overylay);
+    const texture = useLoader(TextureLoader, overlay);
 
     useEffect(() => {
        handleVideo(video);
@@ -79,7 +79,7 @@ const SphereMapAR = React.memo(({ data, video }) => {
             <group dispose={null}>
                 <mesh>
                 { /* only render the material if we have the overlay */}
-                    { overylay && <sprite scale={[1/2, 1/2]}>
+                    { overlay && <sprite scale={[1/2, 1/2]}>
                         <spriteMaterial attach="material" map={texture} />
                     </sprite>}
                 </mesh>

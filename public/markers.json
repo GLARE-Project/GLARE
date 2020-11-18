@@ -60,7 +60,7 @@
 
 			"panorama_image" : "/demo/VictoryBellB.JPG",
 			"start_audio" : "/demo/1.Possible Intro - 4720, 9.36 PM.m4a",
-			"overylay" : "/demo/Victory-Bell.jpg"
+			"overlay" : "/demo/Victory-Bell.jpg"
 		}
 	]
 }
