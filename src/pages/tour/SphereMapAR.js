@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useLoader } from 'react-three-fiber';
 import { TextureLoader } from 'three';
-import { DeviceOrientationControls } from 'drei'
+import { DeviceOrientationControls } from 'drei';
+import { Context } from "./../../index";
+
 
 function handleVideo(video) {
 
@@ -67,8 +69,9 @@ function handleVideo(video) {
 
 const SphereMapAR = React.memo(({ data, video }) => {
     const { overlay } = data;
+    const { tourBasePath } = useContext(Context);
 
-    const texture = useLoader(TextureLoader, overlay);
+    const texture = useLoader(TextureLoader, tourBasePath + overlay);
 
     useEffect(() => {
        handleVideo(video);

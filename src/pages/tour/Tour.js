@@ -31,7 +31,7 @@ const Tour = ({ history }) => {
     const query = new URLSearchParams(useLocation().search);
     const INITIAL_STATE = { name: "", start_audio: "" };
 
-    const { onCampus, markerData } = useContext(Context);
+    const { onCampus, markerData, tourBasePath } = useContext(Context);
     const [StorageData, setStoredData] = useState(INITIAL_STATE);
     const { name, start_audio } = StorageData;
 
@@ -71,8 +71,8 @@ const Tour = ({ history }) => {
                 <Canvas id="canvas" camera={{ position: [0, 0, 1], fov: 45 }}>
                     <Suspense fallback={<Loader />}>
                         {onCampus ?
-                            <SphereMapAR data={StorageData} video={videoRef} /> :
-                            <CubeMapVR data={StorageData} />
+                            <SphereMapAR data={StorageData} video={videoRef} tourBasePath={tourBasePath} /> :
+                            <CubeMapVR data={StorageData} tourBasePath={tourBasePath} />
                         }
                         <AnimateCamera isRotating={isRotating} setIsRoating={setIsRoating} />
                     </Suspense>
@@ -83,7 +83,7 @@ const Tour = ({ history }) => {
                 </div>
 
                 <div id="fixed-footer">
-                    <AudioPlayer name={name} source={start_audio} />
+                    <AudioPlayer name={name} source={tourBasePath + start_audio} />
                 </div>
 
                 <div className="overlay-ctn-show">
