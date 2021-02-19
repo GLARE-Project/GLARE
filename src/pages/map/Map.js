@@ -108,13 +108,13 @@ function Map(props) {
             console.log(tooCloseHotspots);
             const IS_GROUPED_HOTSPOT = tooCloseHotspots.length > 0;
             return (
-                <Marker
-                  icon={PointIcon(key.toString(), IS_GROUPED_HOTSPOT)}
-                  position={[latitude, longitude]}
-                  title={name}
-                  zIndexOffset={-1}
+                onClick={() => props.history.push(`/tour?name=${encodeURIComponent(marker.name)}`)}
                   key={key}
-                  onClick={() => props.history.push('/tour?name=' + name)}
+                  zIndexOffset={-1}
+                  title={name}
+                  position={[latitude, longitude]}
+                  icon={PointIcon(key.toString(), IS_GROUPED_HOTSPOT)}
+                <Marker
                 />
               );
           })}

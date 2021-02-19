@@ -26,8 +26,8 @@ function Media(props) {
 
     const [content, setContent] = useState([]);
 
-    const { markerData } = useContext(Context);
-    
+    const { markerData, tourBasePath } = useContext(Context);
+
 
 
     useEffect(() => {
@@ -67,7 +67,7 @@ function Media(props) {
                                                 <Slider>
                                                     {media.content_items.map((content, index) => {
                                                         return (
-                                                            <PictureContent URL={content.item} description={content.item_description} index={index} />
+                                                            <PictureContent URL={content.item} description={content.item_description} index={index} tourBasePath={tourBasePath} />
                                                         )
                                                     })}
                                                 </Slider>
@@ -102,11 +102,11 @@ function Media(props) {
     )
 }
 
-function PictureContent({ URL, description, index }) {
+function PictureContent({ URL, description, index, tourBasePath }) {
     return (
         <Slide index={index}>
             <p>{description}</p>
-            <img src={URL} alt={description} />
+            <img src={tourBasePath + URL} alt={description} />
         </Slide>
     );
 }

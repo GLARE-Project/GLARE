@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Rehowl, Play } from 'rehowl'
-
+import { Context } from "./../../index";
 import { useHistory } from "react-router-dom";
 import screenfull from "screenfull";
 import './home.scss';
@@ -62,6 +62,8 @@ function scrollToBottom() {
 
 function Home() {
 
+  const { tourBasePath } = useContext(Context);
+
   let history = useHistory();
   const { project_name, intro_audio } = JSON.parse(localStorage.getItem("markerData")) || { project_name: "", intro_audio: "" };
 
@@ -78,14 +80,14 @@ function Home() {
 
       document.body.classList.add("homepage");
       document.body.style.setProperty('--homepage-background', 
-        "url(" + process.env.PUBLIC_URL + "/../../" + homepage_image + ")"
+        "url(" + process.env.PUBLIC_URL + "/../../" + tourBasePath + homepage_image + ")"
       );
       return () =>  document.body.classList.remove("homepage");
-  }, []);
+  }, [tourBasePath]);
 
   return (
     <React.Fragment>
-      {intro_audio && (<Rehowl src={intro_audio}>{
+      {intro_audio && (<Rehowl src={tourBasePath + intro_audio}>{
         ({ howl }) => <Play howl={howl} />
       }</Rehowl>)}
       <div className="homepage">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, Suspense } from 'react';
+import React, { useEffect, useState, useContext, Suspense, useRef } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -33,11 +33,13 @@ const Tour = ({ history}) => {
     const query = new URLSearchParams(useLocation().search);
     const INITIAL_STATE = { name: "", start_audio: "" };
 
-    const { onCampus, markerData } = useContext(Context);
+    const { onCampus, markerData, tourBasePath } = useContext(Context);
     const [StorageData, setStoredData] = useState(INITIAL_STATE);
     const { name, start_audio } = StorageData;
 
     const [isRotating, setIsRoating] = useState(false);
+
+    const videoRef = useRef();
 
     function scrollToTop() {
         window.scrollTo(0, 0);
@@ -66,13 +68,13 @@ const Tour = ({ history}) => {
         <div id="container" style={{ overflow: "hidden" }}>
             <MenuOverlay data={StorageData}>
 
-                {onCampus && (<video autoPlay={true} muted="" playsInline="" id="videoElement" />)}
+                {onCampus && (<video ref={videoRef} autoPlay={true} muted playsInline id="videoElement" />)}
 
                 <Canvas id="canvas" camera={{ position: [0, 0, 1], fov: 45 }}>
                     <Suspense fallback={<Loader />}>
                         {onCampus ?
-                            <SphereMapAR data={StorageData} /> :
-                            <CubeMapVR data={StorageData} />
+                            <SphereMapAR data={StorageData} video={videoRef} tourBasePath={tourBasePath} /> :
+                            <CubeMapVR data={StorageData} tourBasePath={tourBasePath} />
                         }
                         <AnimateCamera isRotating={isRotating} setIsRoating={setIsRoating} />
                     </Suspense>
@@ -81,7 +83,7 @@ const Tour = ({ history}) => {
                 <HotspotController baseName={query.get("name")} handleData={setStoredData} data={StorageData} markerData={markerData} onCampus={onCampus}/>
 
                 <div id="fixed-footer">
-                    <AudioPlayer name={name} source={start_audio} />
+                    <AudioPlayer name={name} source={tourBasePath + start_audio} />
                 </div>
 
                 <div className="overlay-ctn-show">

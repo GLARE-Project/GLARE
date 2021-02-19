@@ -15,13 +15,13 @@ function App() {
     return (
         <main>
             <Switch>
-                <Route path="/" component={withTracker(Home)} exact />
-                <Route path="/map" component={withTracker(Map)} exact />
-                <Route path="/tour" component={withTracker(Tour)} exact />
-                <Route path="/media" component={withTracker(Media)} exact/>
-                <Route path="/main" component={withTracker(Main)} exact />
-                <Route path="/help" component={withTracker(Help)} exact />
-                <Route path="/intro" component={withTracker(Intro)} exact />
+                <Route path={"/"} component={withTracker(Home)} exact />
+                <Route path={"/map"} component={withTracker(Map)} exact />
+                <Route path={"/tour"} component={withTracker(Tour)} exact />
+                <Route path={"/media"} component={withTracker(Media)} exact/>
+                <Route path={"/main"} component={withTracker(Main)} exact />
+                <Route path={"/help"} component={withTracker(Help)} exact />
+                <Route path={"/intro"} component={withTracker(Intro)} exact />
                 <Route component={Error404} />
             </Switch>
         </main>

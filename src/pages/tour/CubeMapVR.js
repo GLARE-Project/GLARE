@@ -3,9 +3,9 @@ import { useLoader } from 'react-three-fiber';
 import { OrbitControls } from 'drei'
 import { TextureLoader, FrontSide, Vector3 } from 'three';
 
-const OverlayVR = ({ data }) => {
-  const { overlay_size = 10, overlay_offset_x = 0, overlay_offset_y = 0, VR_overylay } = data;
-  const texture = useLoader(TextureLoader, VR_overylay);
+const OverlayVR = ({ data, tourBasePath }) => {
+  const { overlay_size = 10, overlay_offset_x = 0, overlay_offset_y = 0, overlay } = data;
+  const texture = useLoader(TextureLoader, tourBasePath + overlay);
 
   return (
     <mesh position={[overlay_offset_x, overlay_offset_y, -9]}>
@@ -19,9 +19,9 @@ const OverlayVR = ({ data }) => {
 };
 
 
-const CubeMap = ({ panorama_image }) => {
+const CubeMap = ({ panorama_image, tourBasePath }) => {
 
-  const texture = useLoader(TextureLoader, panorama_image);
+  const texture = useLoader(TextureLoader, tourBasePath + panorama_image);
 
   // Begin shaders to add mipmaps, remove seams, and convert to cubemap
   const vertexShader = `
@@ -74,14 +74,14 @@ const CubeMap = ({ panorama_image }) => {
 }
 
 
-const CubeMapVR = React.memo(({ data }) => {
-  const { panorama_image, VR_overylay } = data;
+const CubeMapVR = React.memo(({ data, tourBasePath }) => {
+  const { panorama_image, overlay } = data;
 
   return (
     <>
       <group dispose={null}>
-        {panorama_image && <CubeMap panorama_image={panorama_image} />}
-        {VR_overylay && <OverlayVR data={data} />}
+        {panorama_image && <CubeMap panorama_image={panorama_image} tourBasePath={tourBasePath} />}
+        { overlay && <OverlayVR data={data} tourBasePath={tourBasePath} />}
       </group>
       <OrbitControls
         enablePan={false}

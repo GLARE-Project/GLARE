@@ -22,7 +22,7 @@ const Main = ({ history }) => {
     const [audioTime, setAudioTime] = useState(0);
     const [isFaded, setFaded] = useState(false);
 
-    const { markerData } = useContext(Context);
+    const { markerData, tourBasePath } = useContext(Context);
 
     const controls = useAnimation();
 
@@ -63,7 +63,7 @@ const Main = ({ history }) => {
         <React.Fragment>
             {content.map((main, index) => {
                 if (type === main.title) {
-                    document.body.style.backgroundImage = 'url(' + main.background_image + ')';
+                    document.body.style.backgroundImage = 'url(' + tourBasePath + main.background_image + ')';
                     return (
                         <main key={index}>
                             <FontAwesomeIcon
@@ -93,7 +93,7 @@ const Main = ({ history }) => {
                                 <p id="text">{main.description}</p>
                             </Frame>
                             <AudioPlayer 
-                                source={main.descriptive_audio} 
+                                source={tourBasePath + main.descriptive_audio} 
                                 onLoad={time => setAudioTime(time)} onPause={stopFade} onPlaying={startFade} 
                             />
                             <BackButton history={history} />
