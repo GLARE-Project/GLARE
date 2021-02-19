@@ -3,7 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faEye, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faEye, faChevronRight, faChevronLeft, faBell } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { Html, useProgress } from 'drei'
 import AudioPlayer from "./../../components/AutoPlayer";
@@ -12,12 +12,10 @@ import { Context } from "./../../index";
 import { AnimateCamera } from "./AnimateCamera"
 import CubeMapVR from "./CubeMapVR";
 import SphereMapAR from "./SphereMapAR";
+import { getBaseHotspots, tooCloseHotspotList } from "./../../utils/gpsManager";
 import './tours.css';
-//import { Frame, Stack } from 'framer'
-//import { useCookie } from "react-use";
 
-
-library.add(faMapMarkerAlt, faEye, faBell);
+library.add(faMapMarkerAlt, faEye, faChevronRight, faChevronLeft, faBell);
     
 const Loader = () => {
     const { active } = useProgress();
@@ -82,9 +80,7 @@ const Tour = ({ history}) => {
                     </Suspense>
                 </Canvas>
 
-                <div onSelect={e => e.preventDefault()} id="title-ctn" >
-                    {name}
-                </div>
+                <HotspotController baseName={query.get("name")} handleData={setStoredData} data={StorageData} markerData={markerData} onCampus={onCampus}/>
 
                 <div id="fixed-footer">
                     <AudioPlayer name={name} source={tourBasePath + start_audio} />
@@ -108,6 +104,67 @@ const Tour = ({ history}) => {
         </div>
     );
 };
+
+const HotspotController = ({ baseName, data, handleData, markerData, onCampus }) => {
+
+    const [hostspotIndex, setHostspotIndex] = useState(0);
+
+    //TODO: Sound add a system in markers.json to pick what is a "basestation"
+    // it can find the points that are too close and let you pick one to be the base
+
+    // the hotspots that act as the starting node
+    const baseHotspots = getBaseHotspots(markerData);
+
+    const baseHotspot = baseHotspots.filter(marker => marker.name === baseName).pop();
+
+    const locationQueue = tooCloseHotspotList(baseHotspot, markerData, onCampus);
+
+    const CAN_USE_QUEUE = ( locationQueue.length > 0 && hostspotIndex !== 0);
+    
+    const HAS_RIGHT_DATA = hostspotIndex < locationQueue.length;
+    const HAS_LEFT_DATA = hostspotIndex > 0;
+    const { name } = CAN_USE_QUEUE ? locationQueue[hostspotIndex - 1] : data;
+
+    const handleLocation = direction => {
+        if(direction === "next" &&  HAS_RIGHT_DATA) {
+            setHostspotIndex(currentIndex => {
+                const nextIndex = currentIndex + 1;
+                handleData( locationQueue[currentIndex] );
+                return nextIndex;
+            });
+        } else if (direction === "back" && HAS_LEFT_DATA) {
+            setHostspotIndex(currentIndex => {
+                const previousIndex = currentIndex - 1;
+                handleData( CAN_USE_QUEUE ? locationQueue[previousIndex] : data);
+                return previousIndex;
+            });
+            
+        }
+    }
+    
+    return (
+        <div className="hotspotControls">
+            {locationQueue.length > 0 && HAS_LEFT_DATA && (<div className="control-left">
+                <FontAwesomeIcon
+                    className="overlay-icon"
+                    icon={faChevronLeft}
+                    onClick={() => {handleLocation("back")}}
+                />
+            </div>)}
+            <div onSelect={e => e.preventDefault()} id="title-ctn" >
+                { name }
+            </div>
+            {locationQueue.length > 0 && HAS_RIGHT_DATA && (<div className="control-right">
+                <FontAwesomeIcon
+                    className="overlay-icon"
+                    icon={faChevronRight}
+                    onClick={() => {handleLocation("next")}}
+                />
+            </div>)}
+        </div>
+    )
+};
+
 export default Tour;
 
 

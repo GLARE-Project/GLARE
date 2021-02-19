@@ -60,20 +60,25 @@ export function onPositionUpdate( position, history, markerData, currentMarker, 
 
 // checks to see if near a hotspot
 function checkForCloseMarker( position, history, markerData, currentMarker, setCurrentMarker ) {
-	var markerObj = markerData.map( marker => {		
+	const markerObj = markerData
+		// first remove all non-base hotspots
+		.filter(markerData => isBaseHotspot(markerData))
+		// then check for the distance
+		.map( marker => {		
         var dist = distance( position.latitude, position.longitude, marker.latitude, marker.longitude );
 		// build an object of marker and its distance
 		return {...marker,  dist};
 	});
 
 	// only keep markers in the distance
-	var markersInDistance = markerObj.filter(marker => {return marker.dist < HOTSPOT_RADIUS})
+	const markersInDistance = markerObj.filter(marker => {return marker.dist < HOTSPOT_RADIUS})
 	// the  we sort it to find the lowest value
 	.sort(function (a, b) {
 		return a.dist - b.dist
 	});
 
-	var closestMarker = markersInDistance.length === 0 ? null :  markersInDistance[0].name;
+	// TODO: maybe we should use UUID's hear since maybe the names could be the same
+	const closestMarker = markersInDistance.length === 0 ? null :  markersInDistance[0].name;
 
 	// if previous marker isn't closestMarker, set it
 	if ( currentMarker !== closestMarker ) {
@@ -101,8 +106,10 @@ function checkForCloseMarker( position, history, markerData, currentMarker, setC
 }
 
 
+
+// TODO: we can probably replace this will a module - like https://github.com/mapbox/cheap-ruler
 // https://www.geodatasource.com/developers/javascript
-function distance(lat1, lon1, lat2, lon2) {
+export function distance(lat1, lon1, lat2, lon2) {
 	if ((lat1 === lat2) && (lon1 === lon2)) {
 		return 0;
 	}
@@ -132,4 +139,30 @@ export function isOnCampus( position, markerData ) {
 	return  Math.min(...distList) <= CAMPUS_RADIUS;
 }
 
-export default {onPositionUpdate, isOnCampus};
+export const isBaseHotspot = ({ isSubHotspot }) => {
+	return !isSubHotspot;
+}
+
+// TODO: this probably needs caches
+// and the logic should split markerData into basedHotspots and subHotspots
+// somethings like { basedHotspots: [], subHotspots: [] }
+export const getSubHotspots = (markerData) => { 
+	return markerData.filter(hotspot => { return !isBaseHotspot(hotspot) });
+};
+export const getBaseHotspots = (markerData) => { 
+	return markerData.filter(hotspot => { return isBaseHotspot(hotspot) });
+};
+
+// return all the children sub-hotspots of a baseHotspot
+export const tooCloseHotspotList  = (hotspot, markerData, onCampus) => {
+	// get all sub-hotspots
+	return getSubHotspots(markerData).filter(closeHotspot => {
+        if (hotspot && onCampus) {
+            const {latitude, longitude} = hotspot;
+            return latitude && longitude && Math.abs(distance(latitude, longitude, closeHotspot.latitude, closeHotspot.longitude)) <= HOTSPOT_RADIUS;
+        } // otherwise it's not a basehotspot
+        return false;
+    });
+};
+
+export default {onPositionUpdate, isOnCampus, isBaseHotspot, getBaseHotspots, getSubHotspots, tooCloseHotspotList};

@@ -3,12 +3,21 @@ body, html, .root, canvas, video {
     padding: 0;
 }
 
-#title-ctn {
+.hotspotControls {
     position: fixed;
-    top: 2.5%;
-    width: 100%;
-    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 10em);
+    margin: 1em 5em 0em;
     z-index: 3;
+}
+
+.hotspotControls div[class^="control-"] {
+    margin: 0 2em;
+}
+
+#title-ctn {
     font-size: 4vw;
     font-weight: bold;
     font-style: italic;
