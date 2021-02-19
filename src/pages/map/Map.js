@@ -105,7 +105,6 @@ function Map(props) {
           {restrictedMarkers.map(hotspot => {
             const { position: key, latitude, longitude, name } = hotspot;
             const tooCloseHotspots = tooCloseHotspotList(hotspot, markerData, onCampus);
-            console.log(tooCloseHotspots);
             const IS_GROUPED_HOTSPOT = tooCloseHotspots.length > 0;
             return (
               <Marker
