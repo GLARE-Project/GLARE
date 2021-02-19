@@ -3,7 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkerAlt, faEye, faBell } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
 import { Html, useProgress } from 'drei'
 import AudioPlayer from "./../../components/AutoPlayer";
@@ -13,9 +13,12 @@ import { AnimateCamera } from "./AnimateCamera"
 import CubeMapVR from "./CubeMapVR";
 import SphereMapAR from "./SphereMapAR";
 import './tours.css';
+//import { Frame, Stack } from 'framer'
+//import { useCookie } from "react-use";
 
-library.add(faMapMarkerAlt, faEye);
 
+library.add(faMapMarkerAlt, faEye, faBell);
+    
 const Loader = () => {
     const { active } = useProgress();
     if (active) {
@@ -27,7 +30,8 @@ const Loader = () => {
     } else return null
 };
 
-const Tour = ({ history }) => {
+const Tour = ({ history}) => {
+    
     const query = new URLSearchParams(useLocation().search);
     const INITIAL_STATE = { name: "", start_audio: "" };
 
@@ -104,8 +108,6 @@ const Tour = ({ history }) => {
         </div>
     );
 };
-
-
 export default Tour;
 
 

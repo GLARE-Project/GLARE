@@ -2,21 +2,20 @@ import React, { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes, faBell } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from 'react-router-dom';
-import { Frame } from 'framer'
+import { Frame, Stack } from 'framer'
 import { useCookie } from "react-use";
 import './Menu.scss';
 import { Context } from "./../../index";
-import { ReactComponent as ReactLogo } from './book.svg';
+//import { ReactComponent as ReactLogo } from './book.svg';
 
 Modal.setAppElement('#root');
-library.add(faBars, faTimes);
+library.add(faBars, faTimes, faBell);
 
 
 function MenuOverlay({ children, data }) {
     const [visitedLibrary, setCookie] = useCookie("VisitedLibrary");
-
     function setVisited() {
         setCookie(true);
     }
@@ -79,44 +78,78 @@ function MenuOverlay({ children, data }) {
                 {children}
             </div>
 
-            {HAS_LIBRARY_ITEMS && <LibraryAlert visitedLibrary={visitedLibrary} />}
+            {HAS_LIBRARY_ITEMS && <NotificationSystem visitedLibrary={visitedLibrary} />}
 
         </React.Fragment>
     );
 }
 
 
-const LibraryAlert = ({ visitedLibrary }) => {
-    const [isToggled, setState] = useState(false);
+//const LibraryAlert = ({ visitedLibrary }) => {
+    //const [isToggled, setState] = useState(false);
 
-    const toggleLibrary = () => {
-        setState(!isToggled);
+    //const toggleLibrary = () => {setState(!isToggled);}
+
+    //return (
+       // <>
+            //{!visitedLibrary &&
+               // <Frame
+                   // position={"relative"}
+                    //style={styles.overlayBtnLib}
+                    //initial={{ opacity: 0 }}
+                    //animate={{ opacity: 1, fill: '#000000' }}
+                    //transition={{ delay: 1.5 }}
+                    //onTap={toggleLibrary}
+                    //className={"libraryOverlay"}
+                //>
+                    //<ReactLogo className="svgicon" />
+                    //<div className="dialog" style={{ display: isToggled ? 'block' : 'none' }} >
+                        //<h1>Check out the Library!</h1>
+                        //<p>The library offers more information about each hotspot, including additional photos,<br />
+                        //audio, videos and content. The library can be found under the menu bar above. Enjoy<br />
+                        //the rest of the rich history of the May 4th Augmented Reality Experience.</p>
+                    //</div>
+                //</Frame>
+           // }
+        //</>
+    //)
+//}
+const NotificationSystem = ({ visitedLibrary }) => {
+    const [istoggled, setState] =useState(false);
+    const toggleHotspot =() => {
+        setState( state => !state);
     }
-
+    const [flash, setAnimation] = React.useState(0)
     return (
         <>
-            {!visitedLibrary &&
-                <Frame
-                    position={"relative"}
-                    style={styles.overlayBtnLib}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, fill: '#000000' }}
-                    transition={{ delay: 1.5 }}
-                    onTap={toggleLibrary}
-                    className={"libraryOverlay"}
+        {!visitedLibrary &&
+            <Stack> 
+                <Frame 
+                    width={"100px"} height={"100px"} top={15} right={-15} position={"fixed"} style={styles.overlayBtnAlert} 
+                    onTapStart={toggleHotspot} className={"HotspotOverlay"} onClick={() => setAnimation(1)} onAnimationEnd={() => setAnimation(0)}
+                    flash={flash}
                 >
-                    <ReactLogo className="svgicon" />
-                    <div className="dialog" style={{ display: isToggled ? 'block' : 'none' }} >
-                        <h1>Check out the Library!</h1>
-                        <p>The library offers more information about each hotspot, including additional photos,<br />
-                        audio, videos and content. The library can be found under the menu bar above. Enjoy<br />
-                        the rest of the rich history of the May 4th Augmented Reality Experience.</p>
+                <FontAwesomeIcon
+                    className="overlay-ctn-notification"
+                    icon={faBell}
+                />
+                <Frame 
+                    style={styles.overlayBtnAlert1} top={15} right={90} width={"350px"}
+                >
+                    <div className="hotspotdialog" style={{ display: istoggled ? 'block' : 'none' }} >
+                        <h3>Check out the other Hotspot Locations!</h3>
+                        <p>Make sure to check out the other hotspot locations in order to gain the full experience, along with their rich library content found under the menu bar.</p>
+                        <hr></hr>
+                        <h3>Check out the Library!</h3>
+                        <p>including photos, audio, and content regarding each of the hotspot. The library option can be found under the Menu bar on the upper left hand corner of the screen.</p>
                     </div>
                 </Frame>
-            }
+                </Frame>
+            </Stack>
+        }
         </>
-    )
-}
+   );
+};
 
 const MenuComponent = React.memo(function MenuComponent({ name, pages=[] }) {
     const { toggleModel } = useContext(Context);
@@ -142,15 +175,15 @@ const MenuComponent = React.memo(function MenuComponent({ name, pages=[] }) {
 });
 
 const styles = {
-    overlayBtnLib: {
+    overlayBtnAlert: {
         position: "fixed",
         backgroundColor: "none",
-        width: "auto",
-        height: "auto",
-        left: ".5em",
-        top: "7em",
-        zIndex: 10,
-
+        zIndex: 11,
+    },
+   overlayBtnAlert1: {
+    position: "fixed",
+    backgroundColor: "none",
+    zIndex: 10,
     },
     overlayBtn: {
         position: "fixed",
