@@ -12,7 +12,7 @@ import { Context } from "./../../index";
 import { AnimateCamera } from "./AnimateCamera"
 import CubeMapVR from "./CubeMapVR";
 import SphereMapAR from "./SphereMapAR";
-import HOTSPOT_RADIUS, { distance, isBaseHotspot } from "./../../utils/gpsManager";
+import { getBaseHotspots, tooCloseHotspotList } from "./../../utils/gpsManager";
 import './tours.css';
 
 library.add(faMapMarkerAlt, faEye, faChevronRight, faChevronLeft, faBell);
@@ -111,21 +111,11 @@ const HotspotController = ({ baseName, data, handleData, markerData, onCampus })
     // it can find the points that are too close and let you pick one to be the base
 
     // the hotspots that act as the starting node
-    const baseHotspots = markerData.filter(hotspot => { return isBaseHotspot(hotspot) });
-    // the other hotspots
-    const closeHotspots = markerData.filter(hotspot => { return !isBaseHotspot(hotspot) });
+    const baseHotspots = getBaseHotspots(markerData);
 
     const baseHotspot = baseHotspots.filter(marker => marker.name === baseName).pop();
 
-    // for some reason radius doesn't like to descruct properly so we do it here
-    const {HOTSPOT_RADIUS:radius} = HOTSPOT_RADIUS;
-    const locationQueue = closeHotspots.filter(closeHotspot => {
-        if (baseHotspot && onCampus) {
-            const {latitude, longitude} = baseHotspot;
-            return latitude && longitude && Math.abs(distance(latitude, longitude, closeHotspot.latitude, closeHotspot.longitude)) <= radius;
-        } // otherwise it's not a basehotspot
-        return false;
-    });
+    const locationQueue = tooCloseHotspotList(baseHotspot, markerData, onCampus);
 
     const CAN_USE_QUEUE = ( locationQueue.length > 0 && hostspotIndex !== 0);
     

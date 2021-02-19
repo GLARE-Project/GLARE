@@ -139,10 +139,30 @@ export function isOnCampus( position, markerData ) {
 	return  Math.min(...distList) <= CAMPUS_RADIUS;
 }
 
-export const isBaseHotspot = (hotspotData) => {
-	// eventually it should have its own field
-	const { position } = hotspotData;
-	return typeof position === 'number';
+export const isBaseHotspot = ({ isSubHotspot }) => {
+	return !isSubHotspot;
 }
 
-export default {onPositionUpdate, isOnCampus, HOTSPOT_RADIUS, isBaseHotspot};
+// TODO: this probably needs caches
+// and the logic should split markerData into basedHotspots and subHotspots
+// somethings like { basedHotspots: [], subHotspots: [] }
+export const getSubHotspots = (markerData) => { 
+	return markerData.filter(hotspot => { return !isBaseHotspot(hotspot) });
+};
+export const getBaseHotspots = (markerData) => { 
+	return markerData.filter(hotspot => { return isBaseHotspot(hotspot) });
+};
+
+// return all the children sub-hotspots of a baseHotspot
+export const tooCloseHotspotList  = (hotspot, markerData, onCampus) => {
+	// get all sub-hotspots
+	return getSubHotspots(markerData).filter(closeHotspot => {
+        if (hotspot && onCampus) {
+            const {latitude, longitude} = hotspot;
+            return latitude && longitude && Math.abs(distance(latitude, longitude, closeHotspot.latitude, closeHotspot.longitude)) <= HOTSPOT_RADIUS;
+        } // otherwise it's not a basehotspot
+        return false;
+    });
+};
+
+export default {onPositionUpdate, isOnCampus, isBaseHotspot, getBaseHotspots, getSubHotspots, tooCloseHotspotList};

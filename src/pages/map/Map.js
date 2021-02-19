@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext, useCallback, useRef } from 'rea
 import { Map as LeafletMap, TileLayer, Marker, CircleMarker, FeatureGroup } from "react-leaflet";
 import L from "leaflet";
 import BackButton from '../../components/BackButton';
-import { onPositionUpdate, isOnCampus } from "./../../utils/gpsManager";
+import { onPositionUpdate, isOnCampus, getBaseHotspots, tooCloseHotspotList } from "./../../utils/gpsManager";
 import { Context } from "./../../index";
 import './map.css';
 
@@ -90,6 +90,7 @@ function Map(props) {
     }
   };
 
+  const restrictedMarkers =  onCampus ? getBaseHotspots(markerData) : markerData;
 
   return (
     <React.Fragment>
@@ -101,17 +102,21 @@ function Map(props) {
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
         {markerData.length > 0 && <FeatureGroup onAdd={e => { adjustMap(e) }}>
-          {markerData.map(marker => {
+          {restrictedMarkers.map(hotspot => {
+            const { position:key, latitude, longitude, name} = hotspot;
+            const tooCloseHotspots = tooCloseHotspotList(hotspot, markerData, onCampus);
+            console.log(tooCloseHotspots);
+            const IS_GROUPED_HOTSPOT = tooCloseHotspots.length > 0;
             return (
-              <Marker
-                icon={PointIcon(marker.position.toString())}
-                position={[marker.latitude, marker.longitude]}
-                title={marker.name}
-                zIndexOffset={-1}
-                key={marker.position}
-                onClick={() => props.history.push('/tour?name=' + marker.name)}
-              />
-            );
+                <Marker
+                  icon={PointIcon(key.toString(), IS_GROUPED_HOTSPOT)}
+                  position={[latitude, longitude]}
+                  title={name}
+                  zIndexOffset={-1}
+                  key={key}
+                  onClick={() => props.history.push('/tour?name=' + name)}
+                />
+              );
           })}
         </FeatureGroup>}
         {currentPos.length > 0 && onCampus === true && (
@@ -131,10 +136,11 @@ function Map(props) {
   );
 }
 
-const PointIcon = (id) => {
+const PointIcon = (id, IS_GROUPED_HOTSPOT=false) => {
+  const color = IS_GROUPED_HOTSPOT ? "00af91" : "add8e6";
   return new L.Icon({
     // see more at https://developers.google.com/chart/image/docs/gallery/dynamic_icons#plain_pin
-    iconUrl: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=.6|0|add8e6|16|b|' + id,
+    iconUrl: `https://chart.googleapis.com/chart?chst=d_map_spin&chld=.6|0|${color}|16|b|${id}`,
     iconSize: [23, 41]
   });
 }
