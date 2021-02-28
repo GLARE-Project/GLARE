@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useCallback, useRef } from 'react';
+import React, { useLayoutEffect, useState, useContext, useCallback, useRef } from 'react';
 import { Map as LeafletMap, TileLayer, Marker, CircleMarker, FeatureGroup } from "react-leaflet";
 import L from "leaflet";
 import BackButton from '../../components/BackButton';
@@ -9,7 +9,7 @@ import './map.css';
 function Map(props) {
   const [currentPos, setCurrentPos] = useState([]);
   const [GeoError, setError] = useState(null);
-  const { onCampus, setOnCampus, markerData, currentMarker, setCurrentMarker } = useContext(Context);
+  const { onCampus, setOnCampus, markerData } = useContext(Context);
 
   const mapRef = useRef({ current: null });
 
@@ -52,13 +52,13 @@ function Map(props) {
 
   // create current postion point
   const success = useCallback(pos => {
-    onPositionUpdate(pos, props.history, markerData, currentMarker, setCurrentMarker);
+    if (markerData.length > 0) onPositionUpdate(pos, props.history, markerData);
     setOnCampus(isOnCampus(pos, markerData));
     checkCamera();
     // reset the error value as it worked
     setError(null);
     setCurrentPos([pos.coords.latitude, pos.coords.longitude]);
-  }, [setOnCampus, props.history, checkCamera, markerData, currentMarker, setCurrentMarker]);
+  }, [setOnCampus, props.history, checkCamera, markerData]);
 
   const error = useCallback(err => {
     setCurrentPos([]);
@@ -67,7 +67,7 @@ function Map(props) {
     setAndLogError('Error: The Geolocation service failed.');
   }, [setOnCampus, setAndLogError]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(success, error,

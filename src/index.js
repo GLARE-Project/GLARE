@@ -24,8 +24,7 @@ function Provider({ children }) {
 
     // the marker.json data serialized into state
     const [markerData, setData] = useState([]);
-    const [currentMarker, setCurrentMarker] = useState(null);
-
+    
     const { project_name } = JSON.parse(localStorage.getItem("markerData")) || { project_name: "" };
     useTitle(project_name);
 
@@ -99,8 +98,6 @@ function Provider({ children }) {
             modelOpen,
             toggleModel: val => toggleModel(val),
             markerData,
-            currentMarker,
-            setCurrentMarker: val => setCurrentMarker(val),
             // can be used so the content will be pulled from the same folder
             tourBasePath: currentTour === null ? "" : (currentTour + "/")
         }}
