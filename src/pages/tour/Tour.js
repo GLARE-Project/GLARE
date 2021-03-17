@@ -10,8 +10,7 @@ import AudioPlayer from "./../../components/AutoPlayer";
 import MenuOverlay from "../../components/Menu/MenuOverlay";
 import { Context } from "./../../index";
 import { AnimateCamera } from "./AnimateCamera"
-import CubeMapVR from "./CubeMapVR";
-import SphereMapAR from "./SphereMapAR";
+import { CubeMapVR, SphereMapAR } from '@chrisdesigns/glare-viewer'
 import { getBaseHotspots, tooCloseHotspotList } from "./../../utils/gpsManager";
 import './tours.css';
 
