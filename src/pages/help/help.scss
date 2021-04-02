@@ -34,6 +34,12 @@
         }
     }
 
+    .debug {
+        padding: 0 2.5em;
+        font-weight: bold;
+        color: red;
+    }
+
     .closeBtn {
         position: fixed;
         right: .5em;
