@@ -103,7 +103,7 @@ function Map(props) {
         />
         {markerData.length > 0 && <FeatureGroup onAdd={e => { adjustMap(e) }}>
           {restrictedMarkers.map(hotspot => {
-            const { position: key, latitude, longitude, name } = hotspot;
+            const { position: key, latitude, longitude, name, pin_color } = hotspot;
             const tooCloseHotspots = tooCloseHotspotList(hotspot, markerData, onCampus);
             const IS_GROUPED_HOTSPOT = tooCloseHotspots.length > 0;
             return (
@@ -113,7 +113,7 @@ function Map(props) {
                 zIndexOffset={-1}
                 title={name}
                 position={[latitude, longitude]}
-                icon={PointIcon(key.toString(), IS_GROUPED_HOTSPOT)}
+                icon={PointIcon(key.toString(), IS_GROUPED_HOTSPOT, pin_color)}
               />
             );
           })}
@@ -135,8 +135,10 @@ function Map(props) {
   );
 }
 
-const PointIcon = (id, IS_GROUPED_HOTSPOT = false) => {
-  const color = IS_GROUPED_HOTSPOT ? "00af91" : "add8e6";
+// TODO: This should formated the same naming as GEOJSON
+const PointIcon = (id, IS_GROUPED_HOTSPOT = false, pinColor=undefined) => {
+  // if a color is set use it otherwise determine the default color
+  const color = pinColor ? pinColor : ( IS_GROUPED_HOTSPOT ? "00af91" : "add8e6" );
   return new L.Icon({
     // see more at https://developers.google.com/chart/image/docs/gallery/dynamic_icons#plain_pin
     iconUrl: `https://chart.googleapis.com/chart?chst=d_map_spin&chld=.6|0|${color}|16|b|${id}`,
