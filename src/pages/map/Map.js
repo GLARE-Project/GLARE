@@ -98,6 +98,8 @@ function Map(props) {
       <BackButton history={props.history} />
       <LeafletMap center={position} zoom={initalRegion.zoom} currentPos={currentPos} ref={mapRef}>
         <TileLayer
+          maxNativeZoom={19}
+          maxZoom={25}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
