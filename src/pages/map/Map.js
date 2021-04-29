@@ -68,7 +68,19 @@ function Map(props) {
     setAndLogError('Error: The Geolocation service failed.');
   }, [setOnCampus, setAndLogError]);
 
+  const adjustMap = useCallback(({ target }) => {
+    if (mapRef) {
+      mapRef.fitBounds(target.getBounds())
+      mapRef.options.minZoom = mapRef.getZoom();
+    }
+  }, [mapRef]);
+
   useLayoutEffect(() => {
+
+    // when visiting a point and coming back, the mapRef is lost and a default map bound should be set
+    // this is a bound for all markers and sets an inital min zoom
+    adjustMap({target: mapRef});
+
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(success, error,
@@ -81,15 +93,8 @@ function Map(props) {
       // Browser doesn't support Geolocation
       setAndLogError('Error: Your browser doesn\'t support geolocation.');
     }
-  }, [success, error, setAndLogError, onCampus]);
+  }, [success, error, setAndLogError, onCampus, mapRef, adjustMap]);
 
-  // only executes when initally added, should probably happen on load of all marker
-  const adjustMap = ({ target }) => {
-    if (mapRef) {
-      mapRef.fitBounds(target.getBounds())
-      mapRef.options.minZoom = mapRef.getZoom();
-    }
-  };
 
   const restrictedMarkers = onCampus ? getBaseHotspots(markerData) : markerData;
 
