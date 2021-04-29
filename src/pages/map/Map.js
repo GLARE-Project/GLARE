@@ -70,7 +70,10 @@ function Map(props) {
 
   const adjustMap = useCallback(({ target }) => {
     if (mapRef) {
-      mapRef.fitBounds(target.getBounds())
+      const bounds = target.getBounds();
+      mapRef.fitBounds(bounds);
+      mapRef.options.center = bounds.getCenter();
+      mapRef.options.maxBounds = bounds;
       mapRef.options.minZoom = mapRef.getZoom();
     }
   }, [mapRef]);
