@@ -6,6 +6,21 @@
     z-index: 1;
 }
 
+/* leaflet-markercluster group marker color override */
+
+.marker-cluster {
+  background-color: black;
+}
+
+.marker-cluster div {
+  background-color: #add8e6;
+  width: 34px;
+  height: 34px;
+  margin-left: 3px;
+  margin-top: 3px;
+  font-weight: bold;
+}
+
 .userLocation {
   animation: blink 4s ease infinite;
 }

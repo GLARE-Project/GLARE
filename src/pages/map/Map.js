@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useState, useContext, useCallback, useRef } from 'react';
-import { Map as LeafletMap, TileLayer, Marker, CircleMarker, FeatureGroup } from "react-leaflet";
+import React, { useLayoutEffect, useState, useContext, useCallback } from 'react';
+import { MapContainer as LeafletMap, TileLayer, Marker, CircleMarker } from "react-leaflet";
 import L from "leaflet";
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 import BackButton from '../../components/BackButton';
 import { onPositionUpdate, isOnCampus, getBaseHotspots, tooCloseHotspotList } from "./../../utils/gpsManager";
 import { Context } from "./../../index";
@@ -11,7 +12,7 @@ function Map(props) {
   const [GeoError, setError] = useState(null);
   const { onCampus, setOnCampus, markerData } = useContext(Context);
 
-  const mapRef = useRef({ current: null });
+  const [mapRef, setMap] = useState(null)
 
   const initalRegion = {
     lat: 41.150121,
@@ -82,11 +83,11 @@ function Map(props) {
     }
   }, [success, error, setAndLogError, onCampus]);
 
+  // only executes when initally added, should probably happen on load of all marker
   const adjustMap = ({ target }) => {
-    const { current } = mapRef;
-    if (current.hasOwnProperty("leafletElement")) {
-      const map = current.leafletElement;
-      map.fitBounds(target.getBounds())
+    if (mapRef) {
+      mapRef.fitBounds(target.getBounds())
+      mapRef.options.minZoom = mapRef.getZoom();
     }
   };
 
@@ -96,21 +97,32 @@ function Map(props) {
     <React.Fragment>
       <link rel="stylesheet" href="//unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
       <BackButton history={props.history} />
-      <LeafletMap center={position} zoom={initalRegion.zoom} currentPos={currentPos} ref={mapRef}>
+      <LeafletMap center={position} zoom={initalRegion.zoom} currentPos={currentPos} whenCreated={setMap} >
         <TileLayer
           maxNativeZoom={19}
           maxZoom={25}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
-        {markerData.length > 0 && <FeatureGroup onAdd={e => { adjustMap(e) }}>
+        {markerData.length > 0 && <MarkerClusterGroup
+            showCoverageOnHover={false}
+            // if half of markersize (23 / 2) away then it is overlapping
+            maxClusterRadius={12}
+            eventHandlers={{
+            add: e => { adjustMap(e) }
+          }}
+        >
           {restrictedMarkers.map(hotspot => {
             const { position: key, latitude, longitude, name, pin_color } = hotspot;
             const tooCloseHotspots = tooCloseHotspotList(hotspot, markerData, onCampus);
             const IS_GROUPED_HOTSPOT = tooCloseHotspots.length > 0;
             return (
               <Marker
-                onClick={() => props.history.push(`/tour?name=${encodeURIComponent(name)}`)}
+                eventHandlers={{
+                  click: () => {
+                    props.history.push(`/tour?name=${encodeURIComponent(name)}`)
+                  }
+                }}
                 key={key}
                 zIndexOffset={-1}
                 title={name}
@@ -119,7 +131,7 @@ function Map(props) {
               />
             );
           })}
-        </FeatureGroup>}
+        </MarkerClusterGroup>}
         {currentPos.length > 0 && onCampus === true && (
           <CircleMarker
             title={"Current Location"}
@@ -138,9 +150,9 @@ function Map(props) {
 }
 
 // TODO: This should formated the same naming as GEOJSON
-const PointIcon = (id, IS_GROUPED_HOTSPOT = false, pinColor=undefined) => {
+const PointIcon = (id, IS_GROUPED_HOTSPOT = false, pinColor = undefined) => {
   // if a color is set use it otherwise determine the default color
-  const color = pinColor ? pinColor : ( IS_GROUPED_HOTSPOT ? "00af91" : "add8e6" );
+  const color = pinColor ? pinColor : (IS_GROUPED_HOTSPOT ? "00af91" : "add8e6");
   return new L.Icon({
     // see more at https://developers.google.com/chart/image/docs/gallery/dynamic_icons#plain_pin
     iconUrl: `https://chart.googleapis.com/chart?chst=d_map_spin&chld=.6|0|${color}|16|b|${id}`,
