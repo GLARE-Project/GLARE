@@ -105,7 +105,7 @@ function Map(props) {
       <LeafletMap center={position} zoom={initalRegion.zoom} currentPos={currentPos} whenCreated={setMap} >
         <TileLayer
           maxNativeZoom={19}
-          maxZoom={25}
+          maxZoom={23}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
