@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext, Suspense, useRef } from 'react';
-import { Canvas } from 'react-three-fiber';
+import { Canvas } from '@react-three/fiber';
 import { Ellipsis } from 'react-spinners-css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEye, faChevronRight, faChevronLeft, faBell } from "@fortawesome/free-solid-svg-icons";
 import { useLocation } from "react-router-dom";
-import { Html, useProgress } from 'drei'
+import { Html, useProgress } from '@react-three/drei'
 import AudioPlayer from "./../../components/AutoPlayer";
 import MenuOverlay from "../../components/Menu/MenuOverlay";
 import { Context } from "./../../index";
