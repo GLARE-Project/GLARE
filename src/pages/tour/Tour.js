@@ -70,6 +70,7 @@ const Tour = ({ history}) => {
                 {onCampus && (<video ref={videoRef} autoPlay={true} muted playsInline id="videoElement" />)}
 
                 <Canvas id="canvas" camera={{ position: [0, 0, 1], fov: 45 }}>
+                    <directionalLight position={[0.5, 0, 0.866]} />
                     <Suspense fallback={<Loader />}>
                         {onCampus ?
                             <SphereMapAR data={StorageData} video={videoRef} tourBasePath={tourBasePath} /> :
