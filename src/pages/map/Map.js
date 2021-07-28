@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState, useContext, useCallback } from 'react';
-import { MapContainer as LeafletMap, TileLayer, Marker, CircleMarker } from "react-leaflet";
+import { MapContainer as LeafletMap, TileLayer, Marker, CircleMarker, useMap } from "react-leaflet";
 import L from "leaflet";
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import BackButton from '../../components/BackButton';
@@ -11,8 +11,6 @@ function Map(props) {
   const [currentPos, setCurrentPos] = useState([]);
   const [GeoError, setError] = useState(null);
   const { onCampus, setOnCampus, markerData } = useContext(Context);
-
-  const [mapRef, setMap] = useState(null)
 
   const initalRegion = {
     lat: 41.150121,
@@ -68,21 +66,8 @@ function Map(props) {
     setAndLogError('Error: The Geolocation service failed.');
   }, [setOnCampus, setAndLogError]);
 
-  const adjustMap = useCallback(({ target }) => {
-    if (mapRef) {
-      const bounds = target.getBounds();
-      mapRef.fitBounds(bounds);
-      mapRef.options.center = bounds.getCenter();
-      mapRef.options.maxBounds = bounds;
-      mapRef.options.minZoom = mapRef.getZoom();
-    }
-  }, [mapRef]);
 
   useLayoutEffect(() => {
-
-    // when visiting a point and coming back, the mapRef is lost and a default map bound should be set
-    // this is a bound for all markers and sets an inital min zoom
-    adjustMap({target: mapRef});
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -96,50 +81,21 @@ function Map(props) {
       // Browser doesn't support Geolocation
       setAndLogError('Error: Your browser doesn\'t support geolocation.');
     }
-  }, [success, error, setAndLogError, onCampus, mapRef, adjustMap]);
+  }, [success, error, setAndLogError, onCampus]);
 
-
-  const restrictedMarkers = onCampus ? getBaseHotspots(markerData) : markerData;
 
   return (
     <React.Fragment>
       <link rel="stylesheet" href="//unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
       <BackButton history={props.history} />
-      <LeafletMap center={position} zoom={initalRegion.zoom} currentPos={currentPos} whenCreated={setMap} >
+      <LeafletMap center={position} zoom={initalRegion.zoom} currentPos={currentPos} >
         <TileLayer
           maxNativeZoom={19}
           maxZoom={23}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
         />
-        {markerData.length > 0 && <MarkerClusterGroup
-            showCoverageOnHover={false}
-            // if half of markersize (23 / 2) away then it is overlapping
-            maxClusterRadius={12}
-            eventHandlers={{
-            add: e => { adjustMap(e) }
-          }}
-        >
-          {restrictedMarkers.map(hotspot => {
-            const { position: key, latitude, longitude, name, pin_color } = hotspot;
-            const tooCloseHotspots = tooCloseHotspotList(hotspot, markerData, onCampus);
-            const IS_GROUPED_HOTSPOT = tooCloseHotspots.length > 0;
-            return (
-              <Marker
-                eventHandlers={{
-                  click: () => {
-                    props.history.push(`/tour?name=${encodeURIComponent(name)}`)
-                  }
-                }}
-                key={key}
-                zIndexOffset={-1}
-                title={name}
-                position={[latitude, longitude]}
-                icon={PointIcon(key.toString(), IS_GROUPED_HOTSPOT, pin_color)}
-              />
-            );
-          })}
-        </MarkerClusterGroup>}
+        <MarkerHotspots markerData={markerData} restrictedMarkersonCampus={onCampus} history={props.history} />
         {currentPos.length > 0 && onCampus === true && (
           <CircleMarker
             title={"Current Location"}
@@ -156,6 +112,55 @@ function Map(props) {
     </React.Fragment>
   );
 }
+
+
+const MarkerHotspots = ({ markerData, onCampus, history }) => {
+
+  const map = useMap();
+
+  const adjustMap = useCallback(({ target }) => {
+    const bounds = target.getBounds();
+    map.fitBounds(bounds);
+    map.options.center = bounds.getCenter();
+    map.options.maxBounds = bounds;
+    map.options.minZoom = map.getZoom();
+  }, [map]);
+
+  const restrictedMarkers = onCampus ? getBaseHotspots(markerData) : markerData;
+
+  return (
+    <>
+      {markerData.length > 0 && <MarkerClusterGroup
+        showCoverageOnHover={false}
+        // if half of markersize (23 / 2) away then it is overlapping
+        maxClusterRadius={12}
+        eventHandlers={{
+          add: e => { adjustMap(e) }
+        }}
+      >
+        {restrictedMarkers.map(hotspot => {
+          const { position: key, latitude, longitude, name, pin_color } = hotspot;
+          const tooCloseHotspots = tooCloseHotspotList(hotspot, markerData, onCampus);
+          const IS_GROUPED_HOTSPOT = tooCloseHotspots.length > 0;
+          return (
+            <Marker
+              eventHandlers={{
+                click: () => {
+                  history.push(`/tour?name=${encodeURIComponent(name)}`)
+                }
+              }}
+              key={key}
+              zIndexOffset={-1}
+              title={name}
+              position={[latitude, longitude]}
+              icon={PointIcon(key.toString(), IS_GROUPED_HOTSPOT, pin_color)}
+            />
+          );
+        })}
+      </MarkerClusterGroup>}
+    </>
+  )
+};
 
 // TODO: This should formated the same naming as GEOJSON
 const PointIcon = (id, IS_GROUPED_HOTSPOT = false, pinColor = undefined) => {
